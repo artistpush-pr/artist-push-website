@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart — Artist Push</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2300FF85'/><text x='50%25' y='55%25' text-anchor='middle' dominant-baseline='middle' font-size='18' font-weight='800' fill='%23000'>A</text></svg>">
+</head>
+<body>
+
+  <!-- ════════ NAVBAR ════════ -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar-logo">
+        <span class="logo-icon">A</span>
+        Artist Push
+      </a>
+      <div class="navbar-links">
+        <a href="index.html">Home</a>
+        <a href="spotify.html">Spotify Promotion</a>
+        <a href="soundcloud.html">SoundCloud Promotion</a>
+        <a href="blog.html">Blog</a>
+        <a href="cart.html" class="cart-link active">
+          &#128722; Cart
+          <span class="cart-badge">0</span>
+        </a>
+      </div>
+      <div class="navbar-cta">
+        <a href="cart.html" class="btn btn-primary btn-sm">&#128722; Cart <span class="cart-badge" style="position:static;display:inline-flex;margin-left:4px;">0</span></a>
+        <button class="mobile-toggle" aria-label="Menu">&#9776;</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-nav">
+    <button class="mobile-nav-close" aria-label="Close">&#10005;</button>
+    <a href="index.html">Home</a>
+    <a href="spotify.html">Spotify Promotion</a>
+    <a href="soundcloud.html">SoundCloud Promotion</a>
+    <a href="blog.html">Blog</a>
+    <a href="cart.html">Cart</a>
+  </div>
+
+  <!-- ════════ BREADCRUMB ════════ -->
+  <div class="breadcrumb">
+    <div class="container">
+      <a href="index.html">Artist Push</a>
+      <span class="sep">&#8250;</span>
+      <span class="green">Shopping Cart</span>
+    </div>
+  </div>
+
+  <!-- ════════ CART CONTENT ════════ -->
+  <section class="page-hero" style="padding-bottom: 0;">
+    <div class="page-hero-bg"></div>
+    <div class="container" style="position:relative;z-index:2;">
+      <h1>Your <span class="green">Cart</span></h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <!-- Empty state -->
+      <div id="cart-empty" class="cart-empty" style="display: none;">
+        <div class="cart-empty-icon">&#128722;</div>
+        <h2>Your cart is empty</h2>
+        <p>Browse our promotion services and add packages to your cart.</p>
+        <div style="display:flex; gap:12px; justify-content:center;">
+          <a href="spotify.html" class="btn btn-primary">Spotify Services</a>
+          <a href="soundcloud.html" class="btn btn-outline">SoundCloud Services</a>
+        </div>
+      </div>
+
+      <!-- Cart with items -->
+      <div id="cart-content" style="display: none;">
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Qty</th>
+              <th>Unit Price</th>
+              <th>Total</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="cart-items-body">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+
+        <div class="cart-summary">
+          <div class="cart-summary-row">
+            <span>Subtotal</span>
+            <span id="cart-subtotal">$0.00</span>
+          </div>
+          <div class="cart-summary-row">
+            <span>Processing fee</span>
+            <span>Free</span>
+          </div>
+          <div class="cart-summary-row total">
+            <span>Total</span>
+            <span id="cart-total">$0.00</span>
+          </div>
+          <a href="checkout.html" class="btn btn-primary btn-lg" style="width:100%; margin-top:20px;">
+            Proceed to Checkout &#8594;
+          </a>
+          <div class="secure-notice">
+            &#128274; Secured by Stripe &middot; SSL Encrypted
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ FOOTER ════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="border-top:none;padding-top:0;">
+        <span>&copy; 2026 Artist Push. All rights reserved.</span>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Twitter">X</a>
+          <a href="#" aria-label="YouTube">YT</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="cart.js"></script>
+  <script src="script.js"></script>
+  <script>
+    function renderCart() {
+      const items = Cart.getItems();
+      const emptyEl = document.getElementById('cart-empty');
+      const contentEl = document.getElementById('cart-content');
+      const tbody = document.getElementById('cart-items-body');
+
+      if (items.length === 0) {
+        emptyEl.style.display = 'block';
+        contentEl.style.display = 'none';
+        return;
+      }
+
+      emptyEl.style.display = 'none';
+      contentEl.style.display = 'block';
+
+      tbody.innerHTML = items.map((item, idx) => `
+        <tr>
+          <td>
+            <div class="cart-item-info">
+              <h4>${item.name}</h4>
+              <div class="meta">${item.serviceType || ''} ${item.qtyLabel ? '&middot; ' + item.qtyLabel : ''} ${item.platform ? '&middot; ' + item.platform : ''}</div>
+            </div>
+          </td>
+          <td>
+            <div class="qty-input-group" style="margin:0;">
+              <button class="qty-btn" onclick="updateCartQty(${idx}, -1)" data-action="minus">&#8722;</button>
+              <input type="number" class="qty-input" value="${item.quantity}" min="1" max="100"
+                     onchange="setCartQty(${idx}, this.value)" style="width:50px;">
+              <button class="qty-btn" onclick="updateCartQty(${idx}, 1)" data-action="plus">+</button>
+            </div>
+          </td>
+          <td class="cart-item-price">$${item.price.toFixed(2)}</td>
+          <td class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</td>
+          <td><button class="cart-remove" onclick="removeCartItem(${idx})">&#10005;</button></td>
+        </tr>
+      `).join('');
+
+      const total = Cart.getTotal();
+      document.getElementById('cart-subtotal').textContent = '$' + total.toFixed(2);
+      document.getElementById('cart-total').textContent = '$' + total.toFixed(2);
+    }
+
+    function updateCartQty(idx, delta) {
+      const items = Cart.getItems();
+      if (items[idx]) {
+        Cart.updateQuantity(idx, items[idx].quantity + delta);
+        renderCart();
+      }
+    }
+
+    function setCartQty(idx, val) {
+      Cart.updateQuantity(idx, parseInt(val) || 1);
+      renderCart();
+    }
+
+    function removeCartItem(idx) {
+      Cart.removeItem(idx);
+      renderCart();
+    }
+
+    renderCart();
+    window.addEventListener('cart-updated', renderCart);
+  </script>
+</body>
+</html>

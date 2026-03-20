@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spotify Promotion Services — Artist Push</title>
+  <meta name="description" content="Professional Spotify promotion: plays, followers, saves, monthly listeners, playlist placements. Real, organic growth for your music.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2300FF85'/><text x='50%25' y='55%25' text-anchor='middle' dominant-baseline='middle' font-size='18' font-weight='800' fill='%23000'>A</text></svg>">
+</head>
+<body>
+
+  <!-- ════════ NAVBAR ════════ -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar-logo">
+        <span class="logo-icon">A</span>
+        Artist Push
+      </a>
+      <div class="navbar-links">
+        <a href="index.html">Home</a>
+        <a href="spotify.html" class="active">Spotify Promotion</a>
+        <a href="soundcloud.html">SoundCloud Promotion</a>
+        <a href="index.html#testimonials">Testimonials</a>
+        <a href="blog.html">Blog</a>
+        <a href="cart.html" class="cart-link">&#128722; Cart <span class="cart-badge">0</span></a>
+      </div>
+      <div class="navbar-cta">
+        <a href="#packages" class="btn btn-primary btn-sm">Get Started</a>
+        <button class="mobile-toggle" aria-label="Menu">&#9776;</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-nav">
+    <button class="mobile-nav-close" aria-label="Close">&#10005;</button>
+    <a href="index.html">Home</a>
+    <a href="spotify.html">Spotify Promotion</a>
+    <a href="soundcloud.html">SoundCloud Promotion</a>
+    <a href="index.html#testimonials">Testimonials</a>
+    <a href="blog.html">Blog</a>
+    <a href="cart.html">Cart</a>
+  </div>
+
+  <!-- ════════ BREADCRUMB ════════ -->
+  <div class="breadcrumb">
+    <div class="container">
+      <a href="index.html">Artist Push</a>
+      <span class="sep">&#8250;</span>
+      <span class="green">Spotify Promotion Services</span>
+    </div>
+  </div>
+
+  <!-- ════════ PAGE HERO ════════ -->
+  <section class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="container">
+      <h1>Spotify <span class="green">Promotion</span> Services</h1>
+      <p>Grow your Spotify presence with plays, followers, saves, monthly listeners, and curated playlist placements. Real promotion, real results — delivered organically.</p>
+    </div>
+  </section>
+
+  <!-- ════════ PACKAGES ════════ -->
+  <section id="packages" class="section">
+    <div class="container">
+      <h2 class="section-title fade-up">Spotify <span class="green">Packages</span></h2>
+      <p class="section-subtitle fade-up">Bundled promotion packages — everything you need in one order.</p>
+      <div class="package-grid fade-up">
+
+        <div class="package-card">
+          <div class="package-name">Starter Mix</div>
+          <div class="price-display" style="justify-content: center;">
+            <span class="price-current">$12</span>
+          </div>
+          <div class="package-features">
+            <div class="package-feature"><span class="check">&#10003;</span> 3K Plays</div>
+            <div class="package-feature"><span class="check">&#10003;</span> 100 Saves</div>
+            <div class="package-feature"><span class="check">&#10003;</span> 300 Followers</div>
+          </div>
+          <button class="btn btn-outline" style="width: 100%;" onclick="openModal('modal-sp-starter')">Select Package</button>
+        </div>
+
+        <div class="package-card featured">
+          <div class="package-name">Pro Mix</div>
+          <div class="price-display" style="justify-content: center;">
+            <span class="price-current">$90</span>
+          </div>
+          <div class="package-features">
+            <div class="package-feature"><span class="check">&#10003;</span> 30K Plays</div>
+            <div class="package-feature"><span class="check">&#10003;</span> 1K Saves</div>
+            <div class="package-feature"><span class="check">&#10003;</span> 1K Followers</div>
+          </div>
+          <button class="btn btn-primary" style="width: 100%;" onclick="openModal('modal-sp-pro')">Select Package</button>
+        </div>
+
+        <div class="package-card">
+          <div class="package-name">Digger Mix</div>
+          <div class="price-display" style="justify-content: center;">
+            <span class="price-current">$150</span>
+          </div>
+          <div class="package-features">
+            <div class="package-feature"><span class="check">&#10003;</span> 50K Plays</div>
+            <div class="package-feature"><span class="check">&#10003;</span> 3K Saves</div>
+            <div class="package-feature"><span class="check">&#10003;</span> 3K Followers</div>
+          </div>
+          <button class="btn btn-outline" style="width: 100%;" onclick="openModal('modal-sp-digger')">Select Package</button>
+        </div>
+
+        <div class="package-card">
+          <div class="package-name">Star Mix</div>
+          <div class="price-display" style="justify-content: center;">
+            <span class="price-current">$299</span>
+          </div>
+          <div class="package-features">
+            <div class="package-feature"><span class="check">&#10003;</span> 100K Plays</div>
+            <div class="package-feature"><span class="check">&#10003;</span> 5K Saves</div>
+            <div class="package-feature"><span class="check">&#10003;</span> 5K Followers</div>
+          </div>
+          <button class="btn btn-outline" style="width: 100%;" onclick="openModal('modal-sp-star')">Select Package</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SPOTIFY PLAYS ════════ -->
+  <section id="plays" class="service-category">
+    <div class="container">
+      <div class="category-header fade-up">
+        <div class="category-icon">&#9654;</div>
+        <h2>Spotify Plays</h2>
+        <p>Boost your stream count with 10 different play types.</p>
+      </div>
+      <div class="services-grid fade-up">
+
+        <div class="selector-card">
+          <h3>Spotify Plays</h3>
+          <p class="desc">Choose your play type and quantity for maximum streaming impact.</p>
+          <div class="select-group">
+            <label>Service Type</label>
+            <select class="custom-select">
+              <option data-modifier="1">Worldwide Plays</option>
+              <option data-modifier="1.5">Real Plays + Organic Listeners</option>
+              <option data-modifier="2">Premium Royalty Plays</option>
+              <option data-modifier="1.3">Targeted Plays</option>
+              <option data-modifier="2.5">Ranking Plays</option>
+              <option data-modifier="1.2">Playlist / Album Plays</option>
+              <option data-modifier="1.8">Algorithmic ADS Plays</option>
+              <option data-modifier="1.8">Algorithmic Radio Plays</option>
+              <option data-modifier="3">Editorial Playlist Plays</option>
+              <option data-modifier="1.4">Podcast Plays</option>
+            </select>
+          </div>
+          <div class="select-group">
+            <label>Quantity</label>
+            <div class="qty-pills">
+              <button class="qty-pill active" data-price="6">1K</button>
+              <button class="qty-pill" data-price="10">2K</button>
+              <button class="qty-pill" data-price="22">5K</button>
+              <button class="qty-pill" data-price="35">10K</button>
+              <button class="qty-pill" data-price="155">50K</button>
+              <button class="qty-pill" data-price="299">100K</button>
+              <button class="qty-pill" data-price="1399">500K</button>
+              <button class="qty-pill" data-price="2299">1M</button>
+            </div>
+          </div>
+          <div class="price-display">
+            <span class="price-current">$6</span>
+            <span class="price-old">$12</span>
+          </div>
+          <button class="btn btn-primary" style="width: 100%;">ADD TO CART</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SPOTIFY FOLLOWERS ════════ -->
+  <section id="followers" class="service-category">
+    <div class="container">
+      <div class="category-header fade-up">
+        <div class="category-icon">&#128101;</div>
+        <h2>Spotify Followers</h2>
+        <p>Grow your artist profile with real, engaged followers.</p>
+      </div>
+      <div class="services-grid fade-up">
+
+        <div class="selector-card">
+          <h3>Spotify Followers</h3>
+          <p class="desc">Grow your artist profile with real followers.</p>
+          <div class="select-group">
+            <label>Service Type</label>
+            <select class="custom-select">
+              <option data-modifier="1">Worldwide Followers</option>
+              <option data-modifier="1.2">Podcast Followers</option>
+            </select>
+          </div>
+          <div class="select-group">
+            <label>Quantity</label>
+            <div class="qty-pills">
+              <button class="qty-pill active" data-price="3">500</button>
+              <button class="qty-pill" data-price="5">1K</button>
+              <button class="qty-pill" data-price="10">3K</button>
+              <button class="qty-pill" data-price="15">5K</button>
+              <button class="qty-pill" data-price="25">10K</button>
+              <button class="qty-pill" data-price="199">100K</button>
+            </div>
+          </div>
+          <div class="price-display">
+            <span class="price-current">$3</span>
+            <span class="price-old">$6</span>
+          </div>
+          <button class="btn btn-primary" style="width: 100%;">ADD TO CART</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ MONTHLY LISTENERS ════════ -->
+  <section id="listeners" class="service-category">
+    <div class="container">
+      <div class="category-header fade-up">
+        <div class="category-icon">&#127911;</div>
+        <h2>Monthly Listeners</h2>
+        <p>Increase your monthly listener count for label and playlist attention.</p>
+      </div>
+      <div class="services-grid fade-up">
+
+        <div class="selector-card">
+          <h3>Monthly Listeners</h3>
+          <p class="desc">Boost your monthly listener count to attract label and playlist attention.</p>
+          <div class="select-group">
+            <label>Service Type</label>
+            <select class="custom-select">
+              <option data-modifier="1">Regular Monthly Listeners</option>
+              <option data-modifier="1.5">Algorithmic-Targeted Listeners</option>
+            </select>
+          </div>
+          <div class="select-group">
+            <label>Quantity</label>
+            <div class="qty-pills">
+              <button class="qty-pill active" data-price="10">1K</button>
+              <button class="qty-pill" data-price="18">2K</button>
+              <button class="qty-pill" data-price="35">5K</button>
+              <button class="qty-pill" data-price="65">10K</button>
+              <button class="qty-pill" data-price="315">50K</button>
+              <button class="qty-pill" data-price="599">100K</button>
+              <button class="qty-pill" data-price="2799">500K</button>
+            </div>
+          </div>
+          <div class="price-display">
+            <span class="price-current">$10</span>
+            <span class="price-old">$20</span>
+          </div>
+          <button class="btn btn-primary" style="width: 100%;">ADD TO CART</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SPOTIFY SAVES ════════ -->
+  <section id="saves" class="service-category">
+    <div class="container">
+      <div class="category-header fade-up">
+        <div class="category-icon">&#128278;</div>
+        <h2>Spotify Saves</h2>
+        <p>Trigger the algorithm with higher save-to-listen ratios.</p>
+      </div>
+      <div class="services-grid fade-up">
+
+        <div class="selector-card">
+          <h3>Spotify Saves</h3>
+          <p class="desc">Increase your save-to-listen ratio and trigger algorithmic recommendations.</p>
+          <div class="select-group">
+            <label>Quantity</label>
+            <div class="qty-pills">
+              <button class="qty-pill active" data-price="1">100</button>
+              <button class="qty-pill" data-price="4">1K</button>
+              <button class="qty-pill" data-price="6">2K</button>
+              <button class="qty-pill" data-price="12">5K</button>
+              <button class="qty-pill" data-price="20">10K</button>
+              <button class="qty-pill" data-price="199">100K</button>
+            </div>
+          </div>
+          <div class="price-display">
+            <span class="price-current">$1</span>
+            <span class="price-old">$2</span>
+          </div>
+          <button class="btn btn-primary" style="width: 100%;">ADD TO CART</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ PLAYLISTS ════════ -->
+  <section id="playlists" class="service-category">
+    <div class="container">
+      <div class="category-header fade-up">
+        <div class="category-icon">&#127926;</div>
+        <h2>Playlist Services</h2>
+        <p>Playlist likes and curated placement pushes for wider reach.</p>
+      </div>
+      <div class="services-grid fade-up">
+
+        <div class="selector-card">
+          <h3>Playlist Likes</h3>
+          <p class="desc">Boost your playlist engagement with real likes.</p>
+          <div class="select-group">
+            <label>Quantity</label>
+            <div class="qty-pills">
+              <button class="qty-pill active" data-price="5">1K</button>
+              <button class="qty-pill" data-price="7">2K</button>
+              <button class="qty-pill" data-price="15">5K</button>
+              <button class="qty-pill" data-price="25">10K</button>
+              <button class="qty-pill" data-price="199">100K</button>
+            </div>
+          </div>
+          <div class="price-display">
+            <span class="price-current">$5</span>
+            <span class="price-old">$10</span>
+          </div>
+          <button class="btn btn-primary" style="width: 100%;">ADD TO CART</button>
+        </div>
+
+        <div class="selector-card">
+          <h3>Playlist Push</h3>
+          <p class="desc">Get placed in curated multi-genre playlists for maximum exposure.</p>
+          <div class="select-group">
+            <label>Number of Placements</label>
+            <div class="qty-pills">
+              <button class="qty-pill active" data-price="10">1</button>
+              <button class="qty-pill" data-price="25">3</button>
+              <button class="qty-pill" data-price="35">5</button>
+              <button class="qty-pill" data-price="65">10</button>
+              <button class="qty-pill" data-price="499">100</button>
+            </div>
+          </div>
+          <div class="price-display">
+            <span class="price-current">$10</span>
+            <span class="price-old">$20</span>
+          </div>
+          <button class="btn btn-primary" style="width: 100%;">ADD TO CART</button>
+        </div>
+
+      </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ FEATURED PLAYLISTS ════════ -->
+  <section class="service-category">
+    <div class="container">
+      <div class="category-header fade-up">
+        <div class="category-icon">&#127775;</div>
+        <h2>Featured Playlist Placements</h2>
+        <p>Get your music placed in hand-picked, high-engagement playlists across genres.</p>
+      </div>
+      <div class="featured-playlists fade-up">
+        <div class="featured-playlists-header">
+          <h3>Choose a <span class="green">Playlist</span></h3>
+          <p>Each placement includes guaranteed positioning for maximum listener exposure.</p>
+        </div>
+        <div class="playlist-grid">
+          <div class="playlist-card">
+            <div class="playlist-card-icon">&#127911;</div>
+            <h4>Hip Hop Springboard</h4>
+            <div class="meta">30 likes &middot; Multi-genre</div>
+            <button class="btn btn-sm btn-primary">Add to Cart</button>
+          </div>
+          <div class="playlist-card">
+            <div class="playlist-card-icon">&#9889;</div>
+            <h4>Curated "Top Speed"</h4>
+            <div class="meta">10K likes &middot; Electronic / Pop</div>
+            <button class="btn btn-sm btn-primary">Add to Cart</button>
+          </div>
+          <div class="playlist-card">
+            <div class="playlist-card-icon">&#127775;</div>
+            <h4>Indie Gold Collection</h4>
+            <div class="meta">5K likes &middot; Indie / Alternative</div>
+            <button class="btn btn-sm btn-primary">Add to Cart</button>
+          </div>
+          <div class="playlist-card">
+            <div class="playlist-card-icon">&#127748;</div>
+            <h4>Chill Vibes Daily</h4>
+            <div class="meta">8K likes &middot; Lo-Fi / Chill</div>
+            <button class="btn btn-sm btn-primary">Add to Cart</button>
+          </div>
+          <div class="playlist-card">
+            <div class="playlist-card-icon">&#128293;</div>
+            <h4>Latin Heat Mix</h4>
+            <div class="meta">12K likes &middot; Latin / Reggaeton</div>
+            <button class="btn btn-sm btn-primary">Add to Cart</button>
+          </div>
+          <div class="playlist-card">
+            <div class="playlist-card-icon">&#127926;</div>
+            <h4>R&amp;B Essentials</h4>
+            <div class="meta">15K likes &middot; R&amp;B / Soul</div>
+            <button class="btn btn-sm btn-primary">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ HOW IT WORKS ════════ -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title fade-up">How It <span class="green">Works</span></h2>
+      <p class="section-subtitle fade-up">Getting started with Spotify promotion is simple.</p>
+      <div class="how-it-works-grid fade-up">
+        <div class="how-step">
+          <div class="step-number">1</div>
+          <h3>Choose Your Package</h3>
+          <p>Select a bundle or individual service. Pick your service type and quantity to match your budget and goals.</p>
+          <div class="step-connector"></div>
+        </div>
+        <div class="how-step">
+          <div class="step-number">2</div>
+          <h3>Place Your Order</h3>
+          <p>Enter your Spotify track or profile URL, confirm your selections, and check out securely via Stripe.</p>
+          <div class="step-connector"></div>
+        </div>
+        <div class="how-step">
+          <div class="step-number">3</div>
+          <h3>Watch Your Growth</h3>
+          <p>Delivery starts within 1–2 days. Track your progress in real time as plays, saves, and followers increase.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SEO TEXT ════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="seo-block fade-up">
+        <div class="seo-block-text">
+          <h2>Why Spotify Promotion Matters for Your Music Career</h2>
+          <p>In today's competitive music landscape, having great music is only half the battle. With over 100 million tracks on Spotify and thousands of new releases every day, standing out requires a strategic approach to promotion. That's where Artist Push comes in — we help artists, labels, and producers gain the visibility they need to break through the noise.</p>
+          <p>Spotify's recommendation algorithm heavily weighs engagement metrics like saves, playlist adds, and listen-through rates. By boosting these key metrics through real, organic promotional campaigns, you increase your chances of being picked up by Discover Weekly, Release Radar, and algorithmic playlists — which can multiply your streams exponentially.</p>
+          <p>Our Spotify promotion services are designed to mimic natural growth patterns. We don't use bots or fake accounts. Instead, we leverage social media campaigns, playlist curator networks, targeted advertising, and community-based promotion to deliver real engagement from genuine listeners. This approach ensures your account stays safe and your growth looks authentic.</p>
+          <p>Whether you're an emerging artist looking for your first 1,000 followers, a mid-level artist trying to secure playlist placements, or a label looking to push multiple releases simultaneously — we have packages and individual services tailored to every stage of your career.</p>
+          <p>Every campaign includes delivery tracking, a satisfaction guarantee, and 24/7 customer support. We've delivered over 5 million streams across 10,000+ campaigns with a track record of zero account penalties. Your music deserves to be heard — let Artist Push amplify your reach.</p>
+          <div class="seo-highlights">
+            <span class="seo-highlight-tag">&#9734; Real Listeners</span>
+            <span class="seo-highlight-tag">&#128737; Account Safe</span>
+            <span class="seo-highlight-tag">&#128200; Organic Growth</span>
+            <span class="seo-highlight-tag">&#127919; Targeted Campaigns</span>
+          </div>
+        </div>
+        <div class="seo-block-visual">
+          <div class="seo-visual-illustration">
+            <svg viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Spotify-style sound wave visualization -->
+              <circle cx="140" cy="140" r="130" stroke="rgba(0,255,133,0.06)" stroke-width="1"/>
+              <circle cx="140" cy="140" r="100" stroke="rgba(0,255,133,0.08)" stroke-width="1"/>
+              <circle cx="140" cy="140" r="70" stroke="rgba(0,255,133,0.1)" stroke-width="1"/>
+              <!-- Center icon -->
+              <circle cx="140" cy="140" r="40" fill="rgba(0,255,133,0.08)" stroke="rgba(0,255,133,0.2)" stroke-width="1.5"/>
+              <!-- Play triangle -->
+              <path d="M130 120 L160 140 L130 160 Z" fill="rgba(0,255,133,0.6)"/>
+              <!-- Sound bars -->
+              <rect x="52" y="110" width="6" height="60" rx="3" fill="rgba(0,255,133,0.15)"/>
+              <rect x="66" y="90" width="6" height="100" rx="3" fill="rgba(0,255,133,0.2)"/>
+              <rect x="80" y="105" width="6" height="70" rx="3" fill="rgba(0,255,133,0.18)"/>
+              <rect x="194" y="100" width="6" height="80" rx="3" fill="rgba(0,255,133,0.18)"/>
+              <rect x="208" y="85" width="6" height="110" rx="3" fill="rgba(0,255,133,0.2)"/>
+              <rect x="222" y="115" width="6" height="50" rx="3" fill="rgba(0,255,133,0.15)"/>
+              <!-- Streaming dots -->
+              <circle cx="50" cy="60" r="3" fill="rgba(0,255,133,0.3)"/>
+              <circle cx="230" cy="55" r="2" fill="rgba(0,255,133,0.2)"/>
+              <circle cx="60" cy="220" r="2.5" fill="rgba(0,255,133,0.25)"/>
+              <circle cx="220" cy="225" r="3" fill="rgba(0,255,133,0.2)"/>
+              <circle cx="140" cy="30" r="2" fill="rgba(0,255,133,0.3)"/>
+              <circle cx="140" cy="250" r="2" fill="rgba(0,255,133,0.2)"/>
+            </svg>
+          </div>
+          <div class="seo-visual-card">
+            <span class="seo-stat">5M+</span>
+            <span class="seo-stat-label">Streams Delivered</span>
+          </div>
+          <div class="seo-visual-card">
+            <span class="seo-stat">10,000+</span>
+            <span class="seo-stat-label">Campaigns Completed</span>
+          </div>
+          <div class="seo-visual-card">
+            <span class="seo-stat">0</span>
+            <span class="seo-stat-label">Account Penalties</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ REVIEWS ════════ -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title fade-up">Artist <span class="green">Reviews</span></h2>
+      <p class="section-subtitle fade-up">See what artists are saying about our Spotify promotion.</p>
+      <div class="reviews-grid fade-up">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="testimonial-text">"The Starter Mix was the perfect way to launch my single. Saw real engagement from day one and my Spotify for Artists dashboard showed organic listener growth."</div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">JC</div>
+            <div><div class="testimonial-name">James C.</div><div class="testimonial-role">Singer-Songwriter</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="testimonial-text">"Used the Premium Royalty Plays for my album and the royalty count went up accordingly. Legitimate service with fantastic support."</div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">NP</div>
+            <div><div class="testimonial-name">Nina P.</div><div class="testimonial-role">Pop Artist</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+          <div class="testimonial-text">"Playlist push got my track into 15 playlists with a combined following of 200K. The exposure was incredible for an independent release."</div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">RD</div>
+            <div><div class="testimonial-name">Ray D.</div><div class="testimonial-role">Electronic Producer</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ FAQ ════════ -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title fade-up">Spotify <span class="green">FAQ</span></h2>
+      <div class="faq-list fade-up">
+        <div class="faq-item">
+          <button class="faq-question">What types of Spotify plays do you offer?<span class="faq-icon">+</span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">We offer Worldwide Plays, Real Plays with Organic Listeners, Premium Royalty Plays, Targeted Plays (by country/genre), Ranking Plays, Playlist/Album Plays, Algorithmic ADS and Radio Plays, Editorial Playlist Plays, and Podcast Plays. Each type serves a different promotional goal.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Will the plays count toward my Spotify royalties?<span class="faq-icon">+</span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Our Premium Royalty Plays are specifically designed to count toward your Spotify royalty payments. Standard promotional plays may not all qualify for royalties depending on the source, but they significantly boost your visibility metrics.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">How are Targeted Plays different from Worldwide Plays?<span class="faq-icon">+</span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Targeted Plays are delivered from specific countries or regions you select, while Worldwide Plays come from a global audience. Targeted Plays are ideal if you're focusing on a specific market, like the US, UK, or Germany.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">What is Playlist Push?<span class="faq-icon">+</span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Playlist Push is our service that places your track in curated playlists across multiple genres. We work with a network of playlist curators to get your music in front of real listeners who are actively discovering new music.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Can I order for multiple tracks at once?<span class="faq-icon">+</span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Yes! You can place separate orders for each track, or contact our support team to split a larger package across multiple tracks or your full album/EP.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scroll to Top -->
+  <button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">&#8593;</button>
+
+  <!-- ════════ FOOTER ════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="navbar-logo">
+            <span class="logo-icon">A</span>
+            Artist Push
+          </a>
+          <p>Professional music promotion services for Spotify and SoundCloud. Trusted by thousands of artists, labels, and producers worldwide.</p>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <div class="footer-links">
+            <a href="spotify.html">Spotify Promotion</a>
+            <a href="soundcloud.html">SoundCloud Promotion</a>
+            <a href="spotify.html#packages">Spotify Packages</a>
+            <a href="soundcloud.html#packages">SoundCloud Packages</a>
+          </div>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <div class="footer-links">
+            <a href="#">About Us</a>
+            <a href="index.html#testimonials">Testimonials</a>
+            <a href="index.html#faq">FAQ</a>
+            <a href="blog.html">Blog</a>
+            <a href="#">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <div class="footer-links">
+            <a href="#" onclick="openModal('modal-terms'); return false;">Terms of Service</a>
+            <a href="#" onclick="openModal('modal-privacy'); return false;">Privacy Policy</a>
+            <a href="#" onclick="openModal('modal-refund'); return false;">Refund Policy</a>
+            <a href="#" onclick="openModal('modal-cookies'); return false;">Cookie Policy</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Artist Push. All rights reserved.</span>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Twitter">X</a>
+          <a href="#" aria-label="YouTube">YT</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ════════ PACKAGE MODALS ════════ -->
+
+  <div class="modal-overlay" id="modal-sp-starter">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Starter Mix</h2>
+        <button class="modal-close" onclick="closeModal('modal-sp-starter')">&#10005;</button>
+      </div>
+      <div class="modal-body">
+        <p style="color: #fff; margin-bottom: 24px; font-size: 1.1rem; font-weight: 600;">3K Plays + 100 Saves + 300 Followers</p>
+        <div class="select-group">
+          <label>Quantity</label>
+          <div class="qty-input-group" style="margin-bottom:0">
+            <button class="qty-btn" data-action="minus">&#8722;</button>
+            <input type="number" class="qty-input" value="1" min="1" max="100">
+            <button class="qty-btn" data-action="plus">+</button>
+          </div>
+        </div>
+        <div class="price-display">
+          <span class="price-current">$12</span>
+          <span class="price-old">$25</span>
+          <span class="price-badge">SALE</span>
+        </div>
+        <button class="btn btn-primary" style="width: 100%; padding: 16px;">ADD TO CART</button>
+        <div class="trust-badges">
+          <div class="trust-badge"><span class="badge-icon">&#10003;</span> Delivery: 1–2 Days</div>
+          <div class="trust-badge"><span class="badge-icon">&#10003;</span> 24/7 Support</div>
+          <div class="trust-badge"><span class="badge-icon">&#10003;</span> Refund Guarantee</div>
+          <div class="trust-badge"><span class="badge-icon">&#10003;</span> Secure Payment</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-sp-pro">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Pro Mix</h2>
+        <button class="modal-close" onclick="closeModal('modal-sp-pro')">&#10005;</button>
+      </div>
+      <div class="modal-body">
+        <p style="color: #fff; margin-bottom: 24px; font-size: 1.1rem; font-weight: 600;">30K Plays + 1K Saves + 1K Followers</p>
+        <div class="select-group">
+          <label>Quantity</label>
+          <div class="qty-input-group" style="margin-bottom:0">
+            <button class="qty-btn" data-action="minus">&#8722;</button>
+            <input type="number" class="qty-input" value="1" min="1" max="100">
+            <button class="qty-btn" data-action="plus">+</button>
+          </div>
+        </div>
+        <div class="price-display">
+          <span class="price-current">$90</span>
+          <span class="price-old">$150</span>
+          <span class="price-badge">POPULAR</span>
+        </div>
+        <button class="btn btn-primary" style="width: 100%; padding: 16px;">ADD TO CART</button>
+        <div class="trust-badges">
+          <div class="trust-badge"><span class="badge-icon">&#10003;</span> Delivery: 1–2 Days</div>
+          <div class="trust-badge"><span class="badge-icon">&#10003;</span> 24/7 Support</div>
+          <div class="trust-badge"><span class="badge-icon">&#10003;</span> Refund Guarantee</div>
+          <div class="trust-badge"><span class="badge-icon">&#10003;</span> Secure Payment</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-sp-digger">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Digger Mix</h2>
+        <button class="modal-close" onclick="closeModal('modal-sp-digger')">&#10005;</button>
+      </div>
+      <div class="modal-body">
+        <p style="color: #fff; margin-bottom: 24px; font-size: 1.1rem; font-weight: 600;">50K Plays + 3K Saves + 3K Followers</p>
+        <div class="select-group">
+          <label>Quantity</label>
+          <div class="qty-input-group" style="margin-bottom:0">
+            <button class="qty-btn" data-action="minus">&#8722;</button>
+            <input type="number" class="qty-input" value="1" min="1" max="100">
+            <button class="qty-btn" data-action="plus">+</button>
+          </div>
+        </div>
+        <div class="price-display">
+          <span class="price-current">$150</span>
+          <span class="price-old">$199</span>
+        </div>
+        <button class="btn btn-primary" style="width: 100%; padding: 16px;">ADD TO CART</button>
+        <div class="trust-badges">
+          <div class="trust-badge"><span class="badge-icon">&#10003;</span> Delivery: 1–2 Days</div>
+          <div class="trust-badge"><span class="badge-icon">&#10003;</span> 24/7 Support</div>
+          <div class="trust-badge"><span class="badge-icon">&#10003;</span> Refund Guarantee</div>
+          <div class="trust-badge"><span class="badge-icon">&#10003;</span> Secure Payment</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-sp-star">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Star Mix</h2>
+        <button class="modal-close" onclick="closeModal('modal-sp-star')">&#10005;</button>
+      </div>
+      <div class="modal-body">
+        <p style="color: #fff; margin-bottom: 24px; font-size: 1.1rem; font-weight: 600;">100K Plays + 5K Saves + 5K Followers</p>
+        <div class="select-group">
+          <label>Quantity</label>
+          <div class="qty-input-group" style="margin-bottom:0">
+            <button class="qty-btn" data-action="minus">&#8722;</button>
+            <input type="number" class="qty-input" value="1" min="1" max="100">
+            <button class="qty-btn" data-action="plus">+</button>
+          </div>
+        </div>
+        <div class="price-display">
+          <span class="price-current">$299</span>
+          <span class="price-old">$350</span>
+        </div>
+        <button class="btn btn-primary" style="width: 100%; padding: 16px;">ADD TO CART</button>
+        <div class="trust-badges">
+          <div class="trust-badge"><span class="badge-icon">&#10003;</span> Delivery: 1–2 Days</div>
+          <div class="trust-badge"><span class="badge-icon">&#10003;</span> 24/7 Support</div>
+          <div class="trust-badge"><span class="badge-icon">&#10003;</span> Refund Guarantee</div>
+          <div class="trust-badge"><span class="badge-icon">&#10003;</span> Secure Payment</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="cart.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // ─── Wire up ALL "ADD TO CART" buttons (inline + modals) ───
+    document.querySelectorAll('.btn-primary').forEach(btn => {
+      const text = btn.textContent.trim();
+      if (text === 'ADD TO CART') {
+        btn.addEventListener('click', function() {
+          const card = this.closest('.selector-card') || this.closest('.modal-body');
+          if (!card) return;
+
+          const titleEl = card.querySelector('h3') || card.closest('.modal')?.querySelector('.modal-header h2');
+          const name = titleEl ? titleEl.textContent : 'Spotify Service';
+          const select = card.querySelector('.custom-select');
+          const activeQty = card.querySelector('.qty-pill.active');
+          const qtyInput = card.querySelector('.qty-input');
+          const priceEl = card.querySelector('.price-current');
+
+          const serviceType = select ? select.options[select.selectedIndex].text : '';
+          const qtyLabel = activeQty ? activeQty.textContent : '';
+          const quantity = qtyInput ? parseInt(qtyInput.value) || 1 : 1;
+          const priceText = priceEl ? priceEl.textContent.replace('$', '') : '0';
+          const price = parseFloat(priceText) || 0;
+
+          Cart.addItem({
+            id: name.toLowerCase().replace(/\s+/g, '-'),
+            name: name,
+            serviceType: serviceType,
+            qtyLabel: qtyLabel,
+            quantity: quantity,
+            price: price > 0 ? price : 4.99,
+            platform: 'Spotify',
+          });
+        });
+      }
+    });
+
+    // ─── Wire up Playlist "Add to Cart" buttons ───
+    document.querySelectorAll('.playlist-card .btn-primary').forEach(btn => {
+      if (btn.textContent.trim() === 'Add to Cart') {
+        btn.addEventListener('click', function() {
+          const card = this.closest('.playlist-card');
+          const name = card.querySelector('h4').textContent;
+          const meta = card.querySelector('.meta').textContent;
+
+          let price = 9.99;
+          if (name.includes('Springboard')) {
+            price = 99;
+          } else if (name.includes('Top Speed')) {
+            price = 85;
+          }
+
+          Cart.addItem({
+            id: 'playlist-' + name.toLowerCase().replace(/\s+/g, '-'),
+            name: 'Playlist: ' + name,
+            serviceType: 'Playlist Placement',
+            qtyLabel: meta,
+            quantity: 1,
+            price: price,
+            platform: 'Spotify',
+          });
+        });
+      }
+    });
+  </script>
+
+  <!-- ════════ POLICY MODALS ════════ -->
+  <!-- Terms of Service -->
+  <div class="modal-overlay" id="modal-terms">
+    <div class="modal policy-modal">
+      <div class="modal-header">
+        <h2>Terms of Service</h2>
+        <button class="modal-close" onclick="closeModal('modal-terms')">&#10005;</button>
+      </div>
+      <div class="modal-body">
+        <div class="policy-content">
+          <p class="policy-meta">Last updated: March 17, 2026 &middot; Artist Push</p>
+          <h3>1. Acceptance of Terms</h3>
+          <p>By accessing or using the Artist Push website and services ("Service"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree with any part of these Terms, you may not use our Service. These Terms apply to all visitors, users, and customers of Artist Push.</p>
+          <h3>2. Description of Services</h3>
+          <p>Artist Push provides music promotion services for platforms including Spotify and SoundCloud. Our services include, but are not limited to:</p>
+          <ul>
+            <li>Streaming plays promotion (Spotify, SoundCloud)</li>
+            <li>Follower growth campaigns</li>
+            <li>Saves, likes, reposts, and comments delivery</li>
+            <li>Playlist placement services</li>
+            <li>Monthly listener promotion</li>
+            <li>Bundled promotion packages</li>
+          </ul>
+          <p>All promotion is conducted through legitimate methods including social media marketing, playlist curator networks, targeted advertising, and community-based promotion.</p>
+          <h3>3. Eligibility</h3>
+          <p>You must be at least 18 years of age to use our Service. By using Artist Push, you represent and warrant that you are at least 18 years old and have the legal capacity to enter into binding agreements.</p>
+          <h3>4. Account and Order Responsibilities</h3>
+          <p>When placing an order, you agree to provide accurate and complete information, including valid Spotify or SoundCloud URLs. You are responsible for ensuring the provided links are correct and publicly accessible, not requesting services for content that violates platform guidelines, and maintaining the confidentiality of your order information.</p>
+          <h3>5. Pricing and Payment</h3>
+          <p>All prices are displayed in US Dollars (USD) and are subject to change without prior notice. Payment is required at the time of order placement. We accept major credit/debit cards through Stripe. All transactions are processed securely and encrypted.</p>
+          <h3>6. Service Delivery</h3>
+          <p>Delivery timelines are estimates, not guarantees. Most orders begin processing within 1–2 business days. We strive for gradual, organic-looking delivery to protect your account safety.</p>
+          <h3>7. Prohibited Uses</h3>
+          <p>You agree not to use our services for illegal content, resell without authorization, attempt to reverse-engineer our systems, or provide false information in orders.</p>
+          <h3>8. Intellectual Property</h3>
+          <p>All content on the Artist Push website is the property of Artist Push and protected by copyright and intellectual property laws.</p>
+          <h3>9. Limitation of Liability</h3>
+          <p>Artist Push provides services on an "as is" basis. We are not liable for any indirect, incidental, or consequential damages. We do not guarantee specific results, rankings, or algorithmic outcomes on any streaming platform.</p>
+          <h3>10. Disclaimer</h3>
+          <p>Artist Push is an independent promotion service and is not affiliated with, endorsed by, or officially connected to Spotify, SoundCloud, or any other streaming platform.</p>
+          <h3>11. Modifications to Terms</h3>
+          <p>We reserve the right to modify these Terms at any time. Your continued use of the Service after changes constitutes acceptance.</p>
+          <h3>12. Governing Law</h3>
+          <p>These Terms are governed by and construed in accordance with applicable laws. Any disputes shall be resolved through binding arbitration.</p>
+          <h3>13. Contact</h3>
+          <p>For questions about these Terms, contact us at <a href="mailto:support@artistpush.net">support@artistpush.net</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Privacy Policy -->
+  <div class="modal-overlay" id="modal-privacy">
+    <div class="modal policy-modal">
+      <div class="modal-header">
+        <h2>Privacy Policy</h2>
+        <button class="modal-close" onclick="closeModal('modal-privacy')">&#10005;</button>
+      </div>
+      <div class="modal-body">
+        <div class="policy-content">
+          <p class="policy-meta">Last updated: March 17, 2026 &middot; Artist Push</p>
+          <h3>1. Introduction</h3>
+          <p>Artist Push ("we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your personal information when you use our music promotion services and website.</p>
+          <h3>2. Information We Collect</h3>
+          <p><strong>Information you provide directly:</strong> Order information (name, email, payment details), track/profile URLs you submit for promotion, and messages or support requests you send us.</p>
+          <p><strong>Information collected automatically:</strong> Browser type, operating system, pages visited, time spent, IP address, and cookies (see our Cookie Policy for details).</p>
+          <h3>3. How We Use Your Information</h3>
+          <p>We use your information for service delivery, payment processing via Stripe, customer support, service improvement, order update communications, and security/fraud prevention.</p>
+          <h3>4. Data Sharing and Third Parties</h3>
+          <p>We do not sell your personal information. We may share data with payment processors (Stripe), analytics providers, and as required by law. We do not share your Spotify/SoundCloud profile URLs with third parties for marketing purposes.</p>
+          <h3>5. Data Retention</h3>
+          <p>Order data is retained for 2 years after completion. Payment records are kept as required by regulations. Communication logs are retained for 1 year. Analytics data is anonymized after 12 months.</p>
+          <h3>6. Data Security</h3>
+          <p>We implement industry-standard security measures including SSL/TLS encryption, secure payment processing, access controls, and regular security audits.</p>
+          <h3>7. Your Rights</h3>
+          <p>You may have the right to access, correct, or delete your personal data, opt out of marketing communications, request data portability, or lodge a complaint with a data protection authority. Contact us at <a href="mailto:support@artistpush.net">support@artistpush.net</a>.</p>
+          <h3>8. Children's Privacy</h3>
+          <p>Our Service is not intended for individuals under 18. We do not knowingly collect personal information from minors.</p>
+          <h3>9. Changes to This Policy</h3>
+          <p>We may update this Privacy Policy periodically. Changes will be posted on our website with a new "Last updated" date.</p>
+          <h3>10. Contact</h3>
+          <p>For privacy-related questions, contact us at <a href="mailto:support@artistpush.net">support@artistpush.net</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Refund Policy -->
+  <div class="modal-overlay" id="modal-refund">
+    <div class="modal policy-modal">
+      <div class="modal-header">
+        <h2>Refund Policy</h2>
+        <button class="modal-close" onclick="closeModal('modal-refund')">&#10005;</button>
+      </div>
+      <div class="modal-body">
+        <div class="policy-content">
+          <p class="policy-meta">Last updated: March 17, 2026 &middot; Artist Push</p>
+          <h3>1. Our Guarantee</h3>
+          <p>At Artist Push, we stand behind the quality of our music promotion services. We are committed to delivering every order in full, on time, and as described.</p>
+          <h3>2. Eligibility for Refund</h3>
+          <p>You may be eligible for a refund in cases of: non-delivery (order not started within 5 business days), partial delivery (proportional refund for undelivered portion), duplicate orders, or service error (wrong service type or wrong track).</p>
+          <h3>3. Refund Not Applicable</h3>
+          <p>Refunds are generally not available for: already-delivered orders, natural follower/play count fluctuations, incorrect links you provided, account changes you made during delivery, change of mind after delivery began, or platform actions unrelated to our service.</p>
+          <h3>4. How to Request a Refund</h3>
+          <p>Email us at <a href="mailto:support@artistpush.net">support@artistpush.net</a> with the subject "Refund Request," including your order number, the email used for the order, and the track/profile URL. Describe the issue in detail.</p>
+          <h3>5. Processing Time</h3>
+          <p>Refund requests are reviewed within 2–3 business days. Credit/debit card refunds are processed via Stripe and typically appear within 5–10 business days.</p>
+          <h3>6. Partial Refunds and Credits</h3>
+          <p>In some cases, we may offer a partial refund or account credit. We may also offer to re-deliver the remaining quantity as an alternative to a monetary refund.</p>
+          <h3>7. Dispute Resolution</h3>
+          <p>If unsatisfied with our decision, you may request a secondary review. Filing a chargeback before contacting us may result in delays and additional fees.</p>
+          <h3>8. Contact</h3>
+          <p>For all refund inquiries, reach us at <a href="mailto:support@artistpush.net">support@artistpush.net</a>. Our support team is available 24/7.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cookie Policy -->
+  <div class="modal-overlay" id="modal-cookies">
+    <div class="modal policy-modal">
+      <div class="modal-header">
+        <h2>Cookie Policy</h2>
+        <button class="modal-close" onclick="closeModal('modal-cookies')">&#10005;</button>
+      </div>
+      <div class="modal-body">
+        <div class="policy-content">
+          <p class="policy-meta">Last updated: March 17, 2026 &middot; Artist Push</p>
+          <h3>1. What Are Cookies?</h3>
+          <p>Cookies are small text files stored on your device when you visit a website. They help the website remember your preferences and improve your browsing experience.</p>
+          <h3>2. How We Use Cookies</h3>
+          <p><strong>Essential Cookies:</strong> Session management, cart functionality, security. <strong>Functional Cookies:</strong> Preferences, recently viewed services. <strong>Analytics Cookies:</strong> Understanding website usage, measuring campaign effectiveness. <strong>Marketing Cookies:</strong> Relevant ads, conversion tracking.</p>
+          <h3>3. Third-Party Cookies</h3>
+          <p>Some cookies are placed by Stripe (payment processing), Google Analytics (usage analysis), and social media platforms. We do not control their cookies — refer to their privacy policies.</p>
+          <h3>4. Managing Cookies</h3>
+          <p>You can manage cookies through your browser settings. Disabling essential cookies may affect website functionality including the ability to place orders.</p>
+          <h3>5. Cookie Retention</h3>
+          <p>Session cookies are deleted when you close your browser. Persistent cookies remain for 30 days to 12 months. Analytics cookies are retained for up to 12 months.</p>
+          <h3>6. Updates to This Policy</h3>
+          <p>We may update this Cookie Policy from time to time. Changes will be posted with a new "Last updated" date.</p>
+          <h3>7. Contact</h3>
+          <p>For questions about our use of cookies, contact us at <a href="mailto:support@artistpush.net">support@artistpush.net</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
