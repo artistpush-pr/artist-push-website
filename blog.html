@@ -32,6 +32,16 @@
 </head>
 <body>
 
+  <!-- ════════ PROMO BAR ════════ -->
+  <div class="promo-bar" id="promoBar">
+    <div class="promo-bar-inner">
+      <span class="promo-bar-text"><strong>15% OFF</strong> your first order — use code <span class="promo-bar-code">FIRST15</span></span>
+      <button class="promo-bar-copy" onclick="navigator.clipboard.writeText('FIRST15'); this.textContent='Copied!';">Copy Code</button>
+      <button class="promo-bar-close" onclick="document.getElementById('promoBar').classList.add('hidden'); sessionStorage.setItem('promo_closed','1');" aria-label="Close">&times;</button>
+    </div>
+  </div>
+  <script>if(sessionStorage.getItem('promo_closed')) document.getElementById('promoBar').classList.add('hidden');</script>
+
   <!-- ════════ NAVBAR ════════ -->
   <nav class="navbar">
     <div class="container">
@@ -44,9 +54,9 @@
         <a href="spotify.html">Spotify Promotion</a>
         <a href="soundcloud.html">SoundCloud Promotion</a>
         <a href="blog.html" class="active">Blog</a>
-        <a href="cart.html" class="cart-link">&#128722; Cart <span class="cart-badge">0</span></a>
       </div>
       <div class="navbar-cta">
+        <a href="cart.html" class="btn btn-outline btn-sm" style="padding:8px 14px;"><img class="svg-icon" src="assets/icons/shopping-cart-simple.svg" alt="" style="width:16px;height:16px;vertical-align:middle;filter:brightness(0) invert(1);"> <span class="cart-badge" style="position:static;display:inline-flex;margin-left:2px;">0</span></a>
         <a href="index.html#popular-services" class="btn btn-primary btn-sm">Get Started</a>
         <button class="mobile-toggle" aria-label="Menu">&#9776;</button>
       </div>
@@ -73,14 +83,6 @@
     <div class="container">
       <h1 class="section-title fade-up">Artist Push <span class="green">Blog</span></h1>
       <p class="section-subtitle fade-up">Expert music promotion guides, growth strategies, and industry insights from our team of music marketing professionals.</p>
-      <div class="blog-filters fade-up">
-        <button class="blog-filter-btn active" data-filter="all">All Posts</button>
-        <button class="blog-filter-btn" data-filter="spotify">Spotify Growth</button>
-        <button class="blog-filter-btn" data-filter="soundcloud">SoundCloud</button>
-        <button class="blog-filter-btn" data-filter="playlists">Playlists</button>
-        <button class="blog-filter-btn" data-filter="monetization">Monetization</button>
-        <button class="blog-filter-btn" data-filter="marketing">Marketing</button>
-      </div>
     </div>
   </section>
 
@@ -89,22 +91,19 @@
     <div class="container">
       <a href="article-spotify-algorithm-2026.html" class="blog-featured-card fade-up">
         <div class="blog-featured-image">
-          <div class="blog-featured-placeholder" style="background: linear-gradient(135deg, #1DB954, #064e27);">
-            <span style="font-size: 3rem;">&#127911;</span>
-            <span style="font-size: 1.2rem; font-weight: 700; margin-top: 8px;">FEATURED</span>
-          </div>
+          <img src="assets/blog banners/article1.png" alt="Spotify Algorithm in 2026" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius) 0 0 var(--radius);">
         </div>
         <div class="blog-featured-content">
           <div class="blog-card-meta">
             <span class="blog-card-category">Spotify Growth</span>
             <span class="blog-card-date">March 15, 2026</span>
-            <span class="blog-card-read">12 min read</span>
+            <span class="blog-card-read">9 min read</span>
           </div>
           <h2>How the Spotify Algorithm Works in 2026: The Complete Guide for Independent Artists</h2>
-          <p>Understanding Spotify's recommendation engine is the single most important skill for any independent artist in 2026. Learn exactly how Discovery Weekly, Release Radar, and algorithmic playlists choose which songs to promote — and how to optimize your releases for maximum reach.</p>
+          <p>The algorithm isn't as mystical as you'd hope — it sorts songs by predicted listening time, skip rates, and replay frequency. A practical, non-hype breakdown of what the algorithm actually ranks, which signals move your reach, and how to make release week count.</p>
           <span class="read-more-inline">Read Full Article &#8594;</span>
           <div class="blog-card-author">
-            <div class="blog-author-avatar">DR</div>
+            <img class="blog-author-avatar" src="assets/avatars/Head-of-Music-Strategy.jpg" alt="Daniel Rivera" style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
             <div>
               <div class="blog-author-name">Daniel Rivera</div>
               <div class="blog-author-role">Head of Music Strategy, Artist Push</div>
@@ -115,128 +114,6 @@
     </div>
   </section>
 
-  <!-- ════════ BLOG GRID ════════ -->
-  <section class="section" style="padding-top: 0;">
-    <div class="container">
-      <div class="blog-grid fade-up">
-
-        <!-- Article 2 -->
-        <a href="article-spotify-algorithm-2026.html" class="blog-card" data-category="soundcloud">
-          <div class="blog-card-image" style="background: linear-gradient(135deg, #FF5500, #3d1500);">
-            <span>&#127925;</span>
-          </div>
-          <div class="blog-card-body">
-            <div class="blog-card-meta">
-              <span class="blog-card-category sc-accent">SoundCloud</span>
-              <span class="blog-card-date">March 10, 2026</span>
-            </div>
-            <h3>SoundCloud vs Spotify: Where Should Independent Artists Focus in 2026?</h3>
-            <p>A data-driven comparison of both platforms' monetization, discoverability, and audience engagement features for indie musicians.</p>
-            <div class="blog-card-footer">
-              <span class="blog-card-read">8 min read</span>
-              <span class="blog-card-arrow">&#8594;</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- Article 3 -->
-        <a href="article-spotify-algorithm-2026.html" class="blog-card" data-category="spotify">
-          <div class="blog-card-image" style="background: linear-gradient(135deg, #1DB954, #145c30);">
-            <span>&#128200;</span>
-          </div>
-          <div class="blog-card-body">
-            <div class="blog-card-meta">
-              <span class="blog-card-category">Spotify Growth</span>
-              <span class="blog-card-date">March 5, 2026</span>
-            </div>
-            <h3>From 0 to 10K Monthly Listeners: A Step-by-Step Spotify Growth Blueprint</h3>
-            <p>The exact strategy our team has used to help over 500 artists break through the 10K monthly listener barrier within 90 days.</p>
-            <div class="blog-card-footer">
-              <span class="blog-card-read">15 min read</span>
-              <span class="blog-card-arrow">&#8594;</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- Article 4 -->
-        <a href="article-spotify-algorithm-2026.html" class="blog-card" data-category="playlists">
-          <div class="blog-card-image" style="background: linear-gradient(135deg, #00FF85, #0a3d1f);">
-            <span>&#127926;</span>
-          </div>
-          <div class="blog-card-body">
-            <div class="blog-card-meta">
-              <span class="blog-card-category">Playlists</span>
-              <span class="blog-card-date">February 28, 2026</span>
-            </div>
-            <h3>Playlist Pitching 101: How to Get Your Music on Editorial Playlists</h3>
-            <p>Insider tips on writing compelling pitches, timing your submissions, and building curator relationships that last.</p>
-            <div class="blog-card-footer">
-              <span class="blog-card-read">10 min read</span>
-              <span class="blog-card-arrow">&#8594;</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- Article 5 -->
-        <a href="article-spotify-algorithm-2026.html" class="blog-card" data-category="monetization">
-          <div class="blog-card-image" style="background: linear-gradient(135deg, #8B5CF6, #3b1f6e);">
-            <span>&#128176;</span>
-          </div>
-          <div class="blog-card-body">
-            <div class="blog-card-meta">
-              <span class="blog-card-category">Monetization</span>
-              <span class="blog-card-date">February 20, 2026</span>
-            </div>
-            <h3>How Much Do Spotify Streams Really Pay? 2026 Royalty Breakdown</h3>
-            <p>We analyzed payment data from 200+ artists to give you the most accurate per-stream rates across different listener countries and tiers.</p>
-            <div class="blog-card-footer">
-              <span class="blog-card-read">7 min read</span>
-              <span class="blog-card-arrow">&#8594;</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- Article 6 -->
-        <a href="article-spotify-algorithm-2026.html" class="blog-card" data-category="soundcloud">
-          <div class="blog-card-image" style="background: linear-gradient(135deg, #FF5500, #662200);">
-            <span>&#128640;</span>
-          </div>
-          <div class="blog-card-body">
-            <div class="blog-card-meta">
-              <span class="blog-card-category sc-accent">SoundCloud</span>
-              <span class="blog-card-date">February 15, 2026</span>
-            </div>
-            <h3>SoundCloud Reposts: The Underrated Growth Hack Every Producer Should Use</h3>
-            <p>Why reposts generate 3x more engagement than plays alone, and how to build a repost network that amplifies every release.</p>
-            <div class="blog-card-footer">
-              <span class="blog-card-read">6 min read</span>
-              <span class="blog-card-arrow">&#8594;</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- Article 7 -->
-        <a href="article-spotify-algorithm-2026.html" class="blog-card" data-category="marketing">
-          <div class="blog-card-image" style="background: linear-gradient(135deg, #1DB954, #003319);">
-            <span>&#128161;</span>
-          </div>
-          <div class="blog-card-body">
-            <div class="blog-card-meta">
-              <span class="blog-card-category">Marketing</span>
-              <span class="blog-card-date">February 8, 2026</span>
-            </div>
-            <h3>Pre-Save Campaigns: The Release Strategy That Top Artists Swear By</h3>
-            <p>How pre-save campaigns signal to Spotify's algorithm that your release matters — and the tools you need to set one up for free.</p>
-            <div class="blog-card-footer">
-              <span class="blog-card-read">9 min read</span>
-              <span class="blog-card-arrow">&#8594;</span>
-            </div>
-          </div>
-        </a>
-
-      </div>
-    </div>
-  </section>
 
   <!-- ════════ NEWSLETTER ════════ -->
   <section class="section">
@@ -297,29 +174,6 @@
   <script src="cart.js"></script>
   <script src="script.js"></script>
   <script>
-    // Blog category filters
-    document.querySelectorAll('.blog-filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.blog-filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const filter = btn.dataset.filter;
-        document.querySelectorAll('.blog-card').forEach(card => {
-          if (filter === 'all' || card.dataset.category === filter) {
-            card.style.display = '';
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(12px)';
-            requestAnimationFrame(() => {
-              card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-              card.style.opacity = '1';
-              card.style.transform = 'translateY(0)';
-            });
-          } else {
-            card.style.display = 'none';
-          }
-        });
-      });
-    });
-
     // Scroll-to-top visibility
     const scrollBtn = document.querySelector('.scroll-top');
     if (scrollBtn) {

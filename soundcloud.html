@@ -22,6 +22,16 @@
 </head>
 <body>
 
+  <!-- ════════ PROMO BAR ════════ -->
+  <div class="promo-bar" id="promoBar">
+    <div class="promo-bar-inner">
+      <span class="promo-bar-text"><strong>15% OFF</strong> your first order — use code <span class="promo-bar-code">FIRST15</span></span>
+      <button class="promo-bar-copy" onclick="navigator.clipboard.writeText('FIRST15'); this.textContent='Copied!';">Copy Code</button>
+      <button class="promo-bar-close" onclick="document.getElementById('promoBar').classList.add('hidden'); sessionStorage.setItem('promo_closed','1');" aria-label="Close">&times;</button>
+    </div>
+  </div>
+  <script>if(sessionStorage.getItem('promo_closed')) document.getElementById('promoBar').classList.add('hidden');</script>
+
   <!-- ════════ NAVBAR ════════ -->
   <nav class="navbar">
     <div class="container">
@@ -35,9 +45,9 @@
         <a href="soundcloud.html" class="active">SoundCloud Promotion</a>
         <a href="index.html#testimonials">Testimonials</a>
         <a href="blog.html">Blog</a>
-        <a href="cart.html" class="cart-link">&#128722; Cart <span class="cart-badge">0</span></a>
       </div>
       <div class="navbar-cta">
+        <a href="cart.html" class="btn btn-outline btn-sm" style="padding:8px 14px;"><img class="svg-icon" src="assets/icons/shopping-cart-simple.svg" alt="" style="width:16px;height:16px;vertical-align:middle;filter:brightness(0) invert(1);"> <span class="cart-badge" style="position:static;display:inline-flex;margin-left:2px;">0</span></a>
         <a href="#packages" class="btn btn-primary btn-sm">Get Started</a>
         <button class="mobile-toggle" aria-label="Menu">&#9776;</button>
       </div>
@@ -152,15 +162,14 @@
   <section id="organic" class="service-category sc-section">
     <div class="container">
       <div class="category-header fade-up">
-        <div class="category-icon sc" style="background: rgba(255, 85, 0, 0.1); color: #FF5500;">&#127793;</div>
+        <div class="category-icon sc" style="background: rgba(255, 85, 0, 0.1); color: #FF5500;"><img class="svg-icon" src="assets/icons/lego.svg" alt=""></div>
         <h2>Organic Promotion Packages</h2>
         <p>Sustained, community-driven promotion for natural growth.</p>
       </div>
       <div class="services-grid fade-up">
 
         <div class="selector-card">
-          <h3>SoundCloud Organic Push</h3>
-          <p class="desc">Sustained organic promotion over your chosen time period (1–40 days).</p>
+          <h3 style="display:none;">SoundCloud Organic Push</h3>
           <div class="select-group">
             <label>Duration (Days)</label>
             <div class="qty-pills">
@@ -180,8 +189,7 @@
         </div>
 
         <div class="selector-card">
-          <h3>Organic Pack Small</h3>
-          <p class="desc">10 Reposts + 10 Likes + 10 Comments — great for quick organic engagement.</p>
+          <h3 style="display:none;">Organic Pack Small</h3>
           <div class="select-group">
             <label>Quantity</label>
             <div class="qty-pills">
@@ -199,8 +207,7 @@
         </div>
 
         <div class="selector-card">
-          <h3>Organic Pack Large</h3>
-          <p class="desc">50 Reposts + 50 Likes + 50 Comments — comprehensive organic boost.</p>
+          <h3 style="display:none;">Organic Pack Large</h3>
           <div class="select-group">
             <label>Quantity</label>
             <div class="qty-pills">
@@ -225,15 +232,14 @@
   <section id="plays" class="service-category sc-section">
     <div class="container">
       <div class="category-header fade-up">
-        <div class="category-icon sc" style="background: rgba(255, 85, 0, 0.1); color: #FF5500;">&#9654;</div>
+        <div class="category-icon sc" style="background: rgba(255, 85, 0, 0.1); color: #FF5500;"><img class="svg-icon" src="assets/icons/fast-forward.svg" alt=""></div>
         <h2>SoundCloud Plays</h2>
         <p>Boost your play count with worldwide or USA-targeted plays.</p>
       </div>
       <div class="services-grid fade-up">
 
         <div class="selector-card">
-          <h3>SoundCloud Plays</h3>
-          <p class="desc">Boost your play count with worldwide or USA-targeted plays.</p>
+          <h3 style="display:none;">SoundCloud Plays</h3>
           <div class="select-group">
             <label>Service Type</label>
             <select class="custom-select">
@@ -268,15 +274,14 @@
   <section id="followers" class="service-category sc-section">
     <div class="container">
       <div class="category-header fade-up">
-        <div class="category-icon sc" style="background: rgba(255, 85, 0, 0.1); color: #FF5500;">&#128101;</div>
+        <div class="category-icon sc" style="background: rgba(255, 85, 0, 0.1); color: #FF5500;"><img class="svg-icon" src="assets/icons/lego-smiley (1).svg" alt=""></div>
         <h2>SoundCloud Followers</h2>
         <p>Build your audience with worldwide or real followers.</p>
       </div>
       <div class="services-grid fade-up">
 
         <div class="selector-card">
-          <h3>SoundCloud Followers</h3>
-          <p class="desc">Build your SoundCloud following with worldwide or real followers.</p>
+          <h3 style="display:none;">SoundCloud Followers</h3>
           <div class="select-group">
             <label>Service Type</label>
             <select class="custom-select">
@@ -311,15 +316,14 @@
   <section id="likes" class="service-category sc-section">
     <div class="container">
       <div class="category-header fade-up">
-        <div class="category-icon sc" style="background: rgba(255, 85, 0, 0.1); color: #FF5500;">&#10084;</div>
+        <div class="category-icon sc" style="background: rgba(255, 85, 0, 0.1); color: #FF5500;"><img class="svg-icon" src="assets/icons/record.svg" alt=""></div>
         <h2>SoundCloud Likes</h2>
         <p>Increase social proof and visibility with real likes.</p>
       </div>
       <div class="services-grid fade-up">
 
         <div class="selector-card">
-          <h3>SoundCloud Likes</h3>
-          <p class="desc">Increase your like count to boost social proof and visibility.</p>
+          <h3 style="display:none;">SoundCloud Likes</h3>
           <div class="select-group">
             <label>Service Type</label>
             <select class="custom-select">
@@ -355,15 +359,14 @@
   <section id="reposts" class="service-category sc-section">
     <div class="container">
       <div class="category-header fade-up">
-        <div class="category-icon sc" style="background: rgba(255, 85, 0, 0.1); color: #FF5500;">&#128260;</div>
+        <div class="category-icon sc" style="background: rgba(255, 85, 0, 0.1); color: #FF5500;"><img class="svg-icon" src="assets/icons/repeat.svg" alt=""></div>
         <h2>SoundCloud Reposts</h2>
         <p>Spread your tracks to new audiences through repost networks.</p>
       </div>
       <div class="services-grid fade-up">
 
         <div class="selector-card">
-          <h3>SoundCloud Reposts</h3>
-          <p class="desc">Get your tracks reposted to reach new audiences.</p>
+          <h3 style="display:none;">SoundCloud Reposts</h3>
           <div class="select-group">
             <label>Service Type</label>
             <select class="custom-select">
@@ -399,15 +402,14 @@
   <section id="comments" class="service-category sc-section">
     <div class="container">
       <div class="category-header fade-up">
-        <div class="category-icon sc" style="background: rgba(255, 85, 0, 0.1); color: #FF5500;">&#128172;</div>
+        <div class="category-icon sc" style="background: rgba(255, 85, 0, 0.1); color: #FF5500;"><img class="svg-icon" src="assets/icons/dots-three-outline.svg" alt=""></div>
         <h2>SoundCloud Comments</h2>
         <p>Get genuine, music-relevant comments on your tracks.</p>
       </div>
       <div class="services-grid fade-up">
 
         <div class="selector-card">
-          <h3>SoundCloud Comments</h3>
-          <p class="desc">Get real, relevant comments on your tracks to boost engagement.</p>
+          <h3 style="display:none;">SoundCloud Comments</h3>
           <div class="select-group">
             <label>Quantity</label>
             <div class="qty-pills">
@@ -530,7 +532,7 @@
           <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
           <div class="testimonial-text">"Got the Organic Pack Large for my new track and it made a huge difference. Real comments from people who actually listened. My track ended up trending in Drum &amp; Bass."</div>
           <div class="testimonial-author">
-            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #FF5500, #FF8800);">BK</div>
+            <img class="testimonial-avatar" src="assets/avatars/DnB-Producer.jpg" alt="Ben K.">
             <div><div class="testimonial-name">Ben K.</div><div class="testimonial-role">DnB Producer</div></div>
           </div>
         </div>
@@ -538,7 +540,7 @@
           <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
           <div class="testimonial-text">"The SC Pro package was exactly what I needed for my EP release. 50K plays split across 5 tracks with real follower growth. Incredible value."</div>
           <div class="testimonial-author">
-            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #FF5500, #FF8800);">DP</div>
+            <img class="testimonial-avatar" src="assets/avatars/House-Music-DJ.jpg" alt="Diana P.">
             <div><div class="testimonial-name">Diana P.</div><div class="testimonial-role">House Music DJ</div></div>
           </div>
         </div>
@@ -546,7 +548,7 @@
           <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
           <div class="testimonial-text">"Reposts from the Real Reposts service actually brought in new followers who are still engaging with my latest uploads months later. Quality service."</div>
           <div class="testimonial-author">
-            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #FF5500, #FF8800);">MC</div>
+            <img class="testimonial-avatar" src="assets/avatars/Lo-Fi-Producer.jpg" alt="Mike C.">
             <div><div class="testimonial-name">Mike C.</div><div class="testimonial-role">Lo-Fi Producer</div></div>
           </div>
         </div>
@@ -580,6 +582,9 @@
           <div class="faq-answer"><div class="faq-answer-inner">Yes, our services work with all SoundCloud content types including free tracks, Go, and Go+ content. Simply provide the track URL and we'll handle the rest.</div></div>
         </div>
       </div>
+      <div style="text-align: center; margin-top: 40px;" class="fade-up">
+        <a href="#" onclick="openModal('modal-faq'); return false;" class="btn btn-primary">View All FAQ</a>
+      </div>
     </div>
   </section>
 
@@ -611,9 +616,8 @@
           <div class="footer-links">
             <a href="#">About Us</a>
             <a href="index.html#testimonials">Testimonials</a>
-            <a href="index.html#faq">FAQ</a>
+            <a href="#" onclick="openModal('modal-faq'); return false;">FAQ</a>
             <a href="blog.html">Blog</a>
-            <a href="#">Contact</a>
           </div>
         </div>
         <div>
@@ -628,11 +632,6 @@
       </div>
       <div class="footer-bottom">
         <span>&copy; 2026 Artist Push. All rights reserved.</span>
-        <div class="footer-social">
-          <a href="#" aria-label="Instagram">IG</a>
-          <a href="#" aria-label="Twitter">X</a>
-          <a href="#" aria-label="YouTube">YT</a>
-        </div>
       </div>
     </div>
   </footer>
@@ -820,6 +819,112 @@
           <div class="trust-badge"><span class="badge-icon">&#10003;</span> 24/7 Support</div>
           <div class="trust-badge"><span class="badge-icon">&#10003;</span> Refund Guarantee</div>
           <div class="trust-badge"><span class="badge-icon">&#10003;</span> Secure Payment</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ Full Modal -->
+  <div class="modal-overlay" id="modal-faq">
+    <div class="modal policy-modal">
+      <div class="modal-header">
+        <h2>Frequently Asked Questions</h2>
+        <button class="modal-close" onclick="closeModal('modal-faq')">&#10005;</button>
+      </div>
+      <div class="modal-body">
+        <div class="policy-content">
+          <p class="policy-meta">Artist Push &middot; Help Center</p>
+
+          <h3>General</h3>
+
+          <h4>What is Artist Push?</h4>
+          <p>Artist Push is a professional music promotion platform that helps independent artists, labels, and producers grow their presence on Spotify and SoundCloud. We offer a range of services including plays, followers, saves, playlist placements, and bundled promotion packages — all delivered through organic, platform-safe methods.</p>
+
+          <h4>Who is Artist Push for?</h4>
+          <p>Our services are designed for independent musicians, emerging artists, DJs, producers, podcasters, and record labels who want to boost their streaming numbers and reach a wider audience. Whether you are releasing your first single or managing a full roster of talent, we have packages to fit every stage of growth.</p>
+
+          <h4>Is this service legitimate?</h4>
+          <p>Yes. We use real promotional methods including playlist placements, social media marketing, algorithmic targeting, and community-driven promotion. All engagement comes from genuine accounts and organic-looking activity. We have promoted over 10,000 campaigns since launch without a single account penalty.</p>
+
+          <h3>Orders &amp; Delivery</h3>
+
+          <h4>How do I place an order?</h4>
+          <p>Simply choose the service you need on our Spotify or SoundCloud promotion pages, select a quantity, and click "Add to Cart." Then proceed to checkout, enter your track or profile URL, and complete payment. Your order will begin processing within 1–2 business days.</p>
+
+          <h4>How long does delivery take?</h4>
+          <p>Delivery times vary by service type and order size. Most small to medium orders start within 1–2 days and complete within 3–5 days. Larger campaigns (50K+ plays or bundled packages) may take 7–14 days for gradual, natural-looking delivery. You can track progress in your order confirmation email.</p>
+
+          <h4>Can I track my order?</h4>
+          <p>Yes. After placing your order, you will receive a confirmation email with your order details. For real-time updates or questions about delivery status, you can contact our support team anytime at support@artistpush.net.</p>
+
+          <h4>What information do I need to provide?</h4>
+          <p>You only need to provide a valid, publicly accessible Spotify or SoundCloud URL for the track, album, playlist, or profile you want to promote. We never ask for your account password or login credentials.</p>
+
+          <h4>Can I split a package across multiple tracks?</h4>
+          <p>In most cases, yes. After placing your order, contact our support team and we can distribute plays, followers, or other services across multiple tracks or profiles. Some restrictions may apply to certain bundle packages.</p>
+
+          <h3>Safety &amp; Account Protection</h3>
+
+          <h4>Is this safe for my Spotify or SoundCloud account?</h4>
+          <p>Absolutely. Account safety is our top priority. We use gradual delivery, organic promotional methods, and real engagement patterns that mirror natural listener behavior. Our methods comply with platform guidelines and we have maintained a zero-penalty record across all campaigns.</p>
+
+          <h4>Will my account get flagged or banned?</h4>
+          <p>No. We carefully calibrate delivery speeds and engagement patterns to avoid triggering platform algorithms. Our promotion looks and behaves like natural, organic growth. We have promoted thousands of artists without a single account issue.</p>
+
+          <h4>Do you need my login or password?</h4>
+          <p>Never. We only require the public URL of the track, playlist, or profile you want to promote. We will never ask for your Spotify for Artists, SoundCloud, or any other account credentials.</p>
+
+          <h3>Payments &amp; Pricing</h3>
+
+          <h4>What payment methods do you accept?</h4>
+          <p>We accept all major credit and debit cards (Visa, Mastercard, American Express) processed securely through Stripe. Cryptocurrency payments are also available for select packages. All transactions are encrypted and PCI-compliant.</p>
+
+          <h4>Are there any hidden fees?</h4>
+          <p>No. The price you see at checkout is the final price. We do not charge setup fees, subscription fees, or hidden surcharges. Prices include full delivery of the selected service.</p>
+
+          <h4>Do you offer discounts for bulk orders?</h4>
+          <p>Yes. Larger quantity tiers come with built-in volume discounts — the more you order, the lower the per-unit cost. For custom enterprise or label packages, contact our team at support@artistpush.net for a personalized quote.</p>
+
+          <h3>Refunds &amp; Guarantees</h3>
+
+          <h4>Do you offer refunds?</h4>
+          <p>Yes. If we are unable to deliver your order in full, you will receive a proportional or full refund. Refund requests must be submitted within 30 days of order placement. Refunds are not available for fully delivered orders, natural count fluctuations, or incorrect URLs you provided. See our full Refund Policy for details.</p>
+
+          <h4>What if the numbers drop after delivery?</h4>
+          <p>Minor fluctuations in play counts, followers, or saves are normal on all streaming platforms — this applies to both organic and promoted engagement. However, if you experience a significant drop within the first 30 days of delivery, contact our support team and we will review your case and offer a top-up or partial refund where applicable.</p>
+
+          <h4>Is there a money-back guarantee?</h4>
+          <p>We guarantee delivery of the service you ordered. If we fail to deliver the agreed-upon quantity, you are entitled to a refund for the undelivered portion. We stand behind the quality of our services and work to resolve any issues promptly.</p>
+
+          <h3>Spotify-Specific Questions</h3>
+
+          <h4>Will Spotify plays count toward my royalties?</h4>
+          <p>Our Premium Royalty Plays service is specifically designed to generate royalty-eligible streams. Standard plays focus on boosting your visible stream count and algorithmic signals. Check the service description for each play type to see royalty eligibility details.</p>
+
+          <h4>Can playlist placement help my algorithmic reach?</h4>
+          <p>Yes. When your track is placed in active playlists with engaged listeners, Spotify's algorithm recognizes the increased engagement (plays, saves, completion rate) and is more likely to recommend your music in Discover Weekly, Release Radar, and related artist radio stations.</p>
+
+          <h4>What is the difference between plays, saves, and monthly listeners?</h4>
+          <p>Plays increase your total stream count for a specific track. Saves (library adds) signal to Spotify that listeners want to hear your music again, which strongly influences algorithmic recommendations. Monthly listeners reflect the total number of unique users who played your music in the last 28 days — a key metric for labels, playlist curators, and booking agents.</p>
+
+          <h3>SoundCloud-Specific Questions</h3>
+
+          <h4>Do SoundCloud plays come from real accounts?</h4>
+          <p>Yes. Our SoundCloud promotion uses real accounts with genuine listening activity. We never use bots or fake profiles. The engagement patterns look natural and contribute to your track's visibility in SoundCloud's trending charts and genre feeds.</p>
+
+          <h4>Can reposts help my track trend on SoundCloud?</h4>
+          <p>Absolutely. Reposts are one of the strongest engagement signals on SoundCloud. When your track gets reposted by active accounts, it appears in the feeds of their followers, creating a chain reaction of organic discovery. Combined with plays and likes, reposts can push your track into SoundCloud's trending charts.</p>
+
+          <h4>What is the Organic Pack and how does it work?</h4>
+          <p>The Organic Pack combines plays, likes, and followers into a single bundle designed to create a natural-looking engagement pattern. Instead of boosting just one metric, the pack raises all key signals simultaneously — the way real viral growth looks. This makes your promotion harder to distinguish from genuine organic traction.</p>
+
+          <h3>Support</h3>
+
+          <h4>How can I contact support?</h4>
+          <p>You can reach our support team at <a href="mailto:support@artistpush.net">support@artistpush.net</a>. We aim to respond to all inquiries within 24 hours. For order-related issues, please include your order number in the subject line for faster assistance.</p>
+
+          <h4>Do you offer custom promotion campaigns?</h4>
+          <p>Yes. For artists, labels, or managers with specific goals or larger budgets, we offer custom campaign packages tailored to your needs. Contact us at support@artistpush.net with details about your release, goals, and budget, and we will create a personalized promotion plan.</p>
         </div>
       </div>
     </div>

@@ -9,6 +9,16 @@
 </head>
 <body>
 
+  <!-- ════════ PROMO BAR ════════ -->
+  <div class="promo-bar" id="promoBar">
+    <div class="promo-bar-inner">
+      <span class="promo-bar-text"><strong>15% OFF</strong> your first order — use code <span class="promo-bar-code">FIRST15</span></span>
+      <button class="promo-bar-copy" onclick="navigator.clipboard.writeText('FIRST15'); this.textContent='Copied!';">Copy Code</button>
+      <button class="promo-bar-close" onclick="document.getElementById('promoBar').classList.add('hidden'); sessionStorage.setItem('promo_closed','1');" aria-label="Close">&times;</button>
+    </div>
+  </div>
+  <script>if(sessionStorage.getItem('promo_closed')) document.getElementById('promoBar').classList.add('hidden');</script>
+
   <!-- ════════ NAVBAR ════════ -->
   <nav class="navbar">
     <div class="container">
@@ -21,13 +31,9 @@
         <a href="spotify.html">Spotify Promotion</a>
         <a href="soundcloud.html">SoundCloud Promotion</a>
         <a href="blog.html">Blog</a>
-        <a href="cart.html" class="cart-link active">
-          &#128722; Cart
-          <span class="cart-badge">0</span>
-        </a>
       </div>
       <div class="navbar-cta">
-        <a href="cart.html" class="btn btn-primary btn-sm">&#128722; Cart <span class="cart-badge" style="position:static;display:inline-flex;margin-left:4px;">0</span></a>
+        <a href="cart.html" class="btn btn-primary btn-sm"><img class="svg-icon" src="assets/icons/shopping-cart-simple.svg" alt="" style="width:16px;height:16px;vertical-align:middle;filter:brightness(0);"> Cart <span class="cart-badge" style="position:static;display:inline-flex;margin-left:4px;">0</span></a>
         <button class="mobile-toggle" aria-label="Menu">&#9776;</button>
       </div>
     </div>
@@ -59,11 +65,10 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" style="padding-top:8px;">
     <div class="container">
       <!-- Empty state -->
       <div id="cart-empty" class="cart-empty" style="display: none;">
-        <div class="cart-empty-icon">&#128722;</div>
         <h2>Your cart is empty</h2>
         <p>Browse our promotion services and add packages to your cart.</p>
         <div style="display:flex; gap:12px; justify-content:center;">
@@ -90,9 +95,25 @@
         </table>
 
         <div class="cart-summary">
+          <!-- Promo Code Field -->
+          <div class="promo-input-group" id="promo-input-group">
+            <input type="text" id="promo-input" class="promo-input" placeholder="Promo code" autocomplete="off" spellcheck="false">
+            <button class="btn btn-primary promo-apply-btn" id="promo-apply-btn" onclick="applyPromo()">Apply</button>
+          </div>
+          <div id="promo-message" class="promo-message"></div>
+          <!-- Applied promo (hidden by default) -->
+          <div id="promo-applied" class="promo-applied" style="display:none;">
+            <span id="promo-applied-text"></span>
+            <button class="promo-remove" onclick="removePromo()">&times;</button>
+          </div>
+
           <div class="cart-summary-row">
             <span>Subtotal</span>
             <span id="cart-subtotal">$0.00</span>
+          </div>
+          <div class="cart-summary-row" id="discount-row" style="display:none;">
+            <span id="discount-label">Discount</span>
+            <span id="discount-amount" class="green">-$0.00</span>
           </div>
           <div class="cart-summary-row">
             <span>Processing fee</span>
@@ -118,11 +139,6 @@
     <div class="container">
       <div class="footer-bottom" style="border-top:none;padding-top:0;">
         <span>&copy; 2026 Artist Push. All rights reserved.</span>
-        <div class="footer-social">
-          <a href="#" aria-label="Instagram">IG</a>
-          <a href="#" aria-label="Twitter">X</a>
-          <a href="#" aria-label="YouTube">YT</a>
-        </div>
       </div>
     </div>
   </footer>
@@ -130,6 +146,66 @@
   <script src="cart.js"></script>
   <script src="script.js"></script>
   <script>
+    // ─── Promo codes registry ───
+    const PROMO_CODES = {
+      'FIRST15': { percent: 15, label: '15% off first order', minItems: 1 },
+      'DOUBLE5': { percent: 5, label: '5% off (2+ items)', minItems: 2 },
+    };
+
+    let activePromo = null;
+
+    // Restore promo from session
+    (function() {
+      const saved = sessionStorage.getItem('active_promo');
+      if (saved) {
+        const code = saved.toUpperCase();
+        if (PROMO_CODES[code]) activePromo = code;
+      }
+    })();
+
+    function applyPromo() {
+      const input = document.getElementById('promo-input');
+      const msg = document.getElementById('promo-message');
+      const code = input.value.trim().toUpperCase();
+
+      if (!code) {
+        msg.textContent = 'Please enter a promo code.';
+        msg.className = 'promo-message error';
+        return;
+      }
+
+      const promo = PROMO_CODES[code];
+      if (!promo) {
+        msg.textContent = 'Invalid promo code. Please try again.';
+        msg.className = 'promo-message error';
+        input.value = '';
+        return;
+      }
+
+      const itemCount = Cart.getCount();
+      if (itemCount < promo.minItems) {
+        msg.textContent = `This code requires at least ${promo.minItems} item${promo.minItems > 1 ? 's' : ''} in your cart.`;
+        msg.className = 'promo-message error';
+        return;
+      }
+
+      // Apply
+      activePromo = code;
+      sessionStorage.setItem('active_promo', code);
+      msg.textContent = '';
+      msg.className = 'promo-message';
+      input.value = '';
+      renderCart();
+    }
+
+    function removePromo() {
+      activePromo = null;
+      sessionStorage.removeItem('active_promo');
+      document.getElementById('promo-message').textContent = '';
+      document.getElementById('promo-message').className = 'promo-message';
+      renderCart();
+    }
+
     function renderCart() {
       const items = Cart.getItems();
       const emptyEl = document.getElementById('cart-empty');
@@ -139,6 +215,8 @@
       if (items.length === 0) {
         emptyEl.style.display = 'block';
         contentEl.style.display = 'none';
+        activePromo = null;
+        sessionStorage.removeItem('active_promo');
         return;
       }
 
@@ -167,8 +245,43 @@
         </tr>
       `).join('');
 
-      const total = Cart.getTotal();
-      document.getElementById('cart-subtotal').textContent = '$' + total.toFixed(2);
+      const subtotal = Cart.getTotal();
+      document.getElementById('cart-subtotal').textContent = '$' + subtotal.toFixed(2);
+
+      // Discount logic
+      const discountRow = document.getElementById('discount-row');
+      const promoApplied = document.getElementById('promo-applied');
+      const promoInputGroup = document.getElementById('promo-input-group');
+      let discount = 0;
+
+      // Validate promo still meets requirements
+      if (activePromo && PROMO_CODES[activePromo]) {
+        const promo = PROMO_CODES[activePromo];
+        if (Cart.getCount() < promo.minItems) {
+          activePromo = null;
+          sessionStorage.removeItem('active_promo');
+        }
+      }
+
+      if (activePromo && PROMO_CODES[activePromo]) {
+        const promo = PROMO_CODES[activePromo];
+        discount = subtotal * (promo.percent / 100);
+
+        discountRow.style.display = 'flex';
+        document.getElementById('discount-label').textContent = `Discount (${activePromo})`;
+        document.getElementById('discount-amount').textContent = '-$' + discount.toFixed(2);
+
+        promoApplied.style.display = 'flex';
+        document.getElementById('promo-applied-text').innerHTML =
+          `<strong>${activePromo}</strong> — ${promo.label} (-${promo.percent}%)`;
+        promoInputGroup.style.display = 'none';
+      } else {
+        discountRow.style.display = 'none';
+        promoApplied.style.display = 'none';
+        promoInputGroup.style.display = 'flex';
+      }
+
+      const total = subtotal - discount;
       document.getElementById('cart-total').textContent = '$' + total.toFixed(2);
     }
 
@@ -189,6 +302,11 @@
       Cart.removeItem(idx);
       renderCart();
     }
+
+    // Enter key to apply promo
+    document.getElementById('promo-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') applyPromo();
+    });
 
     renderCart();
     window.addEventListener('cart-updated', renderCart);
