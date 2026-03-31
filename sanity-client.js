@@ -19,6 +19,30 @@ function sanityQuery(query) {
     });
 }
 
+/* ── Icon mapping: Sanity icon field → local SVG file ── */
+var PLAYLIST_ICON_MAP = {
+  '🎧': 'headphones',
+  '⚡': 'lightning',
+  '🎵': 'vinyl-record',
+  '👻': 'ghost',
+  '🔥': 'star',
+  '⭐': 'star',
+  '📻': 'radio',
+  '🖼': 'headphones',
+  '🖼️': 'headphones',
+  'headphones': 'headphones',
+  'lightning': 'lightning',
+  'vinyl-record': 'vinyl-record',
+  'ghost': 'ghost',
+  'star': 'star',
+  'radio': 'radio',
+};
+
+function getPlaylistIconHtml(icon) {
+  var name = PLAYLIST_ICON_MAP[icon] || PLAYLIST_ICON_MAP[(icon || '').trim()] || 'headphones';
+  return '<img class="svg-icon" src="assets/icons/' + name + '.svg?v=2" alt="">';
+}
+
 /* ── Featured Playlists ── */
 function loadFeaturedPlaylists() {
   const grid = document.querySelector('.playlist-grid');
@@ -30,7 +54,7 @@ function loadFeaturedPlaylists() {
 
       grid.innerHTML = playlists.map(function(p) {
         return '<div class="playlist-card">' +
-          '<div class="playlist-card-icon">' + p.icon + '</div>' +
+          '<div class="playlist-card-icon">' + getPlaylistIconHtml(p.icon) + '</div>' +
           '<h4>' + escapeHtml(p.title) + '</h4>' +
           '<div class="meta">' + escapeHtml(p.likes) + ' &middot; ' + escapeHtml(p.genre) + '</div>' +
           '<div class="playlist-price">$' + p.price + '</div>' +
