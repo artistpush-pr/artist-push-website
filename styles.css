@@ -3439,3 +3439,257 @@ select:focus-visible,
   .email-popup-form { flex-direction: column; }
   .footer-newsletter-form { flex-direction: column; }
 }
+
+/* ═══════════════════════════════════════════
+   MOBILE RESPONSIVE — Full Adaptation
+   Breakpoints: 768px / 480px / 375px
+   ═══════════════════════════════════════════ */
+
+/* ── Tablet & Small Desktop (max-width: 768px) ── */
+@media (max-width: 768px) {
+  /* Hero */
+  .hero { padding: 100px 0 40px; }
+  .hero p { margin-bottom: 28px; }
+  .hero-buttons .btn { width: 100%; max-width: 320px; }
+
+  /* Page hero */
+  .page-hero { padding: 90px 0 36px; }
+  .page-hero h1 { font-size: 1.8rem; }
+
+  /* Platform blocks */
+  .platform-block { padding: 28px; }
+  .platform-block h3 { font-size: 1.3rem; }
+  .platform-block p { font-size: 0.9rem; }
+
+  /* Stats */
+  .stat-card { padding: 28px 16px; }
+  .stat-number { font-size: 2rem; }
+
+  /* Footer */
+  .footer-grid { gap: 24px; }
+
+  /* Cart notification */
+  .cart-notification { right: 16px; left: 16px; }
+
+  /* Selector cards */
+  .selector-card { padding: 20px; }
+
+  /* Featured playlists */
+  .featured-playlists { padding: 32px 20px; }
+  .playlist-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .playlist-card { padding: 16px; }
+
+  /* How it works */
+  .how-step { padding: 24px 16px; }
+  .step-number { width: 48px; height: 48px; font-size: 1rem; }
+
+  /* Packages */
+  .package-card { padding: 24px; }
+
+  /* Breadcrumb */
+  .breadcrumb { padding-top: 80px; font-size: 0.8rem; }
+}
+
+/* ── Mobile (max-width: 480px) ── */
+@media (max-width: 480px) {
+  /* General */
+  .section { padding: 24px 0; }
+  .section-title { font-size: 1.5rem; margin-bottom: 8px; }
+  .section-subtitle { font-size: 0.85rem; }
+
+  /* Hero */
+  .hero { padding: 88px 0 32px; }
+  .hero h1 { font-size: 1.9rem; }
+  .hero p { font-size: 0.9rem; margin-bottom: 24px; }
+  .hero-image img { max-width: 300px; }
+  .hero-badge { font-size: 0.75rem; padding: 6px 14px; }
+  .hero-buttons .btn { padding: 14px 28px; font-size: 0.95rem; }
+
+  /* Page hero */
+  .page-hero { padding: 80px 0 28px; }
+  .page-hero h1 { font-size: 1.5rem; }
+
+  /* Navbar */
+  .navbar-cta .btn { padding: 8px 14px; font-size: 0.8rem; }
+
+  /* Platform blocks */
+  .platform-block { padding: 20px; }
+  .platform-block h3 { font-size: 1.15rem; }
+  .platform-block p { font-size: 0.85rem; line-height: 1.6; }
+
+  /* Stats */
+  .stat-card { padding: 20px 12px; }
+  .stat-number { font-size: 1.6rem; }
+  .stat-label { font-size: 0.8rem; }
+  .stat-icon { width: 48px; height: 48px; margin-bottom: 12px; }
+  .stat-icon img.svg-icon { width: 24px; height: 24px; }
+
+  /* Testimonials */
+  .testimonial-card { padding: 18px; }
+  .testimonial-text { font-size: 0.85rem; }
+  .testimonial-stars { font-size: 0.9rem; }
+
+  /* FAQ */
+  .faq-question { padding: 14px 16px; font-size: 0.9rem; }
+  .faq-answer-inner { padding: 0 16px 14px; font-size: 0.85rem; }
+
+  /* Service cards / Selector cards */
+  .selector-card { padding: 16px; }
+  .selector-card .price-current { font-size: 1.3rem; }
+  .custom-select { font-size: 0.85rem; padding: 8px 10px; }
+  .qty-pills { gap: 4px; flex-wrap: wrap; }
+  .qty-pill { padding: 6px 10px; font-size: 0.75rem; }
+
+  /* Carousel */
+  .carousel-track .service-card { min-width: calc(100vw - 64px); max-width: calc(100vw - 64px); }
+
+  /* Featured playlists */
+  .featured-playlists { padding: 24px 16px; border-radius: 12px; }
+  .featured-playlists-header h3 { font-size: 1.2rem; }
+  .playlist-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .playlist-card { padding: 12px; }
+  .playlist-card h4 { font-size: 0.85rem; }
+  .playlist-price { font-size: 0.95rem; }
+  .playlist-card .btn-sm { padding: 8px 16px; font-size: 0.78rem; }
+  .playlist-card-icon { width: 36px; height: 36px; border-radius: 8px; }
+  .playlist-card-icon img.svg-icon { width: 18px; height: 18px; }
+
+  /* Packages */
+  .package-card { padding: 20px; }
+  .package-name { font-size: 1rem; }
+  .package-price { font-size: 1.3rem; }
+  .package-features li { font-size: 0.85rem; }
+
+  /* How it works */
+  .how-step { padding: 18px 12px; }
+  .how-step h3 { font-size: 0.9rem; }
+  .how-step p { font-size: 0.8rem; }
+  .step-number { width: 44px; height: 44px; font-size: 0.95rem; }
+
+  /* Cart table */
+  .cart-table th { font-size: 0.7rem; padding: 8px; }
+  .cart-table td { padding: 10px 8px; font-size: 0.82rem; }
+  .cart-item-info h4 { font-size: 0.85rem; }
+  .cart-item-info .meta { font-size: 0.7rem; }
+  .qty-input-group .qty-btn { width: 28px; height: 28px; }
+  .qty-input { width: 40px !important; font-size: 0.8rem; }
+
+  /* Cart summary */
+  .cart-summary { padding: 20px; }
+  .cart-summary-row { font-size: 0.9rem; }
+
+  /* Checkout */
+  .checkout-form-section { padding: 20px; }
+  .form-group label { font-size: 0.8rem; }
+  .form-input { padding: 10px 12px; font-size: 16px; }
+  .checkout-item { font-size: 0.85rem; }
+
+  /* CTA block */
+  .cta-block { padding: 32px 20px; border-radius: 16px; }
+  .cta-block h2 { font-size: 1.4rem; }
+  .cta-block p { font-size: 0.85rem; }
+  .cta-block-buttons { gap: 12px; }
+  .cta-block-buttons .btn { padding: 14px 24px; font-size: 0.9rem; width: 100%; max-width: 280px; }
+
+  /* Footer */
+  .footer { padding: 32px 0 20px; }
+  .footer-grid { gap: 20px; }
+  .footer h4 { font-size: 0.7rem; }
+  .footer-links a { font-size: 0.85rem; padding: 3px 0; }
+  .footer-about p { font-size: 0.82rem; }
+  .footer-newsletter-input { font-size: 0.85rem; }
+
+  /* Email popup */
+  .email-popup { max-width: 92%; padding: 24px 18px; }
+  .email-popup h3 { font-size: 1.15rem; }
+  .email-popup p { font-size: 0.8rem; }
+  .email-popup-badge { font-size: 0.65rem; padding: 4px 10px; }
+  .email-popup-input { font-size: 0.9rem; padding: 10px 14px; }
+
+  /* Breadcrumb */
+  .breadcrumb { padding-top: 70px; font-size: 0.75rem; }
+
+  /* Modal */
+  .modal { width: 96%; margin: 8px; }
+  .modal-header { padding: 14px 16px; }
+  .modal-header h2 { font-size: 1.1rem; }
+  .modal-body { padding: 16px; }
+
+  /* Category headers */
+  .category-header h2 { font-size: 1.4rem; }
+  .category-header p { font-size: 0.85rem; }
+  .category-icon { width: 48px; height: 48px; border-radius: 12px; }
+  .category-icon img.svg-icon { width: 20px; height: 20px; }
+
+  /* SEO block */
+  .seo-details { gap: 20px; }
+  .seo-details h3 { font-size: 1rem; }
+  .seo-details p, .seo-details li { font-size: 0.85rem; }
+
+  /* Blog */
+  .blog-card-content { padding: 16px; }
+  .blog-card-content h3 { font-size: 0.95rem; }
+  .blog-featured-content { padding: 16px; }
+  .blog-featured-content h2 { font-size: 1.1rem; }
+
+  /* Success page */
+  .success-detail-row { font-size: 0.85rem; }
+
+  /* Trust badges */
+  .trust-badges { gap: 12px; }
+  .trust-badge { padding: 12px 16px; font-size: 0.8rem; }
+
+  /* Upsell popup */
+  .upsell-popup { padding: 24px 16px; }
+  .upsell-discount { font-size: 2rem; }
+  .upsell-popup h3 { font-size: 1.1rem; }
+
+  /* Cart notification - full width on mobile */
+  .cart-notification { left: 16px; right: 16px; top: 72px; font-size: 0.82rem; padding: 12px 16px; }
+}
+
+/* ── Small Mobile (max-width: 375px) ── */
+@media (max-width: 375px) {
+  .container { padding: 0 12px; }
+
+  /* Hero */
+  .hero h1 { font-size: 1.6rem; }
+  .hero p { font-size: 0.85rem; }
+  .hero-image img { max-width: 260px; }
+
+  /* Promo bar */
+  .promo-bar-inner { font-size: 0.65rem; padding: 6px 8px; }
+
+  /* Section titles */
+  .section-title { font-size: 1.3rem; }
+  .page-hero h1 { font-size: 1.3rem; }
+
+  /* Playlist grid - single column on very small */
+  .playlist-grid { grid-template-columns: 1fr; }
+
+  /* Stats */
+  .stat-number { font-size: 1.4rem; }
+
+  /* Buttons */
+  .btn-lg { padding: 12px 20px; font-size: 0.88rem; }
+
+  /* Navbar */
+  .navbar-cta .btn { padding: 6px 12px; font-size: 0.75rem; }
+
+  /* Mobile nav */
+  .mobile-nav a { font-size: 1.2rem; }
+
+  /* Platform blocks */
+  .platform-block { padding: 16px; }
+
+  /* CTA block */
+  .cta-block h2 { font-size: 1.2rem; }
+  .cta-block-buttons .btn { padding: 12px 20px; font-size: 0.85rem; }
+
+  /* Email popup */
+  .email-popup { padding: 20px 14px; }
+  .email-popup h3 { font-size: 1rem; }
+
+  /* Footer */
+  .footer-links a { font-size: 0.8rem; }
+}
