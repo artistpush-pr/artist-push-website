@@ -19,28 +19,24 @@ function sanityQuery(query) {
     });
 }
 
-/* ── Icon mapping: Sanity icon field → local SVG file ── */
-var PLAYLIST_ICON_MAP = {
-  '🎧': 'headphones',
-  '⚡': 'lightning',
-  '🎵': 'vinyl-record',
-  '👻': 'ghost',
-  '🔥': 'star',
-  '⭐': 'star',
-  '📻': 'radio',
-  '🖼': 'headphones',
-  '🖼️': 'headphones',
-  'headphones': 'headphones',
-  'lightning': 'lightning',
-  'vinyl-record': 'vinyl-record',
-  'ghost': 'ghost',
-  'star': 'star',
-  'radio': 'radio',
+/* ── Icon mapping: playlist title → local SVG file ── */
+var PLAYLIST_TITLE_ICON_MAP = {
+  'hip hop springboard': 'headphones',
+  'curated "top speed"': 'lightning',
+  'curated top speed': 'lightning',
+  'indie gold collection': 'vinyl-record',
+  'chill vibes daily': 'ghost',
+  'latin heat mix': 'star',
+  'r&b essentials': 'radio',
 };
 
-function getPlaylistIconHtml(icon) {
-  var name = PLAYLIST_ICON_MAP[icon] || PLAYLIST_ICON_MAP[(icon || '').trim()] || 'headphones';
-  return '<img class="svg-icon" src="assets/icons/' + name + '.svg?v=2" alt="">';
+/* Fallback order if title doesn't match */
+var PLAYLIST_ICON_ORDER = ['headphones', 'lightning', 'vinyl-record', 'ghost', 'star', 'radio'];
+
+function getPlaylistIconHtml(title, index) {
+  var key = (title || '').toLowerCase().trim();
+  var name = PLAYLIST_TITLE_ICON_MAP[key] || PLAYLIST_ICON_ORDER[index % PLAYLIST_ICON_ORDER.length] || 'headphones';
+  return '<img class="svg-icon" src="assets/icons/' + name + '.svg?v=3" alt="">';
 }
 
 /* ── Featured Playlists ── */
@@ -52,9 +48,9 @@ function loadFeaturedPlaylists() {
     .then(function(playlists) {
       if (!playlists || playlists.length === 0) return; // keep static fallback
 
-      grid.innerHTML = playlists.map(function(p) {
+      grid.innerHTML = playlists.map(function(p, i) {
         return '<div class="playlist-card">' +
-          '<div class="playlist-card-icon">' + getPlaylistIconHtml(p.icon) + '</div>' +
+          '<div class="playlist-card-icon">' + getPlaylistIconHtml(p.title, i) + '</div>' +
           '<h4>' + escapeHtml(p.title) + '</h4>' +
           '<div class="meta">' + escapeHtml(p.likes) + ' &middot; ' + escapeHtml(p.genre) + '</div>' +
           '<div class="playlist-price">$' + p.price + '</div>' +
