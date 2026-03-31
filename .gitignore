@@ -1,1 +1,19 @@
-assets/icons/*\ *
+# Environment variables (contains secrets!)
+.env
+.env.local
+.env.production
+
+# Dependencies
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# IDE
+.vscode/
+.idea/

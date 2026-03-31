@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cart — Artist Push</title>
   <link rel="stylesheet" href="styles.css">
@@ -234,12 +238,14 @@
       emptyEl.style.display = 'none';
       contentEl.style.display = 'block';
 
+      function esc(str) { const d = document.createElement('div'); d.textContent = str || ''; return d.innerHTML; }
+
       tbody.innerHTML = items.map((item, idx) => `
         <tr>
           <td>
             <div class="cart-item-info">
-              <h4>${item.name}</h4>
-              <div class="meta">${item.serviceType || ''} ${item.qtyLabel ? '&middot; ' + item.qtyLabel : ''} ${item.platform ? '&middot; ' + item.platform : ''}</div>
+              <h4>${esc(item.name)}</h4>
+              <div class="meta">${esc(item.serviceType)} ${item.qtyLabel ? '&middot; ' + esc(item.qtyLabel) : ''} ${item.platform ? '&middot; ' + esc(item.platform) : ''}</div>
             </div>
           </td>
           <td>

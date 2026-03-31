@@ -12,6 +12,43 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// ─── Security: Trust proxy (for rate limiting behind reverse proxy) ───
+app.set('trust proxy', 1);
+
+// ─── Security: Simple in-memory rate limiter (no extra dependency) ───
+const rateLimitMap = new Map();
+function rateLimit(windowMs, maxRequests) {
+  return (req, res, next) => {
+    const ip = req.ip || req.connection.remoteAddress;
+    const now = Date.now();
+    const windowStart = now - windowMs;
+
+    if (!rateLimitMap.has(ip)) {
+      rateLimitMap.set(ip, []);
+    }
+
+    const requests = rateLimitMap.get(ip).filter(t => t > windowStart);
+    rateLimitMap.set(ip, requests);
+
+    if (requests.length >= maxRequests) {
+      return res.status(429).json({ error: 'Too many requests. Please try again later.' });
+    }
+
+    requests.push(now);
+    next();
+  };
+}
+
+// Clean up rate limit map every 5 minutes
+setInterval(() => {
+  const cutoff = Date.now() - 900000;
+  for (const [ip, times] of rateLimitMap) {
+    const filtered = times.filter(t => t > cutoff);
+    if (filtered.length === 0) rateLimitMap.delete(ip);
+    else rateLimitMap.set(ip, filtered);
+  }
+}, 300000);
+
 // ─── Stripe Webhook (must be BEFORE express.json()) ───
 app.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
   const sig = req.headers['stripe-signature'];
@@ -83,24 +120,60 @@ app.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
 });
 
 // ─── Middleware ───
-app.use(cors());
-app.use(express.json());
-app.use(express.static(path.join(__dirname)));
+
+// Security: CORS — restrict to your domain(s)
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:3000').split(',').map(s => s.trim());
+app.use(cors({
+  origin: function(origin, callback) {
+    // Allow requests with no origin (mobile apps, curl, server-to-server)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    return callback(new Error('CORS not allowed'), false);
+  },
+  credentials: true,
+}));
+
+// Security: Limit request body size
+app.use(express.json({ limit: '10kb' }));
+
+// Security: Set security headers
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+  next();
+});
+
+// Security: Serve only the public folder (NOT root with .env)
+app.use(express.static(path.join(__dirname, 'public')));
 
 // ─── API: Get publishable key ───
-app.get('/api/config', (req, res) => {
+app.get('/api/config', rateLimit(60000, 30), (req, res) => {
   res.json({
     publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
   });
 });
 
+// ─── Email validation helper ───
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length <= 254;
+}
+
 // ─── API: Create Payment Intent ───
-app.post('/api/create-payment-intent', async (req, res) => {
+app.post('/api/create-payment-intent', rateLimit(60000, 10), async (req, res) => {
   try {
     const { items, email } = req.body;
 
-    if (!items || !Array.isArray(items) || items.length === 0) {
-      return res.status(400).json({ error: 'No items provided' });
+    if (!items || !Array.isArray(items) || items.length === 0 || items.length > 50) {
+      return res.status(400).json({ error: 'Invalid items' });
+    }
+
+    // Validate email if provided
+    if (email && !isValidEmail(email)) {
+      return res.status(400).json({ error: 'Invalid email address' });
     }
 
     // ─── Calculate total from items ───
@@ -110,15 +183,24 @@ app.post('/api/create-payment-intent', async (req, res) => {
     const itemDescriptions = [];
 
     for (const item of items) {
-      // Validate item structure
-      if (!item.name || !item.price || !item.quantity) {
-        return res.status(400).json({ error: 'Invalid item structure' });
+      // Validate item structure and types
+      if (!item.name || typeof item.name !== 'string' || item.name.length > 200) {
+        return res.status(400).json({ error: 'Invalid item name' });
       }
+      if (typeof item.price !== 'number' || item.price <= 0 || item.price > 10000) {
+        return res.status(400).json({ error: 'Invalid item price' });
+      }
+      if (!Number.isInteger(item.quantity) || item.quantity < 1 || item.quantity > 100) {
+        return res.status(400).json({ error: 'Invalid item quantity' });
+      }
+
+      // Sanitize item name (strip HTML)
+      const safeName = item.name.replace(/<[^>]*>/g, '').trim();
 
       // Price is in dollars, convert to cents
       const itemTotal = Math.round(item.price * 100) * item.quantity;
       totalAmount += itemTotal;
-      itemDescriptions.push(`${item.quantity}x ${item.name}`);
+      itemDescriptions.push(`${item.quantity}x ${safeName}`);
     }
 
     // Minimum charge: $0.50 (Stripe minimum)
@@ -149,23 +231,29 @@ app.post('/api/create-payment-intent', async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Error creating Payment Intent:', error);
-    res.status(500).json({ error: error.message });
+    console.error('Error creating Payment Intent:', error.message);
+    res.status(500).json({ error: 'Payment processing failed. Please try again.' });
   }
 });
 
 // ─── API: Get order status ───
-app.get('/api/order-status/:paymentIntentId', async (req, res) => {
+app.get('/api/order-status/:paymentIntentId', rateLimit(60000, 20), async (req, res) => {
   try {
-    const paymentIntent = await stripe.paymentIntents.retrieve(req.params.paymentIntentId);
+    // Validate paymentIntentId format
+    const id = req.params.paymentIntentId;
+    if (!id || !/^pi_[a-zA-Z0-9]+$/.test(id)) {
+      return res.status(400).json({ error: 'Invalid payment ID' });
+    }
+
+    const paymentIntent = await stripe.paymentIntents.retrieve(id);
     res.json({
       status: paymentIntent.status,
       amount: paymentIntent.amount,
       currency: paymentIntent.currency,
-      metadata: paymentIntent.metadata,
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Error retrieving order status:', error.message);
+    res.status(500).json({ error: 'Could not retrieve order status' });
   }
 });
 

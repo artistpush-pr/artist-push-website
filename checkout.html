@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checkout — Artist Push</title>
   <link rel="stylesheet" href="styles.css">
@@ -159,6 +163,8 @@
 
     let stripe, elements, cardElement, clientSecret;
 
+    function esc(str) { const d = document.createElement('div'); d.textContent = str || ''; return d.innerHTML; }
+
     // ─── Render order summary ───
     function renderCheckoutSummary() {
       const items = Cart.getItems();
@@ -172,8 +178,8 @@
       container.innerHTML = items.map(item => `
         <div class="checkout-item">
           <div>
-            <div class="checkout-item-name">${item.name}</div>
-            <div class="checkout-item-meta">${item.serviceType || ''} ${item.qtyLabel ? '· ' + item.qtyLabel : ''} × ${item.quantity}</div>
+            <div class="checkout-item-name">${esc(item.name)}</div>
+            <div class="checkout-item-meta">${esc(item.serviceType)} ${item.qtyLabel ? '· ' + esc(item.qtyLabel) : ''} × ${item.quantity}</div>
           </div>
           <div class="checkout-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
         </div>

@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Payment Successful — Artist Push</title>
   <link rel="stylesheet" href="styles.css">
@@ -83,6 +87,8 @@
     // ─── Populate order details from sessionStorage ───
     const orderData = JSON.parse(sessionStorage.getItem('ap_order') || 'null');
 
+    function esc(str) { const d = document.createElement('div'); d.textContent = str || ''; return d.innerHTML; }
+
     if (orderData) {
       document.getElementById('order-id').textContent = orderData.id ? orderData.id.slice(-12).toUpperCase() : '—';
       document.getElementById('order-email').textContent = orderData.email || '—';
@@ -95,7 +101,7 @@
       if (orderData.items && orderData.items.length > 0) {
         const itemsHtml = orderData.items.map(item => `
           <div class="success-detail-row">
-            <span class="label">${item.name}</span>
+            <span class="label">${esc(item.name)}</span>
             <span class="value">×${item.quantity} — $${(item.price * item.quantity).toFixed(2)}</span>
           </div>
         `).join('');

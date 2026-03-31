@@ -8,6 +8,25 @@
 
   const EmailCapture = {
 
+    /* ── Anti-bot helpers ── */
+    _formTimestamps: new Map(),
+    _isBot(formId) {
+      // Check honeypot field
+      const hp = document.querySelector(`#${formId} .ap-hp-field`);
+      if (hp && hp.value) return true;
+      // Check timing (form filled in <2 seconds = likely bot)
+      const ts = this._formTimestamps.get(formId);
+      if (ts && (Date.now() - ts) < 2000) return true;
+      return false;
+    },
+    _validateEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) && email.length <= 254 && !/[<>"']/.test(email);
+    },
+    _honeypotHtml() {
+      // Hidden field that bots auto-fill but real users don't see
+      return '<input class="ap-hp-field" type="text" name="website_url" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;">';
+    },
+
     /* ── Exit-Intent Popup ── */
     initExitPopup() {
       // Don't show if already subscribed or dismissed this session
@@ -24,6 +43,7 @@
           <h3>Get <span>10% OFF</span></h3>
           <p>Subscribe to get exclusive deals, promotion tips, and early access to new services.</p>
           <form class="email-popup-form" id="exitPopupForm">
+            ${this._honeypotHtml()}
             <input type="email" class="email-popup-input" placeholder="Your email address" required>
             <button type="submit" class="email-popup-submit">Subscribe</button>
           </form>
@@ -58,12 +78,16 @@
         if (e.target === overlay) overlay.classList.remove('active');
       });
 
+      // Record form render time for anti-bot timing check
+      this._formTimestamps.set('exitPopupForm', Date.now());
+
       // Form submit
       document.getElementById('exitPopupForm').addEventListener('submit', (e) => {
         e.preventDefault();
-        const input = e.target.querySelector('input');
+        if (this._isBot('exitPopupForm')) return; // Silent reject bots
+        const input = e.target.querySelector('input[type="email"]');
         const email = input.value.trim();
-        if (email && window.AP_EMAIL) {
+        if (email && this._validateEmail(email) && window.AP_EMAIL) {
           window.AP_EMAIL.saveSubscriber(email, 'exit_popup');
           window.AP_EMAIL.addTag('discount_10pct');
           e.target.innerHTML = '<div class="email-popup-success">You\'re in! Check your inbox for your 10% discount code.</div>';
@@ -74,12 +98,28 @@
 
     /* ── Footer Newsletter Form ── */
     initFooterForms() {
-      document.querySelectorAll('.footer-newsletter-form').forEach(form => {
+      document.querySelectorAll('.footer-newsletter-form').forEach((form, i) => {
+        // Add honeypot field
+        const hp = document.createElement('input');
+        hp.className = 'ap-hp-field';
+        hp.type = 'text';
+        hp.name = 'website_url';
+        hp.tabIndex = -1;
+        hp.autocomplete = 'off';
+        hp.style.cssText = 'position:absolute;left:-9999px;opacity:0;height:0;width:0;';
+        form.prepend(hp);
+
+        const formId = `footerForm_${i}`;
+        form.id = formId;
+        this._formTimestamps.set(formId, Date.now());
+
         form.addEventListener('submit', (e) => {
           e.preventDefault();
-          const input = form.querySelector('input');
+          // Anti-bot check
+          if (hp.value) return;
+          const input = form.querySelector('input[type="email"]');
           const email = input.value.trim();
-          if (email && window.AP_EMAIL) {
+          if (email && this._validateEmail(email) && window.AP_EMAIL) {
             window.AP_EMAIL.saveSubscriber(email, 'footer_newsletter');
             window.AP_EMAIL.addTag('newsletter');
             const success = document.createElement('div');
@@ -127,6 +167,7 @@
           <h3>Never Lose <span>Your Order</span></h3>
           <p>Enter your email and we'll save your cart. Plus, get order updates and exclusive deals.</p>
           <form class="email-popup-form" id="cartEmailForm">
+            ${EmailCapture._honeypotHtml()}
             <input type="email" class="email-popup-input" placeholder="Your email address" required>
             <button type="submit" class="email-popup-submit">Save Cart</button>
           </form>
@@ -139,10 +180,13 @@
         if (e.target === overlay) overlay.classList.remove('active');
       });
 
+      this._formTimestamps.set('cartEmailForm', Date.now());
+
       document.getElementById('cartEmailForm').addEventListener('submit', (e) => {
         e.preventDefault();
-        const email = e.target.querySelector('input').value.trim();
-        if (email && window.AP_EMAIL) {
+        if (this._isBot('cartEmailForm')) return;
+        const email = e.target.querySelector('input[type="email"]').value.trim();
+        if (email && this._validateEmail(email) && window.AP_EMAIL) {
           window.AP_EMAIL.saveSubscriber(email, 'cart_save');
           window.AP_EMAIL.addTag('cart_saver');
           e.target.innerHTML = '<div class="email-popup-success">Cart saved! We\'ll keep it safe for you.</div>';
@@ -159,7 +203,7 @@
       if (emailField) {
         emailField.addEventListener('blur', () => {
           const email = emailField.value.trim();
-          if (email && email.includes('@') && window.AP_EMAIL) {
+          if (email && EmailCapture._validateEmail(email) && window.AP_EMAIL) {
             window.AP_EMAIL.trackCheckoutStart(email);
           }
         });
