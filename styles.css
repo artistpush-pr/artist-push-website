@@ -1449,7 +1449,7 @@ ul, ol { list-style: none; }
   .hero-buttons { justify-content: center; }
   .hero h1 { font-size: 2.2rem; }
   .hero-buttons { flex-direction: column; align-items: center; }
-  .hero-image img { max-width: 280px; }
+  .hero-image img { max-width: 340px; }
   .hero-image { order: -1; margin-bottom: -4px; }
   .trust-badges { grid-template-columns: 1fr; }
   .modal { width: 95%; margin: 16px; }
@@ -3521,13 +3521,13 @@ select:focus-visible,
   .hero-grid { gap: 12px; }
   .hero h1 { font-size: 1.8rem; margin-bottom: 16px; line-height: 1.15; }
   .hero p { font-size: 0.88rem; margin-bottom: 20px; }
-  .hero-image { margin-bottom: -8px; }
+  .hero-image { margin-bottom: -4px; }
   .hero-image img {
-    max-width: 220px;
-    -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 45%, #000 35%, transparent 100%);
-    mask-image: radial-gradient(ellipse 75% 65% at 50% 45%, #000 35%, transparent 100%);
+    max-width: 300px;
+    -webkit-mask-image: radial-gradient(ellipse 85% 80% at 50% 50%, #000 40%, transparent 100%);
+    mask-image: radial-gradient(ellipse 85% 80% at 50% 50%, #000 40%, transparent 100%);
   }
-  .hero-image-glow { filter: blur(40px); width: 60%; height: 60%; }
+  .hero-image-glow { filter: blur(40px); width: 70%; height: 70%; }
   .hero-badge { font-size: 0.72rem; padding: 5px 12px; margin-bottom: 20px; }
   .hero-buttons .btn { padding: 12px 24px; font-size: 0.9rem; }
   .hero-buttons { gap: 10px; }
@@ -3699,7 +3699,7 @@ select:focus-visible,
   .hero { padding: 64px 0 16px; }
   .hero h1 { font-size: 1.45rem; margin-bottom: 12px; }
   .hero p { font-size: 0.82rem; margin-bottom: 16px; }
-  .hero-image img { max-width: 180px; }
+  .hero-image img { max-width: 250px; }
   .hero-badge { font-size: 0.68rem; padding: 4px 10px; margin-bottom: 16px; }
   .hero-buttons .btn { padding: 11px 20px; font-size: 0.85rem; }
 
