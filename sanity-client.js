@@ -39,6 +39,23 @@ function getPlaylistIconHtml(title, index) {
   return '<img class="svg-icon" src="assets/icons/' + name + '.svg?v=3" alt="">';
 }
 
+/* ── Global: Add playlist to cart (called from Sanity-rendered buttons) ── */
+function addPlaylistToCart(title, price) {
+  if (typeof Cart === 'undefined' || !Cart.addItem) {
+    console.warn('Cart not available');
+    return;
+  }
+  Cart.addItem({
+    id: 'playlist-' + title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+    name: 'Playlist: ' + title,
+    serviceType: 'Playlist Placement',
+    qtyLabel: 'Featured Playlist',
+    quantity: 1,
+    price: price,
+    platform: 'Spotify',
+  });
+}
+
 /* ── Featured Playlists ── */
 function loadFeaturedPlaylists() {
   const grid = document.querySelector('.playlist-grid');
@@ -49,12 +66,13 @@ function loadFeaturedPlaylists() {
       if (!playlists || playlists.length === 0) return; // keep static fallback
 
       grid.innerHTML = playlists.map(function(p, i) {
+        var safeTitle = escapeHtml(p.title).replace(/'/g, "\\'");
         return '<div class="playlist-card">' +
           '<div class="playlist-card-icon">' + getPlaylistIconHtml(p.title, i) + '</div>' +
           '<h4>' + escapeHtml(p.title) + '</h4>' +
           '<div class="meta">' + escapeHtml(p.likes) + ' &middot; ' + escapeHtml(p.genre) + '</div>' +
           '<div class="playlist-price">$' + p.price + '</div>' +
-          '<button class="btn btn-sm btn-primary" onclick="addPlaylistToCart(\'' + escapeHtml(p.title) + '\', ' + p.price + ')">Add to Cart</button>' +
+          '<button class="btn btn-sm btn-primary" onclick="addPlaylistToCart(\'' + safeTitle + '\', ' + p.price + ')">Add to Cart</button>' +
         '</div>';
       }).join('');
     })
