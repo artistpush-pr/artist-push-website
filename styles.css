@@ -93,6 +93,14 @@ ul, ol { list-style: none; }
   color: var(--black);
   transform: translateY(-2px);
 }
+.btn-outline-sc {
+  color: #FF5500;
+  border-color: #FF5500;
+}
+.btn-outline-sc:hover {
+  background: #FF5500;
+  color: #fff;
+}
 .btn-sm { padding: 10px 24px; font-size: 0.85rem; }
 .btn-lg { padding: 18px 40px; font-size: 1.05rem; }
 .btn-dark {
