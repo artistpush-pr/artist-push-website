@@ -14,23 +14,41 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2300FF85'/><text x='50%25' y='55%25' text-anchor='middle' dominant-baseline='middle' font-size='18' font-weight='800' fill='%23000'>A</text></svg>">
 
-  <!-- Schema.org Blog structured data -->
+  <!-- Schema.org: Blog + BreadcrumbList -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Blog",
-    "name": "Artist Push Blog",
-    "description": "Music promotion tips, Spotify growth strategies, and industry insights.",
-    "url": "https://artistpush.net/blog.html",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Artist Push",
-      "url": "https://artistpush.net",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://artistpush.net/logo.png"
+    "@graph": [
+      {
+        "@type": "Blog",
+        "name": "Artist Push Blog",
+        "description": "Music promotion tips, Spotify growth strategies, and industry insights.",
+        "url": "https://artistpush.net/blog.html",
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://artistpush.net/#organization",
+          "name": "Artist Push",
+          "url": "https://artistpush.net"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://artistpush.net/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Blog",
+            "item": "https://artistpush.net/blog.html"
+          }
+        ]
       }
-    }
+    ]
   }
   </script>
 </head>
