@@ -1462,7 +1462,7 @@ ul, ol { list-style: none; }
 @media (max-width: 480px) {
   .container { padding: 0 16px; }
   .section-title { font-size: 1.6rem; }
-  .carousel-track .service-card { min-width: 200px; max-width: 200px; }
+  .carousel-track .service-card { min-width: 260px; max-width: 260px; scroll-snap-align: start; }
   .services-grid { max-width: 100%; }
   .testimonials-scroll {
     grid-template-columns: 1fr;
@@ -3486,6 +3486,24 @@ select:focus-visible,
   /* Packages */
   .package-card { padding: 24px; }
 
+  /* Carousel – native scroll on tablet */
+  .carousel-wrapper { overflow: visible; }
+  .carousel-track {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .carousel-track::-webkit-scrollbar { display: none; }
+  .carousel-track .service-card {
+    min-width: calc(50vw - 40px);
+    max-width: calc(50vw - 40px);
+    scroll-snap-align: start;
+  }
+  .carousel-nav { display: none; }
+
   /* Breadcrumb */
   .breadcrumb { padding-top: 80px; font-size: 0.8rem; }
 }
@@ -3540,8 +3558,24 @@ select:focus-visible,
   .qty-pills { gap: 4px; flex-wrap: wrap; }
   .qty-pill { padding: 6px 10px; font-size: 0.75rem; }
 
-  /* Carousel */
-  .carousel-track .service-card { min-width: calc(100vw - 64px); max-width: calc(100vw - 64px); }
+  /* Carousel – native scroll on mobile */
+  .carousel-wrapper { overflow: visible; }
+  .carousel-track {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;         /* Firefox */
+    -ms-overflow-style: none;      /* IE/Edge */
+    padding-bottom: 8px;
+  }
+  .carousel-track::-webkit-scrollbar { display: none; }  /* Chrome/Safari */
+  .carousel-track .service-card {
+    min-width: calc(100vw - 64px);
+    max-width: calc(100vw - 64px);
+    scroll-snap-align: start;
+  }
+  .carousel-nav { display: none; }
 
   /* Featured playlists */
   .featured-playlists { padding: 24px 16px; border-radius: 12px; }

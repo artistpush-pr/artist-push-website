@@ -88,6 +88,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextBtn = wrapper.querySelector('.carousel-next');
     if (!track) return;
 
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+      // Mobile: use native horizontal scroll (swipeable)
+      wrapper.style.overflow = 'visible';
+      track.style.overflowX = 'auto';
+      track.style.WebkitOverflowScrolling = 'touch';
+      track.style.scrollSnapType = 'x mandatory';
+      track.style.transition = 'none';
+      track.querySelectorAll('.service-card').forEach(card => {
+        card.style.scrollSnapAlign = 'start';
+      });
+      // Hide nav buttons on mobile — swipe instead
+      if (prevBtn) prevBtn.style.display = 'none';
+      if (nextBtn) nextBtn.style.display = 'none';
+      return;
+    }
+
+    // Desktop: transform-based carousel with buttons
     let pos = 0;
     const cards = track.querySelectorAll('.service-card');
     const cardWidth = cards[0] ? (cards[0].offsetWidth + 16) : 280; // card + gap
@@ -98,12 +117,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (nextBtn) nextBtn.addEventListener('click', () => {
-      pos = Math.min(pos + getCardStep() * 4, getMaxPos());
+      pos = Math.min(pos + cardWidth, getMaxPos());
       track.style.transform = `translateX(-${pos}px)`;
     });
 
     if (prevBtn) prevBtn.addEventListener('click', () => {
-      pos = Math.max(pos - getCardStep() * 4, 0);
+      pos = Math.max(pos - cardWidth, 0);
       track.style.transform = `translateX(-${pos}px)`;
     });
   });
