@@ -11,6 +11,8 @@
   --white: #FFFFFF;
   --green: #00FF85;
   --green-dim: #00cc6a;
+  --spotify-green: #1DB954;
+  --soundcloud-orange: #FF5500;
   --dark-card: #141414;
   --dark-surface: #0a0a0a;
   --dark-border: #2a2a2a;
@@ -94,9 +96,9 @@ ul, ol { list-style: none; }
   transform: translateY(-2px);
 }
 .btn-outline-sc {
-  background: #FF5500;
+  background: var(--soundcloud-orange);
   color: #fff;
-  border-color: #FF5500;
+  border-color: var(--soundcloud-orange);
 }
 .btn-outline-sc:hover {
   background: #e04a00;
@@ -357,7 +359,7 @@ ul, ol { list-style: none; }
   animation: float 8s ease-in-out infinite;
 }
 .glow-orb-1 { width: 300px; height: 300px; background: var(--green); top: 10%; left: -5%; animation-delay: 0s; }
-.glow-orb-2 { width: 200px; height: 200px; background: #1DB954; bottom: 20%; right: -3%; animation-delay: 3s; }
+.glow-orb-2 { width: 200px; height: 200px; background: var(--green); bottom: 20%; right: -3%; animation-delay: 3s; }
 @keyframes float {
   0%, 100% { transform: translateY(0) scale(1); }
   50% { transform: translateY(-30px) scale(1.05); }
@@ -510,8 +512,8 @@ ul, ol { list-style: none; }
   top: 0; left: 0; right: 0;
   height: 4px;
 }
-.platform-block.spotify::before { background: linear-gradient(90deg, #1DB954, var(--green)); }
-.platform-block.soundcloud::before { background: linear-gradient(90deg, #FF5500, #FF8800); }
+.platform-block.spotify::before { background: linear-gradient(90deg, var(--spotify-green), var(--green)); }
+.platform-block.soundcloud::before { background: linear-gradient(90deg, var(--soundcloud-orange), #FF8800); }
 .platform-block-icon {
   width: 64px; height: 64px;
   border-radius: 14px;
@@ -1091,7 +1093,7 @@ ul, ol { list-style: none; }
   background: linear-gradient(135deg, rgba(255,85,0,0.03) 0%, transparent 60%), var(--dark-card);
 }
 .seo-block.sc-accent::before {
-  background: linear-gradient(180deg, #FF5500, transparent);
+  background: linear-gradient(180deg, var(--soundcloud-orange), transparent);
 }
 .seo-block-text {}
 .seo-block h2 {
@@ -1129,7 +1131,7 @@ ul, ol { list-style: none; }
   margin-bottom: 4px;
 }
 .seo-block.sc-accent .seo-visual-card .seo-stat {
-  color: #FF5500;
+  color: var(--soundcloud-orange);
 }
 .seo-visual-card .seo-stat-label {
   color: var(--grey-text);
@@ -1166,16 +1168,9 @@ ul, ol { list-style: none; }
 .sc-accent .seo-highlight-tag {
   background: rgba(255,85,0,0.06);
   border-color: rgba(255,85,0,0.12);
-  color: #FF5500;
+  color: var(--soundcloud-orange);
 }
-@media (max-width: 768px) {
-  .seo-block {
-    grid-template-columns: 1fr;
-    padding: 32px 24px;
-    gap: 32px;
-  }
-  .seo-block-visual { position: static; }
-}
+/* seo-block 768px → moved to consolidated block */
 
 /* ---------- Modal ---------- */
 .modal-overlay {
@@ -1333,9 +1328,7 @@ ul, ol { list-style: none; }
 .pitching-card .package-feature {
   justify-content: flex-start;
 }
-@media (max-width: 768px) {
-  .pitching-grid { grid-template-columns: 1fr; max-width: 400px; }
-}
+/* pitching-grid 768px → moved to consolidated block */
 
 /* ---------- Featured Playlists Section ---------- */
 .featured-playlists {
@@ -1353,7 +1346,7 @@ ul, ol { list-style: none; }
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--green), #1DB954, var(--green));
+  background: linear-gradient(90deg, var(--green), var(--spotify-green), var(--green));
 }
 .featured-playlists-header {
   text-align: center;
@@ -1432,33 +1425,7 @@ ul, ol { list-style: none; }
   .how-it-works-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
   .step-connector { display: none; }
 }
-@media (max-width: 768px) {
-  .section { padding: 32px 0; }
-  .section-title { font-size: 2rem; }
-  .navbar-links { display: none; }
-  .mobile-toggle { display: block; }
-  .stats-grid { grid-template-columns: 1fr; }
-  .platform-block { padding: 32px; }
-  .footer-grid { grid-template-columns: 1fr; }
-  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
-  .services-grid { grid-template-columns: 1fr; }
-  .package-grid { grid-template-columns: 1fr; }
-  .hero-grid { grid-template-columns: 1fr; text-align: center; }
-  .hero-content { text-align: center; }
-  .hero-content .hero-badge { justify-content: center; }
-  .hero p { margin: 0 auto 40px; }
-  .hero-buttons { justify-content: center; }
-  .hero h1 { font-size: 2.2rem; }
-  .hero-buttons { flex-direction: column; align-items: center; }
-  .hero-image { display: none; }
-  .trust-badges { grid-template-columns: 1fr; }
-  .modal { width: 95%; margin: 16px; }
-  .qty-pills { gap: 6px; }
-  .qty-pill { padding: 8px 14px; font-size: 0.8rem; }
-  .testimonials-scroll {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+/* main 768px block → moved to consolidated block */
 @media (max-width: 480px) {
   .container { padding: 0 16px; }
   .section-title { font-size: 1.6rem; }
@@ -2123,15 +2090,7 @@ ul, ol { list-style: none; }
 }
 
 /* ---------- Responsive for checkout ---------- */
-@media (max-width: 768px) {
-  .checkout-grid { grid-template-columns: 1fr; }
-  .cart-table { font-size: 0.85rem; }
-  .cart-table th:nth-child(3),
-  .cart-table td:nth-child(3) { display: none; }
-  .cart-summary { max-width: 100%; }
-  .success-card { padding: 40px 24px; margin: 16px; }
-  .form-row { grid-template-columns: 1fr; }
-}
+/* checkout 768px → moved to consolidated block */
 
 /* ============================================
    GLOBAL UX IMPROVEMENTS
@@ -2572,7 +2531,7 @@ select:focus-visible,
 }
 .blog-card-category.sc-accent {
   background: rgba(255,85,0,0.12);
-  color: #FF5500;
+  color: var(--soundcloud-orange);
 }
 .blog-card-date,
 .blog-card-read {
@@ -3167,36 +3126,7 @@ select:focus-visible,
     grid-column: 1 / -1;
   }
 }
-@media (max-width: 768px) {
-  .blog-featured-card {
-    grid-template-columns: 1fr;
-  }
-  .blog-featured-image {
-    min-height: 200px;
-  }
-  .blog-featured-content {
-    padding: 28px;
-  }
-  .blog-featured-content h2 {
-    font-size: 1.3rem;
-  }
-  .blog-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .article-header h1 {
-    font-size: 1.6rem;
-  }
-  .article-sidebar {
-    grid-template-columns: 1fr;
-  }
-  .case-study-results {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .article-dates {
-    flex-direction: column;
-    gap: 6px;
-  }
-}
+/* blog 768px → moved to consolidated block */
 @media (max-width: 480px) {
   .blog-grid {
     grid-template-columns: 1fr;
@@ -3434,11 +3364,7 @@ select:focus-visible,
   margin-top: 8px;
 }
 
-@media (max-width: 768px) {
-  .email-popup { padding: 28px 20px; }
-  .email-popup-form { flex-direction: column; }
-  .footer-newsletter-form { flex-direction: column; }
-}
+/* email popup 768px → moved to consolidated block */
 
 /* ═══════════════════════════════════════════
    MOBILE RESPONSIVE — Full Adaptation
@@ -3447,11 +3373,22 @@ select:focus-visible,
 
 /* ── Tablet & Small Desktop (max-width: 768px) ── */
 @media (max-width: 768px) {
+  /* General layout */
+  .section { padding: 32px 0; }
+  .section-title { font-size: 2rem; }
+  .navbar-links { display: none; }
+  .mobile-toggle { display: block; }
+  .modal { width: 95%; margin: 16px; }
+
   /* Hero – no image on mobile */
   .hero { padding: 100px 0 32px; }
-  .hero-grid { gap: 0; }
+  .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 0; }
+  .hero-content { text-align: center; }
+  .hero-content .hero-badge { justify-content: center; }
   .hero-image { display: none; }
-  .hero p { margin-bottom: 20px; }
+  .hero h1 { font-size: 2.2rem; }
+  .hero p { margin: 0 auto 20px; }
+  .hero-buttons { justify-content: center; flex-direction: column; align-items: center; }
   .hero-buttons .btn { width: 100%; max-width: 320px; }
 
   /* Page hero */
@@ -3464,29 +3401,23 @@ select:focus-visible,
   .platform-block p { font-size: 0.9rem; }
 
   /* Stats */
+  .stats-grid { grid-template-columns: 1fr; }
   .stat-card { padding: 28px 16px; }
   .stat-number { font-size: 2rem; }
+  .trust-badges { grid-template-columns: 1fr; }
 
-  /* Footer */
-  .footer-grid { gap: 24px; }
-
-  /* Cart notification */
-  .cart-notification { right: 16px; left: 16px; }
-
-  /* Selector cards */
+  /* Services & packages */
+  .services-grid { grid-template-columns: 1fr; }
+  .package-grid { grid-template-columns: 1fr; }
+  .package-card { padding: 24px; }
   .selector-card { padding: 20px; }
+  .qty-pills { gap: 6px; }
+  .qty-pill { padding: 8px 14px; font-size: 0.8rem; }
 
   /* Featured playlists */
   .featured-playlists { padding: 32px 20px; }
   .playlist-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .playlist-card { padding: 16px; }
-
-  /* How it works */
-  .how-step { padding: 24px 16px; }
-  .step-number { width: 48px; height: 48px; font-size: 1rem; }
-
-  /* Packages */
-  .package-card { padding: 24px; }
 
   /* Carousel – native scroll on tablet */
   .carousel-wrapper { overflow: visible; }
@@ -3505,6 +3436,50 @@ select:focus-visible,
     scroll-snap-align: start;
   }
   .carousel-nav { display: none; }
+
+  /* How it works */
+  .how-step { padding: 24px 16px; }
+  .step-number { width: 48px; height: 48px; font-size: 1rem; }
+
+  /* Testimonials */
+  .testimonials-scroll { grid-template-columns: repeat(2, 1fr); }
+
+  /* Cart & checkout */
+  .cart-notification { right: 16px; left: 16px; }
+  .checkout-grid { grid-template-columns: 1fr; }
+  .cart-table { font-size: 0.85rem; }
+  .cart-table th:nth-child(3),
+  .cart-table td:nth-child(3) { display: none; }
+  .cart-summary { max-width: 100%; }
+  .success-card { padding: 40px 24px; margin: 16px; }
+  .form-row { grid-template-columns: 1fr; }
+
+  /* Blog & articles */
+  .blog-featured-card { grid-template-columns: 1fr; }
+  .blog-featured-image { min-height: 200px; }
+  .blog-featured-content { padding: 28px; }
+  .blog-featured-content h2 { font-size: 1.3rem; }
+  .blog-grid { grid-template-columns: repeat(2, 1fr); }
+  .article-header h1 { font-size: 1.6rem; }
+  .article-sidebar { grid-template-columns: 1fr; }
+  .case-study-results { grid-template-columns: repeat(2, 1fr); }
+  .article-dates { flex-direction: column; gap: 6px; }
+
+  /* SEO block */
+  .seo-block { grid-template-columns: 1fr; padding: 32px 24px; gap: 32px; }
+  .seo-block-visual { position: static; }
+
+  /* Pitching */
+  .pitching-grid { grid-template-columns: 1fr; max-width: 400px; }
+
+  /* Email popup & newsletter */
+  .email-popup { padding: 28px 20px; }
+  .email-popup-form { flex-direction: column; }
+  .footer-newsletter-form { flex-direction: column; }
+
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
 
   /* Breadcrumb */
   .breadcrumb { padding-top: 80px; font-size: 0.8rem; }
