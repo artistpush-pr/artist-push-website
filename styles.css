@@ -199,6 +199,9 @@ ul, ol { list-style: none; }
 .promo-bar:not(.hidden) ~ .page-hero {
   padding-top: 158px;
 }
+.promo-bar:not(.hidden) ~ .breadcrumb + .page-hero {
+  padding-top: 12px;
+}
 
 @media (max-width: 480px) {
   .promo-bar-inner { font-size: 0.75rem; gap: 8px; padding: 8px 12px; }
@@ -3818,6 +3821,7 @@ select:focus-visible,
   .breadcrumb { padding-top: 64px; }
   .breadcrumb + .page-hero { padding-top: 6px; }
   .promo-bar:not(.hidden) ~ .breadcrumb { padding-top: 102px; }
+  .promo-bar:not(.hidden) ~ .breadcrumb + .page-hero { padding-top: 6px; }
   .page-hero h1 { font-size: 1.6rem; margin-bottom: 8px; }
   .page-hero p { font-size: 0.9rem; }
 
@@ -3921,17 +3925,9 @@ select:focus-visible,
   .email-popup-form { flex-direction: column; }
   .footer-newsletter-form { flex-direction: column; }
 
-  /* Footer — compact on mobile */
-  .footer { padding: 28px 0 16px; }
-  .footer-grid { grid-template-columns: 1fr; gap: 16px; margin-bottom: 20px; }
-  .footer h4 { font-size: 0.8rem; margin-bottom: 8px; }
-  .footer-brand p { font-size: 0.82rem; margin-top: 8px; line-height: 1.5; }
-  .footer-links a { font-size: 0.85rem; padding: 3px 0; }
-  .footer-bottom { flex-direction: column; gap: 10px; text-align: center; padding-top: 16px; font-size: 0.8rem; }
-  .footer-newsletter h4 { font-size: 0.9rem; margin-bottom: 4px; }
-  .footer-newsletter p { font-size: 0.78rem; margin-bottom: 10px; }
-  .footer-newsletter-input { padding: 9px 12px; font-size: 0.82rem; }
-  .footer-newsletter-btn { padding: 9px 14px; font-size: 0.78rem; }
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
 
 }
 
@@ -3955,6 +3951,7 @@ select:focus-visible,
   .page-hero { padding: 62px 0 10px; }
   .breadcrumb { padding-top: 58px; }
   .breadcrumb + .page-hero { padding-top: 4px; }
+  .promo-bar:not(.hidden) ~ .breadcrumb + .page-hero { padding-top: 4px; }
   .page-hero h1 { font-size: 1.4rem; margin-bottom: 6px; }
   .page-hero p { font-size: 0.85rem; }
 
@@ -4053,9 +4050,11 @@ select:focus-visible,
   .cta-block-buttons { gap: 12px; }
   .cta-block-buttons .btn { padding: 14px 24px; font-size: 0.9rem; width: 100%; max-width: 280px; }
 
-  /* Footer — tighter on small mobile */
-  .footer { padding: 24px 0 14px; }
-  .footer-grid { gap: 14px; margin-bottom: 16px; }
+  /* Footer */
+  .footer { padding: 32px 0 20px; }
+  .footer-grid { gap: 20px; }
+  .footer h4 { font-size: 0.75rem; }
+  .footer-links a { font-size: 0.85rem; padding: 3px 0; }
 
   /* Email popup */
   .email-popup { max-width: 92%; padding: 24px 18px; }
@@ -4068,6 +4067,7 @@ select:focus-visible,
   .breadcrumb { padding-top: 56px; font-size: 0.75rem; }
   .page-hero { padding: 58px 0 8px; }
   .breadcrumb + .page-hero { padding-top: 4px; }
+  .promo-bar:not(.hidden) ~ .breadcrumb + .page-hero { padding-top: 4px; }
 
   /* Modal */
   .modal { width: 96%; margin: 8px; }
@@ -4152,7 +4152,5 @@ select:focus-visible,
   .email-popup h3 { font-size: 1rem; }
 
   /* Footer */
-  .footer { padding: 20px 0 12px; }
   .footer-links a { font-size: 0.8rem; }
-  .footer-bottom { font-size: 0.75rem; gap: 8px; padding-top: 12px; }
 }
