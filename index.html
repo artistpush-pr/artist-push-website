@@ -128,6 +128,7 @@
         <a href="blog.html">Blog</a>
       </div>
       <div class="navbar-cta">
+        <button class="search-trigger" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
         <a href="cart.html" class="btn btn-outline btn-sm" style="padding:8px 14px;"><img class="svg-icon" src="assets/icons/shopping-cart-simple.svg" alt="" style="width:16px;height:16px;vertical-align:middle;filter:brightness(0) invert(1);"> <span class="cart-badge" style="position:static;display:inline-flex;margin-left:2px;">0</span></a>
         <a href="#popular-services" class="btn btn-primary btn-sm">Get Started</a>
         <button class="mobile-toggle" aria-label="Menu">&#9776;</button>
@@ -145,6 +146,7 @@
     <a href="#faq">FAQ</a>
     <a href="blog.html">Blog</a>
     <a href="cart.html">Cart</a>
+    <a href="#" class="search-trigger mobile-search-trigger"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:8px;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Search</a>
   </div>
 
   <!-- ════════ HERO ════════ -->
@@ -1176,6 +1178,21 @@
     </div>
   </div>
 
+  <!-- ════════ SEARCH OVERLAY ════════ -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-modal">
+      <div class="search-header">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--grey-text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search services, packages, articles..." autocomplete="off" spellcheck="false">
+        <kbd class="search-kbd">ESC</kbd>
+        <button id="searchClose" class="search-close-btn" aria-label="Close search">&times;</button>
+      </div>
+      <div class="search-results" id="searchResults">
+        <div class="search-hint">Search for services, packages, or articles...</div>
+      </div>
+    </div>
+  </div>
+
   <script src="cart.js"></script>
   <script src="script.js"></script>
   <script src="sanity-client.js"></script>
@@ -1212,5 +1229,6 @@
   </script>
   <script src="email-tracking.js"></script>
   <script src="email-capture.js"></script>
+  <script src="search.js"></script>
 </body>
 </html>
