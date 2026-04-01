@@ -806,10 +806,10 @@ ul, ol { list-style: none; }
 
 /* ---------- Service Page Specific ---------- */
 .breadcrumb + .page-hero {
-  padding-top: 28px;
+  padding-top: 16px;
 }
 .page-hero {
-  padding: 120px 0 52px;
+  padding: 100px 0 36px;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -826,13 +826,14 @@ ul, ol { list-style: none; }
   font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 3.2rem);
   font-weight: 800;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 .page-hero p {
   color: var(--grey-text);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   max-width: 600px;
   margin: 0 auto;
+  line-height: 1.5;
 }
 
 /* Service Category */
@@ -1457,7 +1458,7 @@ ul, ol { list-style: none; }
 
 /* ---------- Breadcrumb ---------- */
 .breadcrumb {
-  padding: 70px 0 0;
+  padding: 84px 0 0;
   font-size: 0.85rem;
   color: var(--grey-text);
 }
@@ -2156,23 +2157,7 @@ ul, ol { list-style: none; }
    GLOBAL UX IMPROVEMENTS
    ============================================ */
 
-/* ---------- Breadcrumb ---------- */
-.breadcrumb {
-  padding: 70px 0 0;
-  font-size: 0.85rem;
-  color: var(--grey-text);
-}
-.breadcrumb a {
-  color: var(--grey-text);
-  transition: var(--transition);
-}
-.breadcrumb a:hover {
-  color: var(--green);
-}
-.breadcrumb .sep {
-  margin: 0 10px;
-  opacity: 0.4;
-}
+/* ---------- Breadcrumb (global UX) ---------- */
 .breadcrumb span:last-child {
   color: var(--grey-light);
 }
@@ -3826,12 +3811,12 @@ select:focus-visible,
   .hero-buttons { justify-content: center; flex-direction: column; align-items: center; }
   .hero-buttons .btn { width: 100%; max-width: 320px; }
 
-  /* Page hero & breadcrumb — more breathing room on mobile */
-  .page-hero { padding: 100px 0 36px; }
-  .promo-bar:not(.hidden) ~ .page-hero { padding-top: 138px; }
-  .breadcrumb { padding-top: 90px; }
-  .breadcrumb + .page-hero { padding-top: 20px; }
-  .promo-bar:not(.hidden) ~ .breadcrumb { padding-top: 128px; }
+  /* Page hero & breadcrumb */
+  .page-hero { padding: 88px 0 28px; }
+  .promo-bar:not(.hidden) ~ .page-hero { padding-top: 126px; }
+  .breadcrumb { padding-top: 78px; }
+  .breadcrumb + .page-hero { padding-top: 12px; }
+  .promo-bar:not(.hidden) ~ .breadcrumb { padding-top: 116px; }
   .page-hero h1 { font-size: 1.8rem; }
 
   /* Platform blocks */
@@ -3938,8 +3923,6 @@ select:focus-visible,
   .footer-grid { grid-template-columns: 1fr; gap: 24px; }
   .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
 
-  /* Breadcrumb */
-  .breadcrumb { padding-top: 80px; font-size: 0.8rem; }
 }
 
 /* ── Mobile (max-width: 480px) ── */
@@ -3959,9 +3942,10 @@ select:focus-visible,
   .hero-buttons { gap: 8px; }
 
   /* Page hero */
-  .page-hero { padding: 90px 0 28px; }
-  .breadcrumb { padding-top: 82px; }
-  .page-hero h1 { font-size: 1.5rem; }
+  .page-hero { padding: 80px 0 24px; }
+  .breadcrumb { padding-top: 72px; }
+  .breadcrumb + .page-hero { padding-top: 10px; }
+  .page-hero h1 { font-size: 1.5rem; margin-bottom: 10px; }
 
   /* Platform blocks */
   .platform-block { padding: 20px; }
@@ -4074,7 +4058,7 @@ select:focus-visible,
   .email-popup-input { font-size: 0.9rem; padding: 10px 14px; }
 
   /* Breadcrumb */
-  .breadcrumb { padding-top: 70px; font-size: 0.75rem; }
+  .breadcrumb { padding-top: 68px; font-size: 0.75rem; }
 
   /* Modal */
   .modal { width: 96%; margin: 8px; }
