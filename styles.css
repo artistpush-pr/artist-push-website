@@ -1450,7 +1450,7 @@ ul, ol { list-style: none; }
   .hero-buttons { justify-content: center; }
   .hero h1 { font-size: 2.2rem; }
   .hero-buttons { flex-direction: column; align-items: center; }
-  .hero-image { order: -1; }
+  .hero-image { display: none; }
   .trust-badges { grid-template-columns: 1fr; }
   .modal { width: 95%; margin: 16px; }
   .qty-pills { gap: 6px; }
@@ -3447,18 +3447,10 @@ select:focus-visible,
 
 /* ── Tablet & Small Desktop (max-width: 768px) ── */
 @media (max-width: 768px) {
-  /* Hero – equalizer blends with bg */
-  .hero { padding: 88px 0 24px; }
-  .hero-grid { gap: 12px; }
-  .hero-image { order: -1; margin-bottom: 0; }
-  .hero-image img {
-    max-width: 360px;
-    animation: none;
-    -webkit-mask-image: none;
-    mask-image: none;
-    filter: saturate(1.15) brightness(1.1);
-  }
-  .hero-image-glow { display: none; }
+  /* Hero – no image on mobile */
+  .hero { padding: 100px 0 32px; }
+  .hero-grid { gap: 0; }
+  .hero-image { display: none; }
   .hero p { margin-bottom: 20px; }
   .hero-buttons .btn { width: 100%; max-width: 320px; }
 
@@ -3525,15 +3517,8 @@ select:focus-visible,
   .section-title { font-size: 1.5rem; margin-bottom: 8px; }
   .section-subtitle { font-size: 0.85rem; }
 
-  /* Hero – equalizer image, one screen */
-  .hero { padding: 72px 0 16px; min-height: auto; }
-  .hero-grid { gap: 8px; }
-  .hero-image { margin-bottom: 0; }
-  .hero-image img {
-    max-width: 300px;
-    filter: saturate(1.15) brightness(1.1);
-  }
-  .hero-image-glow { display: none; }
+  /* Hero */
+  .hero { padding: 88px 0 24px; min-height: auto; }
   .hero h1 { font-size: 1.6rem; margin-bottom: 10px; line-height: 1.15; }
   .hero p { font-size: 0.88rem; margin-bottom: 14px; }
   .hero-badge { font-size: 0.72rem; padding: 5px 12px; margin-bottom: 12px; }
@@ -3705,8 +3690,7 @@ select:focus-visible,
 
   /* Hero */
   .hero { padding: 64px 0 8px; }
-  .hero-image { margin-bottom: 0; }
-  .hero-image img { max-width: 260px; }
+  .hero { padding: 76px 0 20px; }
   .hero h1 { font-size: 1.35rem; margin-bottom: 8px; }
   .hero p { font-size: 0.78rem; margin-bottom: 12px; line-height: 1.5; }
   .hero-badge { font-size: 0.62rem; padding: 4px 10px; margin-bottom: 10px; }
