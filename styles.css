@@ -3875,9 +3875,8 @@ select:focus-visible,
   /* Anchor nav */
   .anchor-nav { top: 60px; }
   .promo-bar:not(.hidden) ~ .anchor-nav { top: 98px; }
-  .anchor-nav-inner { padding: 12px 20px; gap: 8px; justify-content: flex-start; }
+  .anchor-nav-inner { padding: 14px 24px; gap: 10px; justify-content: flex-start; }
   .anchor-link { padding: 9px 18px; font-size: 0.82rem; }
-  .page-hero + .anchor-nav { margin-top: 10px; }
 
   /* Hero – no image on mobile */
   .hero { padding: 100px 0 32px; }
@@ -3892,7 +3891,7 @@ select:focus-visible,
   .hero-buttons .btn { width: 100%; max-width: 320px; }
 
   /* Page hero & breadcrumb */
-  .page-hero { padding: 68px 0 24px; }
+  .page-hero { padding: 68px 0 36px; }
   .promo-bar:not(.hidden) ~ .page-hero { padding-top: 106px; }
   .breadcrumb { padding-top: 78px; }
   .breadcrumb + .page-hero { padding-top: 28px; }
@@ -4024,7 +4023,7 @@ select:focus-visible,
   .hero-buttons { gap: 8px; }
 
   /* Page hero */
-  .page-hero { padding: 62px 0 20px; }
+  .page-hero { padding: 62px 0 32px; }
   .breadcrumb { padding-top: 74px; }
   .breadcrumb + .page-hero { padding-top: 24px; }
   .promo-bar:not(.hidden) ~ .breadcrumb { padding-top: 118px; }
@@ -4142,7 +4141,7 @@ select:focus-visible,
 
   /* Breadcrumb */
   .breadcrumb { padding-top: 74px; font-size: 0.85rem; }
-  .page-hero { padding: 58px 0 18px; }
+  .page-hero { padding: 58px 0 28px; }
   .breadcrumb + .page-hero { padding-top: 20px; }
   .promo-bar:not(.hidden) ~ .breadcrumb { padding-top: 116px; }
   .promo-bar:not(.hidden) ~ .breadcrumb + .page-hero { padding-top: 20px; }
