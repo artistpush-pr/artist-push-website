@@ -262,15 +262,45 @@ ul, ol { list-style: none; }
 .navbar-icons {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
   background: rgba(255,255,255,0.04);
   border: 1px solid var(--dark-border);
   border-radius: 50px;
-  padding: 4px 6px;
+  padding: 4px;
 }
-.navbar-icons .btn { border: none; background: none; padding: 6px 10px; font-size: 0.8rem; }
-.navbar-icons .btn:hover { background: rgba(255,255,255,0.06); color: var(--green); }
-.navbar-icons .btn img { filter: brightness(0) invert(1); }
+.navbar-icons .search-trigger,
+.navbar-icons .auth-trigger,
+.navbar-icons .cart-icon-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  color: var(--grey-light);
+  background: none;
+  border: none;
+  transition: var(--transition);
+  cursor: pointer;
+  position: relative;
+}
+.navbar-icons .search-trigger:hover,
+.navbar-icons .auth-trigger:hover,
+.navbar-icons .cart-icon-link:hover { color: var(--green); background: rgba(255,255,255,0.06); }
+.navbar-icons .auth-trigger.logged-in { color: var(--green); }
+.navbar-icons .cart-icon-link .cart-badge {
+  position: absolute;
+  top: 2px; right: 0;
+  min-width: 16px; height: 16px;
+  background: var(--green);
+  color: var(--black);
+  font-size: 0.6rem;
+  font-weight: 800;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
 .mobile-toggle {
   display: none;
   background: none; border: none;
@@ -3762,10 +3792,15 @@ select:focus-visible,
   .section-title { font-size: 2rem; }
   .navbar-links { display: none; }
   .mobile-toggle { display: block; }
-  .navbar-cta { gap: 8px; }
-  .navbar-cta .btn-primary.btn-sm { display: none; }
-  .navbar-icons { padding: 3px 4px; gap: 2px; }
-  .navbar-icons .btn { padding: 5px 8px; font-size: 0.75rem; }
+  .navbar-cta { gap: 6px; }
+  .navbar-cta > .btn-primary.btn-sm { display: none; }
+  .navbar-icons { padding: 2px 3px; gap: 0; }
+  .navbar-icons .search-trigger,
+  .navbar-icons .auth-trigger,
+  .navbar-icons .cart-icon-link { padding: 7px; }
+  .navbar-icons .cart-icon-link svg,
+  .navbar-icons .search-trigger svg,
+  .navbar-icons .auth-trigger svg { width: 16px; height: 16px; }
   .modal { width: 95%; margin: 16px; }
 
   /* Search mobile */
@@ -3927,9 +3962,6 @@ select:focus-visible,
   .page-hero { padding: 90px 0 28px; }
   .breadcrumb { padding-top: 82px; }
   .page-hero h1 { font-size: 1.5rem; }
-
-  /* Navbar */
-  .navbar-cta .btn { padding: 8px 14px; font-size: 0.8rem; }
 
   /* Platform blocks */
   .platform-block { padding: 20px; }
@@ -4111,9 +4143,6 @@ select:focus-visible,
 
   /* Buttons */
   .btn-lg { padding: 12px 20px; font-size: 0.88rem; }
-
-  /* Navbar */
-  .navbar-cta .btn { padding: 6px 12px; font-size: 0.75rem; }
 
   /* Mobile nav */
   .mobile-nav a { font-size: 1.2rem; }
