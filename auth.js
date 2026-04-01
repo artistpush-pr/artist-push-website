@@ -1,5 +1,5 @@
 /* ============================================
-   Artist Push — Auth System (localStorage)
+   Breakout — Auth System (localStorage)
    Email + Password registration & login
    ============================================ */
 

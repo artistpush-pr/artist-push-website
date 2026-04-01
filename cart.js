@@ -1,5 +1,5 @@
 /* ============================================
-   Artist Push — Cart System (localStorage)
+   Breakout — Cart System (localStorage)
    ============================================ */
 
 const Cart = {
