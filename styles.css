@@ -203,7 +203,7 @@ ul, ol { list-style: none; }
   top: 0; left: 0; right: 0;
   z-index: 1000;
   background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--dark-border);
   transition: var(--transition);
 }
@@ -1182,7 +1182,7 @@ ul, ol { list-style: none; }
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
   z-index: 2000;
   display: flex;
   align-items: center;
@@ -1478,7 +1478,7 @@ ul, ol { list-style: none; }
   inset: 0;
   z-index: 999;
   background: rgba(0, 0, 0, 0.95);
-  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1636,7 +1636,7 @@ ul, ol { list-style: none; }
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
   z-index: 5000;
   display: flex;
   align-items: center;
@@ -1749,8 +1749,8 @@ ul, ol { list-style: none; }
 }
 .upsell-btn {
   flex: 1;
-  padding: 12px 16px !important;
-  font-size: 0.9rem !important;
+  padding: 12px 16px;
+  font-size: 0.9rem;
 }
 .upsell-timer {
   font-size: 0.8rem;
@@ -1870,8 +1870,8 @@ ul, ol { list-style: none; }
 }
 .promo-apply-btn {
   white-space: nowrap;
-  padding: 12px 20px !important;
-  font-size: 0.85rem !important;
+  padding: 12px 20px;
+  font-size: 0.85rem;
 }
 .promo-message {
   font-size: 0.85rem;
@@ -3608,7 +3608,7 @@ select:focus-visible,
   .cart-item-info h4 { font-size: 0.85rem; }
   .cart-item-info .meta { font-size: 0.7rem; }
   .qty-input-group .qty-btn { width: 28px; height: 28px; }
-  .qty-input { width: 40px !important; font-size: 0.8rem; }
+  .qty-input { width: 40px; font-size: 0.8rem; }
 
   /* Cart summary */
   .cart-summary { padding: 20px; }
