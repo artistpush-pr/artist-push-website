@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Account — Artist Push</title>
+  <meta name="description" content="Manage your Artist Push account, view order history and update your profile.">
+  <link rel="canonical" href="https://artistpush.net/account.html">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2300FF85'/><text x='50%25' y='55%25' text-anchor='middle' dominant-baseline='middle' font-size='18' font-weight='800' fill='%23000'>A</text></svg>">
+</head>
+<body>
+
+  <!-- ════════ PROMO BAR ════════ -->
+  <div class="promo-bar" id="promoBar">
+    <div class="promo-bar-inner">
+      <span class="promo-bar-text"><strong>15% OFF</strong> your first order — use code <span class="promo-bar-code">FIRST15</span></span>
+      <button class="promo-bar-copy" onclick="navigator.clipboard.writeText('FIRST15'); this.textContent='Copied!';">Copy Code</button>
+      <button class="promo-bar-close" onclick="document.getElementById('promoBar').classList.add('hidden'); sessionStorage.setItem('promo_closed','1');" aria-label="Close">&times;</button>
+    </div>
+  </div>
+  <script>if(sessionStorage.getItem('promo_closed')) document.getElementById('promoBar').classList.add('hidden');</script>
+
+  <!-- ════════ NAVBAR ════════ -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar-logo">
+        <span class="logo-icon">A</span>
+        Artist Push
+      </a>
+      <div class="navbar-links">
+        <a href="index.html">Home</a>
+        <a href="spotify.html">Spotify Promotion</a>
+        <a href="soundcloud.html">SoundCloud Promotion</a>
+        <a href="blog.html">Blog</a>
+      </div>
+      <div class="navbar-cta">
+        <button class="search-trigger" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+        <a href="account.html" class="auth-trigger active" aria-label="Account"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
+        <a href="cart.html" class="btn btn-outline btn-sm" style="padding:8px 14px;"><img class="svg-icon" src="assets/icons/shopping-cart-simple.svg" alt="" style="width:16px;height:16px;vertical-align:middle;filter:brightness(0) invert(1);"> <span class="cart-badge" style="position:static;display:inline-flex;margin-left:2px;">0</span></a>
+        <a href="index.html#popular-services" class="btn btn-primary btn-sm">Get Started</a>
+        <button class="mobile-toggle" aria-label="Menu">&#9776;</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav">
+    <button class="mobile-nav-close" aria-label="Close">&#10005;</button>
+    <a href="index.html">Home</a>
+    <a href="spotify.html">Spotify Promotion</a>
+    <a href="soundcloud.html">SoundCloud Promotion</a>
+    <a href="blog.html">Blog</a>
+    <a href="account.html">My Account</a>
+    <a href="cart.html">Cart</a>
+    <a href="#" class="search-trigger mobile-search-trigger"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:8px;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Search</a>
+  </div>
+
+  <!-- ════════ PAGE HERO ════════ -->
+  <section class="page-hero">
+    <div class="container">
+      <h1>My <span class="green">Account</span></h1>
+      <p class="page-hero-sub" id="accountSubtitle">Sign in or create an account to track your orders.</p>
+    </div>
+  </section>
+
+  <!-- ════════ AUTH FORMS (shown when logged out) ════════ -->
+  <section class="section" id="authSection">
+    <div class="container">
+      <div class="auth-container">
+        <!-- Login Tab / Register Tab -->
+        <div class="auth-tabs">
+          <button class="auth-tab active" data-tab="login">Sign In</button>
+          <button class="auth-tab" data-tab="register">Create Account</button>
+        </div>
+
+        <!-- Login Form -->
+        <form class="auth-form" id="loginForm">
+          <div class="auth-field">
+            <label for="loginEmail">Email</label>
+            <input type="email" id="loginEmail" placeholder="your@email.com" required>
+          </div>
+          <div class="auth-field">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" placeholder="Your password" required>
+          </div>
+          <div class="auth-error" id="loginError"></div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Sign In</button>
+        </form>
+
+        <!-- Register Form -->
+        <form class="auth-form" id="registerForm" style="display:none;">
+          <div class="auth-field">
+            <label for="regName">Name</label>
+            <input type="text" id="regName" placeholder="Your name" required>
+          </div>
+          <div class="auth-field">
+            <label for="regEmail">Email</label>
+            <input type="email" id="regEmail" placeholder="your@email.com" required>
+          </div>
+          <div class="auth-field">
+            <label for="regPassword">Password</label>
+            <input type="password" id="regPassword" placeholder="Min. 6 characters" required minlength="6">
+          </div>
+          <div class="auth-error" id="registerError"></div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Create Account</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ DASHBOARD (shown when logged in) ════════ -->
+  <section class="section" id="dashboardSection" style="display:none;">
+    <div class="container">
+      <div class="dashboard-grid">
+
+        <!-- Profile Card -->
+        <div class="dash-card">
+          <h3>Profile</h3>
+          <form id="profileForm">
+            <div class="auth-field">
+              <label for="profileName">Name</label>
+              <input type="text" id="profileName" required>
+            </div>
+            <div class="auth-field">
+              <label for="profileEmail">Email</label>
+              <input type="email" id="profileEmail" required>
+            </div>
+            <div class="auth-error" id="profileError"></div>
+            <div class="auth-success" id="profileSuccess"></div>
+            <div class="dash-card-actions">
+              <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
+              <button type="button" class="btn btn-dark btn-sm" id="logoutBtn">Log Out</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Orders Card -->
+        <div class="dash-card dash-card-wide">
+          <h3>Order History</h3>
+          <div id="ordersContainer">
+            <div class="orders-empty">No orders yet. <a href="index.html#popular-services">Browse services</a> to get started.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ FOOTER ════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-newsletter">
+          <h4>Stay in the Loop</h4>
+          <p>Get promotion tips, exclusive deals & new service updates.</p>
+          <form class="footer-newsletter-form">
+            <input type="email" class="footer-newsletter-input" placeholder="Your email" required>
+            <button type="submit" class="footer-newsletter-btn">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Artist Push. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ════════ SEARCH OVERLAY ════════ -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-modal">
+      <div class="search-header">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--grey-text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search services, packages, articles..." autocomplete="off" spellcheck="false">
+        <kbd class="search-kbd">ESC</kbd>
+        <button id="searchClose" class="search-close-btn" aria-label="Close search">&times;</button>
+      </div>
+      <div class="search-results" id="searchResults">
+        <div class="search-hint">Search for services, packages, or articles...</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="cart.js"></script>
+  <script src="auth.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // ─── Account Page Logic ───
+    (function() {
+      const authSection = document.getElementById('authSection');
+      const dashSection = document.getElementById('dashboardSection');
+      const subtitle = document.getElementById('accountSubtitle');
+
+      // Tabs
+      document.querySelectorAll('.auth-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById('loginForm').style.display = tab.dataset.tab === 'login' ? 'block' : 'none';
+          document.getElementById('registerForm').style.display = tab.dataset.tab === 'register' ? 'block' : 'none';
+          document.getElementById('loginError').textContent = '';
+          document.getElementById('registerError').textContent = '';
+        });
+      });
+
+      // Login
+      document.getElementById('loginForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const result = Auth.login(
+          document.getElementById('loginEmail').value,
+          document.getElementById('loginPassword').value
+        );
+        if (result.ok) {
+          showDashboard(result.user);
+        } else {
+          document.getElementById('loginError').textContent = result.error;
+        }
+      });
+
+      // Register
+      document.getElementById('registerForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const result = Auth.register(
+          document.getElementById('regName').value,
+          document.getElementById('regEmail').value,
+          document.getElementById('regPassword').value
+        );
+        if (result.ok) {
+          showDashboard(result.user);
+        } else {
+          document.getElementById('registerError').textContent = result.error;
+        }
+      });
+
+      // Profile update
+      document.getElementById('profileForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const result = Auth.updateProfile({
+          name: document.getElementById('profileName').value,
+          email: document.getElementById('profileEmail').value
+        });
+        if (result.ok) {
+          document.getElementById('profileSuccess').textContent = 'Profile updated!';
+          document.getElementById('profileError').textContent = '';
+          subtitle.textContent = 'Welcome back, ' + result.user.name + '!';
+          setTimeout(() => document.getElementById('profileSuccess').textContent = '', 3000);
+        } else {
+          document.getElementById('profileError').textContent = result.error;
+          document.getElementById('profileSuccess').textContent = '';
+        }
+      });
+
+      // Logout
+      document.getElementById('logoutBtn').addEventListener('click', () => {
+        Auth.logout();
+        showAuth();
+      });
+
+      function showDashboard(user) {
+        authSection.style.display = 'none';
+        dashSection.style.display = 'block';
+        subtitle.textContent = 'Welcome back, ' + user.name + '!';
+        document.getElementById('profileName').value = user.name;
+        document.getElementById('profileEmail').value = user.email;
+        renderOrders();
+      }
+
+      function showAuth() {
+        authSection.style.display = 'block';
+        dashSection.style.display = 'none';
+        subtitle.textContent = 'Sign in or create an account to track your orders.';
+      }
+
+      function renderOrders() {
+        const orders = Auth.getOrders();
+        const container = document.getElementById('ordersContainer');
+
+        if (orders.length === 0) {
+          container.innerHTML = '<div class="orders-empty">No orders yet. <a href="index.html#popular-services">Browse services</a> to get started.</div>';
+          return;
+        }
+
+        let html = '';
+        orders.forEach(order => {
+          const date = new Date(order.date);
+          const dateStr = date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+          const itemsList = order.items.map(i => {
+            const label = i.name + (i.qtyLabel ? ' (' + i.qtyLabel + ')' : '');
+            return '<span class="order-item-tag">' + label + ' &times; ' + i.quantity + '</span>';
+          }).join('');
+
+          html += '<div class="order-card">' +
+            '<div class="order-header">' +
+              '<div class="order-id">' + order.id + '</div>' +
+              '<div class="order-status order-status--' + order.status.toLowerCase().replace(/\s/g,'-') + '">' + order.status + '</div>' +
+            '</div>' +
+            '<div class="order-items">' + itemsList + '</div>' +
+            '<div class="order-footer">' +
+              '<span class="order-date">' + dateStr + '</span>' +
+              '<span class="order-total">$' + order.total.toFixed(2) + '</span>' +
+            '</div>' +
+          '</div>';
+        });
+
+        container.innerHTML = html;
+      }
+
+      // Check if logged in on load
+      const user = Auth.getUser();
+      if (user) {
+        showDashboard(user);
+      }
+    })();
+  </script>
+  <script src="email-capture.js"></script>
+  <script src="search.js"></script>
+</body>
+</html>
