@@ -3954,6 +3954,7 @@ select:focus-visible,
   .page-hero { padding: 62px 0 10px; }
   .breadcrumb { padding-top: 58px; }
   .breadcrumb + .page-hero { padding-top: 4px; }
+  .promo-bar:not(.hidden) ~ .breadcrumb { padding-top: 96px; }
   .promo-bar:not(.hidden) ~ .breadcrumb + .page-hero { padding-top: 4px; }
   .page-hero h1 { font-size: 1.4rem; margin-bottom: 6px; }
   .page-hero p { font-size: 0.85rem; }
@@ -4070,6 +4071,7 @@ select:focus-visible,
   .breadcrumb { padding-top: 56px; font-size: 0.75rem; }
   .page-hero { padding: 58px 0 8px; }
   .breadcrumb + .page-hero { padding-top: 4px; }
+  .promo-bar:not(.hidden) ~ .breadcrumb { padding-top: 94px; }
   .promo-bar:not(.hidden) ~ .breadcrumb + .page-hero { padding-top: 4px; }
 
   /* Modal */
