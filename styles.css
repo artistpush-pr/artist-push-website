@@ -1449,10 +1449,10 @@ ul, ol { list-style: none; }
   .section-title { font-size: 1.6rem; }
   .carousel-track .service-card { min-width: 260px; max-width: 260px; scroll-snap-align: start; }
   .services-grid { max-width: 100%; }
-  .testimonials-scroll {
-    grid-template-columns: 1fr;
-  }
-  .testimonial-card {
+  .testimonials-scroll .testimonial-card,
+  .reviews-grid .testimonial-card {
+    min-width: 270px;
+    max-width: 270px;
     padding: 24px;
   }
 }
@@ -3791,9 +3791,12 @@ select:focus-visible,
   .hero-buttons { justify-content: center; flex-direction: column; align-items: center; }
   .hero-buttons .btn { width: 100%; max-width: 320px; }
 
-  /* Page hero */
-  .page-hero { padding: 90px 0 36px; }
-  .promo-bar:not(.hidden) ~ .page-hero { padding-top: 128px; }
+  /* Page hero & breadcrumb — more breathing room on mobile */
+  .page-hero { padding: 100px 0 36px; }
+  .promo-bar:not(.hidden) ~ .page-hero { padding-top: 138px; }
+  .breadcrumb { padding-top: 90px; }
+  .breadcrumb + .page-hero { padding-top: 20px; }
+  .promo-bar:not(.hidden) ~ .breadcrumb { padding-top: 128px; }
   .page-hero h1 { font-size: 1.8rem; }
 
   /* Platform blocks */
@@ -3842,8 +3845,26 @@ select:focus-visible,
   .how-step { padding: 24px 16px; }
   .step-number { width: 48px; height: 48px; font-size: 1rem; }
 
-  /* Testimonials */
-  .testimonials-scroll { grid-template-columns: repeat(2, 1fr); }
+  /* Testimonials — horizontal scroll carousel on mobile */
+  .testimonials-scroll,
+  .reviews-grid {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding: 8px 0 16px;
+    scrollbar-width: none;
+  }
+  .testimonials-scroll::-webkit-scrollbar,
+  .reviews-grid::-webkit-scrollbar { display: none; }
+  .testimonials-scroll .testimonial-card,
+  .reviews-grid .testimonial-card {
+    min-width: 300px;
+    max-width: 300px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
 
   /* Cart & checkout */
   .cart-notification { right: 16px; left: 16px; }
@@ -3903,7 +3924,8 @@ select:focus-visible,
   .hero-buttons { gap: 8px; }
 
   /* Page hero */
-  .page-hero { padding: 80px 0 28px; }
+  .page-hero { padding: 90px 0 28px; }
+  .breadcrumb { padding-top: 82px; }
   .page-hero h1 { font-size: 1.5rem; }
 
   /* Navbar */
