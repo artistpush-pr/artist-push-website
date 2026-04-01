@@ -1449,8 +1449,8 @@ ul, ol { list-style: none; }
 .mobile-nav {
   position: fixed;
   inset: 0;
-  z-index: 999;
-  background: rgba(0, 0, 0, 0.95);
+  z-index: 1500;
+  background: rgba(0, 0, 0, 0.97);
   -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
   display: flex;
   flex-direction: column;
@@ -1472,11 +1472,23 @@ ul, ol { list-style: none; }
 .mobile-nav a:hover { color: var(--green); }
 .mobile-nav-close {
   position: absolute;
-  top: 24px; right: 24px;
-  background: none; border: none;
+  top: 20px; right: 20px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--white);
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   cursor: pointer;
+  z-index: 10;
+  transition: background 0.2s;
+}
+.mobile-nav-close:hover {
+  background: rgba(255,255,255,0.15);
 }
 
 /* Scroll animations */
