@@ -809,7 +809,7 @@ ul, ol { list-style: none; }
   padding-top: 12px;
 }
 .page-hero {
-  padding: 88px 0 24px;
+  padding: 82px 0 20px;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -1458,7 +1458,7 @@ ul, ol { list-style: none; }
 
 /* ---------- Breadcrumb ---------- */
 .breadcrumb {
-  padding: 84px 0 0;
+  padding: 80px 0 0;
   font-size: 0.85rem;
   color: var(--grey-text);
 }
@@ -3779,13 +3779,13 @@ select:focus-visible,
   .mobile-toggle { display: block; }
   .navbar-cta { gap: 6px; }
   .navbar-cta > .btn-primary.btn-sm { display: none; }
-  .navbar-icons { padding: 2px 3px; gap: 0; }
+  .navbar-icons { padding: 3px 4px; gap: 0; }
   .navbar-icons .search-trigger,
   .navbar-icons .auth-trigger,
-  .navbar-icons .cart-icon-link { padding: 7px; }
+  .navbar-icons .cart-icon-link { padding: 10px; }
   .navbar-icons .cart-icon-link svg,
   .navbar-icons .search-trigger svg,
-  .navbar-icons .auth-trigger svg { width: 16px; height: 16px; }
+  .navbar-icons .auth-trigger svg { width: 20px; height: 20px; }
   .modal { width: 95%; margin: 16px; }
 
   /* Search mobile */
@@ -3812,11 +3812,11 @@ select:focus-visible,
   .hero-buttons .btn { width: 100%; max-width: 320px; }
 
   /* Page hero & breadcrumb */
-  .page-hero { padding: 88px 0 28px; }
-  .promo-bar:not(.hidden) ~ .page-hero { padding-top: 126px; }
-  .breadcrumb { padding-top: 78px; }
-  .breadcrumb + .page-hero { padding-top: 12px; }
-  .promo-bar:not(.hidden) ~ .breadcrumb { padding-top: 116px; }
+  .page-hero { padding: 76px 0 16px; }
+  .promo-bar:not(.hidden) ~ .page-hero { padding-top: 114px; }
+  .breadcrumb { padding-top: 72px; }
+  .breadcrumb + .page-hero { padding-top: 8px; }
+  .promo-bar:not(.hidden) ~ .breadcrumb { padding-top: 110px; }
   .page-hero h1 { font-size: 1.8rem; }
 
   /* Platform blocks */
@@ -3942,9 +3942,9 @@ select:focus-visible,
   .hero-buttons { gap: 8px; }
 
   /* Page hero */
-  .page-hero { padding: 80px 0 24px; }
-  .breadcrumb { padding-top: 72px; }
-  .breadcrumb + .page-hero { padding-top: 10px; }
+  .page-hero { padding: 72px 0 14px; }
+  .breadcrumb { padding-top: 66px; }
+  .breadcrumb + .page-hero { padding-top: 6px; }
   .page-hero h1 { font-size: 1.5rem; margin-bottom: 10px; }
 
   /* Platform blocks */
@@ -4058,7 +4058,7 @@ select:focus-visible,
   .email-popup-input { font-size: 0.9rem; padding: 10px 14px; }
 
   /* Breadcrumb */
-  .breadcrumb { padding-top: 68px; font-size: 0.75rem; }
+  .breadcrumb { padding-top: 62px; font-size: 0.75rem; }
 
   /* Modal */
   .modal { width: 96%; margin: 8px; }
