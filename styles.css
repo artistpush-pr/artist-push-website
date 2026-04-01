@@ -976,6 +976,52 @@ body:has(.page-hero-bg.sc) .anchor-link:hover {
   background: linear-gradient(90deg, transparent, rgba(255, 85, 0, 0.2), transparent);
 }
 
+/* ---------- Organic Push Block ---------- */
+.organic-push-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+.organic-card {
+  max-width: none;
+}
+.organic-info {
+  background: var(--dark-card);
+  border: 1px solid var(--dark-border);
+  border-radius: var(--radius);
+  padding: 32px;
+}
+.organic-info h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+.organic-info h4 span {
+  color: var(--soundcloud-orange);
+}
+.organic-features {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.organic-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 1rem;
+  color: var(--grey-light);
+  line-height: 1.5;
+}
+.organic-check {
+  flex-shrink: 0;
+  color: var(--soundcloud-orange);
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-top: 1px;
+}
+
 /* ---------- Service Selector Card (Modular) ---------- */
 .selector-card {
   background: var(--dark-card);
@@ -3861,6 +3907,12 @@ select:focus-visible,
   .navbar-icons .search-trigger svg,
   .navbar-icons .auth-trigger svg { width: 20px; height: 20px; }
   .modal { width: 95%; margin: 16px; }
+
+  /* Organic push block */
+  .organic-push-block { grid-template-columns: 1fr; }
+  .organic-info { padding: 24px; }
+  .organic-info h4 { font-size: 1rem; }
+  .organic-feature { font-size: 0.92rem; }
 
   /* Search mobile */
   .search-overlay { padding-top: 6vh; }

@@ -280,65 +280,83 @@
         <h2>Organic Promotion Packages</h2>
         <p>Sustained, community-driven promotion for natural growth.</p>
       </div>
-      <div class="services-grid fade-up">
+      <div class="organic-push-block fade-up">
 
-        <div class="selector-card">
+        <div class="selector-card organic-card">
           <h3 style="display:none;">SoundCloud Organic Push</h3>
           <div class="select-group">
             <label>Duration (Days)</label>
-            <div class="qty-pills">
-              <button class="qty-pill active" data-price="25">1</button>
-              <button class="qty-pill" data-price="59">5</button>
-              <button class="qty-pill" data-price="99">10</button>
-              <button class="qty-pill" data-price="165">20</button>
-              <button class="qty-pill" data-price="220">30</button>
-              <button class="qty-pill" data-price="499">40</button>
+            <div class="qty-pills" id="organicDurationPills">
+              <button class="qty-pill active" data-price="25" data-old="35" data-days="1">1</button>
+              <button class="qty-pill" data-price="59" data-old="85" data-days="5">5</button>
+              <button class="qty-pill" data-price="99" data-old="140" data-days="10">10</button>
+              <button class="qty-pill" data-price="165" data-old="235" data-days="20">20</button>
+              <button class="qty-pill" data-price="220" data-old="310" data-days="30">30</button>
+              <button class="qty-pill" data-price="499" data-old="700" data-days="40">40</button>
             </div>
           </div>
           <div class="price-display">
-            <span class="price-current">$25</span>
-            <span class="price-old">$35</span>
+            <span class="price-current" id="organicPrice">$25</span>
+            <span class="price-old" id="organicOldPrice">$35</span>
           </div>
           <button class="btn btn-primary" style="width: 100%;">ADD TO CART</button>
         </div>
 
-        <div class="selector-card">
-          <h3 style="display:none;">Organic Pack Small</h3>
-          <div class="select-group">
-            <label>Quantity</label>
-            <div class="qty-pills">
-              <button class="qty-pill active" data-price="6">1x</button>
-              <button class="qty-pill" data-price="18">3x</button>
-              <button class="qty-pill" data-price="30">5x</button>
-              <button class="qty-pill" data-price="60">10x</button>
+        <div class="organic-info" id="organicInfo">
+          <h4>What you get for <span id="organicDaysLabel">1 day</span> of promotion:</h4>
+          <div class="organic-features">
+            <div class="organic-feature">
+              <span class="organic-check">&#10003;</span>
+              <span id="orgFeat1">1x Day of SoundCloud Organic Push</span>
+            </div>
+            <div class="organic-feature">
+              <span class="organic-check">&#10003;</span>
+              <span id="orgFeat2">300–500 Real Plays</span>
+            </div>
+            <div class="organic-feature">
+              <span class="organic-check">&#10003;</span>
+              <span id="orgFeat3">10–60 Real Reposts; 10–80 Likes; 1–10 Comments</span>
+            </div>
+            <div class="organic-feature">
+              <span class="organic-check">&#10003;</span>
+              <span id="orgFeat4">New Real Followers: 1–2% of the number of reposts</span>
             </div>
           </div>
-          <div class="price-display">
-            <span class="price-current">$6</span>
-            <span class="price-old">$10</span>
-          </div>
-          <button class="btn btn-primary" style="width: 100%;">ADD TO CART</button>
-        </div>
-
-        <div class="selector-card">
-          <h3 style="display:none;">Organic Pack Large</h3>
-          <div class="select-group">
-            <label>Quantity</label>
-            <div class="qty-pills">
-              <button class="qty-pill active" data-price="12">1x</button>
-              <button class="qty-pill" data-price="36">3x</button>
-              <button class="qty-pill" data-price="60">5x</button>
-              <button class="qty-pill" data-price="120">10x</button>
-            </div>
-          </div>
-          <div class="price-display">
-            <span class="price-current">$12</span>
-            <span class="price-old">$20</span>
-          </div>
-          <button class="btn btn-primary" style="width: 100%;">ADD TO CART</button>
         </div>
 
       </div>
+
+      <script>
+      (function() {
+        const data = {
+          1:  { days: '1 day',   feat1: '1x Day of SoundCloud Organic Push',   feat2: '300–500 Real Plays',       feat3: '10–60 Real Reposts; 10–80 Likes; 1–10 Comments',       feat4: 'New Real Followers: 1–2% of the number of reposts' },
+          5:  { days: '5 days',  feat1: '5x Days of SoundCloud Organic Push',  feat2: '1,500–2,500 Real Plays',   feat3: '50–300 Real Reposts; 50–400 Likes; 5–50 Comments',     feat4: 'New Real Followers: 1–2% of the number of reposts' },
+          10: { days: '10 days', feat1: '10x Days of SoundCloud Organic Push', feat2: '3,000–5,000 Real Plays',   feat3: '100–600 Real Reposts; 100–800 Likes; 10–100 Comments', feat4: 'New Real Followers: 1–2% of the number of reposts' },
+          20: { days: '20 days', feat1: '20x Days of SoundCloud Organic Push', feat2: '6,000–10,000 Real Plays',  feat3: '200–1,200 Real Reposts; 200–1,600 Likes; 20–200 Comments', feat4: 'New Real Followers: 1–2% of the number of reposts' },
+          30: { days: '30 days', feat1: '30x Days of SoundCloud Organic Push', feat2: '9,000–15,000 Real Plays',  feat3: '300–1,800 Real Reposts; 300–2,400 Likes; 30–300 Comments', feat4: 'New Real Followers: 1–2% of the number of reposts' },
+          40: { days: '40 days', feat1: '40x Days of SoundCloud Organic Push', feat2: '12,000–20,000 Real Plays', feat3: '400–2,400 Real Reposts; 400–3,200 Likes; 40–400 Comments', feat4: 'New Real Followers: 1–2% of the number of reposts' }
+        };
+
+        const pills = document.querySelectorAll('#organicDurationPills .qty-pill');
+        pills.forEach(pill => {
+          pill.addEventListener('click', function() {
+            pills.forEach(p => p.classList.remove('active'));
+            this.classList.add('active');
+            const days = this.getAttribute('data-days');
+            const price = this.getAttribute('data-price');
+            const oldPrice = this.getAttribute('data-old');
+            const info = data[days];
+            document.getElementById('organicPrice').textContent = '$' + price;
+            document.getElementById('organicOldPrice').textContent = '$' + oldPrice;
+            document.getElementById('organicDaysLabel').textContent = info.days;
+            document.getElementById('orgFeat1').textContent = info.feat1;
+            document.getElementById('orgFeat2').textContent = info.feat2;
+            document.getElementById('orgFeat3').textContent = info.feat3;
+            document.getElementById('orgFeat4').textContent = info.feat4;
+          });
+        });
+      })();
+      </script>
     </div>
   </section>
 
