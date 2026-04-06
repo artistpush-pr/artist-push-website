@@ -232,7 +232,7 @@ ul, ol { list-style: none; }
   align-items: center;
 }
 .navbar-logo .logo-img {
-  height: 44px;
+  height: 72px;
   width: auto;
   filter: invert(1);
 }
