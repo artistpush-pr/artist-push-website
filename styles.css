@@ -228,11 +228,13 @@ ul, ol { list-style: none; }
   height: 72px;
 }
 .navbar-logo {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--white);
+  display: flex;
+  align-items: center;
+}
+.navbar-logo .logo-img {
+  height: 28px;
+  width: auto;
+  filter: invert(1);
 }
 .navbar-links { display: flex; align-items: center; gap: 32px; }
 .navbar-links a {
