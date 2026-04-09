@@ -1,5 +1,5 @@
 /* ============================================
-   ARTIST PUSH — Site Search
+   BREAKOUT — Site Search
    Client-side search across services & articles
    ============================================ */
 
@@ -7,7 +7,7 @@
   'use strict';
 
   /* ---------- Search Data Index ---------- */
-  const searchData = [
+  var searchData = [
     // ——— SPOTIFY PACKAGES ———
     { title: 'Starter Mix', desc: '3K Plays + 100 Saves + 300 Followers — perfect kickstart for new releases.', price: '$12', platform: 'spotify', type: 'package', url: 'spotify.html#packages', tags: 'bundle starter beginner plays saves followers' },
     { title: 'Pro Mix', desc: '30K Plays + 1K Saves + 1K Followers — accelerate your growth.', price: '$90', platform: 'spotify', type: 'package', url: 'spotify.html#packages', tags: 'bundle pro plays saves followers' },
@@ -52,8 +52,7 @@
     var haystack = normalize(item.title + ' ' + item.desc + ' ' + (item.tags || '') + ' ' + (item.platform || '') + ' ' + (item.type || ''));
     for (var i = 0; i < terms.length; i++) {
       var t = terms[i];
-      if (haystack.indexOf(t) === -1) return 0; // all terms must match
-      // bonus for title match
+      if (haystack.indexOf(t) === -1) return 0;
       if (normalize(item.title).indexOf(t) !== -1) score += 3;
       else score += 1;
     }
@@ -72,7 +71,7 @@
     return results.map(function (r) { return r.item; });
   }
 
-  /* ---------- Platform Badge ---------- */
+  /* ---------- Badges ---------- */
   function platformBadge(item) {
     if (item.type === 'article') return '<span class="search-badge search-badge--article">Article</span>';
     if (item.platform === 'spotify') return '<span class="search-badge search-badge--spotify">Spotify</span>';
@@ -86,24 +85,65 @@
     return '';
   }
 
-  /* ---------- Render Results ---------- */
-  function renderResults(items, container) {
-    if (items.length === 0) {
-      container.innerHTML = '<div class="search-no-results">No results found. Try a different keyword.</div>';
-      return;
-    }
-    var html = '';
-    for (var i = 0; i < Math.min(items.length, 12); i++) {
-      var it = items[i];
-      html += '<a href="' + it.url + '" class="search-result-item">' +
+  /* ---------- Render a Single Item ---------- */
+  function renderItem(it) {
+    var accentClass = 'search-result-accent--' + (it.type === 'article' ? 'article' : it.platform);
+    var articleClass = it.type === 'article' ? ' search-result-item--article' : '';
+    return '<a href="' + it.url + '" class="search-result-item' + articleClass + '">' +
+      '<div class="search-result-accent ' + accentClass + '"></div>' +
+      '<div class="search-result-content">' +
         '<div class="search-result-top">' +
           '<div class="search-result-title">' + it.title + '</div>' +
           '<div class="search-result-badges">' + platformBadge(it) + typeBadge(it) + '</div>' +
         '</div>' +
         '<div class="search-result-desc">' + it.desc + '</div>' +
         (it.price ? '<div class="search-result-price">' + it.price + '</div>' : '') +
-      '</a>';
+      '</div>' +
+    '</a>';
+  }
+
+  /* ---------- Group & Render Results ---------- */
+  function renderResults(items, container) {
+    if (items.length === 0) {
+      container.innerHTML = '<div class="search-no-results">' +
+        '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:12px"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>' +
+        '<div>No results found</div>' +
+        '<div style="font-size:0.78rem;color:#555;margin-top:4px">Try a different keyword or browse services directly</div>' +
+      '</div>';
+      return;
     }
+
+    // Group by type: services first, then packages, then articles
+    var services = [];
+    var packages = [];
+    var articles = [];
+    for (var i = 0; i < Math.min(items.length, 15); i++) {
+      var it = items[i];
+      if (it.type === 'service') services.push(it);
+      else if (it.type === 'package') packages.push(it);
+      else articles.push(it);
+    }
+
+    var html = '';
+
+    if (services.length > 0) {
+      html += '<div class="search-category">Services</div>';
+      for (var s = 0; s < services.length; s++) html += renderItem(services[s]);
+    }
+
+    if (packages.length > 0) {
+      html += '<div class="search-category">Packages</div>';
+      for (var p = 0; p < packages.length; p++) html += renderItem(packages[p]);
+    }
+
+    if (articles.length > 0) {
+      html += '<div class="search-category">Articles</div>';
+      for (var a = 0; a < articles.length; a++) html += renderItem(articles[a]);
+    }
+
+    var total = services.length + packages.length + articles.length;
+    html += '<div class="search-result-count">' + total + ' result' + (total !== 1 ? 's' : '') + '</div>';
+
     container.innerHTML = html;
   }
 
@@ -131,10 +171,9 @@
       if (e.target === overlay) closeSearch();
     });
 
-    // Escape key
+    // Escape key & Ctrl+K
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && overlay.classList.contains('active')) closeSearch();
-      // Ctrl/Cmd + K to open
       if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
         e.preventDefault();
         if (overlay.classList.contains('active')) closeSearch();
@@ -154,7 +193,7 @@
         }
         var found = search(q);
         renderResults(found, results);
-      }, 200);
+      }, 180);
     });
 
     function openSearch() {
@@ -162,8 +201,7 @@
       document.body.style.overflow = 'hidden';
       setTimeout(function () { input.focus(); }, 100);
       input.value = '';
-      results.innerHTML = '<div class="search-hint">Search for services, packages, or articles...</div>';
-      // Close mobile nav if open
+      results.innerHTML = '<div class="search-hint">Search services, packages & articles...</div>';
       var mobileNav = document.querySelector('.mobile-nav');
       if (mobileNav) mobileNav.classList.remove('active');
     }
@@ -175,7 +213,6 @@
     }
   }
 
-  // Run on DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initSearch);
   } else {
