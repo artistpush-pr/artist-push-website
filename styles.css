@@ -3625,7 +3625,9 @@ select:focus-visible,
   flex: 1;
   background: none;
   border: none;
-  outline: none;
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-appearance: none;
   color: var(--white);
   font-size: 1.15rem;
   font-weight: 400;
