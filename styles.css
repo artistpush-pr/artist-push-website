@@ -904,7 +904,7 @@ body:has(.page-hero-bg.sc) .anchor-link:hover {
 
 /* Service Category */
 .service-category {
-  padding: 56px 0;
+  padding: 64px 0;
   border-bottom: none;
   position: relative;
 }
@@ -934,8 +934,8 @@ body:has(.page-hero-bg.sc) .anchor-link:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 32px;
+  gap: 14px;
+  margin-bottom: 40px;
   text-align: center;
 }
 .category-icon {
@@ -1019,7 +1019,7 @@ body:has(.page-hero-bg.sc) .anchor-link:hover {
   background: var(--dark-card);
   border: 1px solid var(--dark-border);
   border-radius: var(--radius);
-  padding: 36px;
+  padding: 40px;
   transition: var(--transition);
   position: relative;
 }
@@ -1059,7 +1059,7 @@ body:has(.page-hero-bg.sc) .anchor-link:hover {
 }
 
 /* Custom Select */
-.select-group { margin-bottom: 20px; }
+.select-group { margin-bottom: 28px; }
 .select-group label {
   display: block;
   font-size: 0.75rem;
@@ -1090,11 +1090,12 @@ body:has(.page-hero-bg.sc) .anchor-link:hover {
   box-shadow: 0 0 0 3px rgba(0, 255, 133, 0.1);
 }
 .select-desc {
-  margin: 8px 0 0;
+  margin: 10px 0 4px;
+  padding: 0 2px;
   font-size: 0.82rem;
-  color: #888;
-  line-height: 1.4;
-  min-height: 1.4em;
+  color: #999;
+  line-height: 1.45;
+  min-height: 1.45em;
   transition: opacity 0.25s ease;
 }
 .select-desc.fade {
