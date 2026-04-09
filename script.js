@@ -142,6 +142,17 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.custom-select').forEach(select => {
     select.addEventListener('change', () => {
       updatePrice(select.closest('.selector-card') || select.closest('.modal'));
+      // Update service description
+      const descEl = select.parentElement.querySelector('.select-desc');
+      if (descEl) {
+        const opt = select.options[select.selectedIndex];
+        const desc = opt ? opt.getAttribute('data-desc') : '';
+        descEl.classList.add('fade');
+        setTimeout(() => {
+          descEl.textContent = desc || '';
+          descEl.classList.remove('fade');
+        }, 200);
+      }
     });
   });
 
