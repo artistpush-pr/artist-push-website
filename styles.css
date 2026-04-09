@@ -1092,9 +1092,9 @@ body:has(.page-hero-bg.sc) .anchor-link:hover {
 .select-desc {
   margin: 10px 0 4px;
   padding: 0 2px;
-  font-size: 0.82rem;
+  font-size: 0.9rem;
   color: #999;
-  line-height: 1.45;
+  line-height: 1.5;
   min-height: 1.45em;
   transition: opacity 0.25s ease;
 }
