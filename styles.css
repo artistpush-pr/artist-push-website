@@ -3735,7 +3735,7 @@ select:focus-visible,
 }
 .search-result-accent--spotify { background: var(--spotify-green); }
 .search-result-accent--soundcloud { background: var(--soundcloud-orange); }
-.search-result-accent--article { background: var(--green-dim); opacity: 0.5; }
+.search-result-accent--article { background: #a855f7; }
 
 /* Content area */
 .search-result-content {
@@ -3772,7 +3772,7 @@ select:focus-visible,
 }
 .search-badge--spotify { background: rgba(29,185,84,0.14); color: #2dd66b; }
 .search-badge--soundcloud { background: rgba(255,85,0,0.12); color: #ff7733; }
-.search-badge--article { background: rgba(0,255,133,0.08); color: var(--green-dim); }
+.search-badge--article { background: rgba(168,85,247,0.15); color: #c084fc; }
 .search-type {
   font-size: 0.64rem;
   font-weight: 600;
