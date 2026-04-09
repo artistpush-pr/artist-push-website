@@ -304,12 +304,22 @@
 
       function esc(str) { const d = document.createElement('div'); d.textContent = str || ''; return d.innerHTML; }
 
-      tbody.innerHTML = items.map((item, idx) => `
+      tbody.innerHTML = items.map((item, idx) => {
+        // Build clear product title with quantity tier on first line
+        // e.g. "1000 × Spotify Plays" or "Starter Mix" (packages have no qtyLabel)
+        let title = esc(item.name);
+        if (item.qtyLabel) {
+          title = esc(item.qtyLabel) + ' &times; ' + title;
+        }
+        // Subtitle: service type + platform
+        const meta = [item.serviceType, item.platform].filter(Boolean).map(esc).join(' &middot; ');
+
+        return `
         <tr>
           <td>
             <div class="cart-item-info">
-              <h4>${esc(item.name)}</h4>
-              <div class="meta">${esc(item.serviceType)} ${item.qtyLabel ? '&middot; ' + esc(item.qtyLabel) : ''} ${item.platform ? '&middot; ' + esc(item.platform) : ''}</div>
+              <h4>${title}</h4>
+              ${meta ? '<div class="meta">' + meta + '</div>' : ''}
             </div>
           </td>
           <td>
@@ -323,8 +333,8 @@
           <td class="cart-item-price">$${item.price.toFixed(2)}</td>
           <td class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</td>
           <td><button class="cart-remove" onclick="removeCartItem(${idx})">&#10005;</button></td>
-        </tr>
-      `).join('');
+        </tr>`;
+      }).join('');
 
       const subtotal = Cart.getTotal();
       document.getElementById('cart-subtotal').textContent = '$' + subtotal.toFixed(2);
