@@ -71,8 +71,8 @@ function loadFeaturedPlaylists() {
           '<div class="playlist-card-icon">' + getPlaylistIconHtml(p.title, i) + '</div>' +
           '<h4>' + escapeHtml(p.title) + '</h4>' +
           '<div class="meta">' + escapeHtml(p.likes) + ' &middot; ' + escapeHtml(p.genre) + '</div>' +
-          '<div class="playlist-price">$' + p.price + '</div>' +
-          '<button class="btn btn-sm btn-primary" onclick="addPlaylistToCart(\'' + safeTitle + '\', ' + p.price + ')">Add to Cart</button>' +
+          '<div class="playlist-price">$' + (parseFloat(p.price) || 0).toFixed(2) + '</div>' +
+          '<button class="btn btn-sm btn-primary" onclick="addPlaylistToCart(\'' + safeTitle + '\', ' + (parseFloat(p.price) || 0) + ')">Add to Cart</button>' +
         '</div>';
       }).join('');
     })

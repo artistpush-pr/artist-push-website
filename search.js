@@ -114,7 +114,7 @@
     var results = document.getElementById('searchResults');
     var closeBtn = document.getElementById('searchClose');
 
-    if (!overlay || !input) return;
+    if (!overlay || !input || !results) return;
 
     // Open triggers
     var triggers = document.querySelectorAll('.search-trigger');

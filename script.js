@@ -1,5 +1,5 @@
 /* ============================================
-   ARTIST PUSH — Main JavaScript
+   Breakout — Main JavaScript
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -159,10 +159,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let basePrice = activeQty ? parseFloat(activeQty.dataset.price || 0) : 0;
 
     // Multiply by service type modifier if exists
-    if (select) {
+    if (select && select.selectedIndex >= 0) {
       const option = select.options[select.selectedIndex];
-      const mod = parseFloat(option.dataset.modifier || 1);
-      basePrice = basePrice * mod;
+      if (option) {
+        const mod = parseFloat(option.dataset.modifier || 1);
+        basePrice = basePrice * mod;
+      }
     }
 
     if (basePrice > 0) {
@@ -321,8 +323,9 @@ document.addEventListener('DOMContentLoaded', () => {
     startAutoplay();
   }
 
-  // ─── Smooth Scroll for anchor links ───
+  // ─── Smooth Scroll for anchor links (skip if anchor-nav.js handles them) ───
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    if (anchor.classList.contains('anchor-link')) return; // handled by anchor-nav.js
     anchor.addEventListener('click', function(e) {
       const target = document.querySelector(this.getAttribute('href'));
       if (target) {

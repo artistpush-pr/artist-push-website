@@ -1,5 +1,5 @@
 /* ============================================
-   ARTIST PUSH — Email Automation Data Layer
+   Breakout — Email Automation Data Layer
    Tracks user events for email automation flows:
    - Page views & category browsing
    - Cart actions (add, remove, abandon)
@@ -163,15 +163,15 @@
 
     _getCartItems() {
       try {
-        const cart = JSON.parse(localStorage.getItem('cart'));
-        return cart?.items || [];
+        const cart = JSON.parse(localStorage.getItem('artistpush_cart'));
+        return cart || [];
       } catch { return []; }
     },
 
     _getCartTotal() {
       try {
-        const cart = JSON.parse(localStorage.getItem('cart'));
-        return cart?.items?.reduce((sum, i) => sum + (i.price * i.qty), 0) || 0;
+        const cart = JSON.parse(localStorage.getItem('artistpush_cart'));
+        return cart?.reduce((sum, i) => sum + (i.price * (i.quantity || 1)), 0) || 0;
       } catch { return 0; }
     },
 

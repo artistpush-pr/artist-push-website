@@ -1,5 +1,5 @@
 /* ============================================
-   ARTIST PUSH — Email Capture UI
+   Breakout — Email Capture UI
    Exit-intent popup, footer form, cart email
    ============================================ */
 
@@ -137,15 +137,16 @@
       const originalAddItem = window.Cart?.addItem;
       if (originalAddItem) {
         window.Cart.addItem = function(...args) {
-          const result = originalAddItem.apply(this, args);
+          const result = originalAddItem.apply(Cart, args);
 
-          // Track in email system
-          if (window.AP_EMAIL) {
-            window.AP_EMAIL.trackAddToCart({ name: args[0], price: args[1], qty: args[2] || 1 });
+          // Track in email system — args[0] is the item object {id, name, price, quantity, ...}
+          if (window.AP_EMAIL && args[0]) {
+            const item = args[0];
+            window.AP_EMAIL.trackAddToCart({ name: item.name, price: item.price, quantity: item.quantity || 1 });
           }
 
           // Show email capture if not subscribed (after 2nd add to cart)
-          const cartItems = JSON.parse(localStorage.getItem('cart'))?.items || [];
+          const cartItems = JSON.parse(localStorage.getItem('artistpush_cart')) || [];
           if (cartItems.length >= 2 && !localStorage.getItem('ap_subscriber') && !sessionStorage.getItem('cart_email_asked')) {
             sessionStorage.setItem('cart_email_asked', '1');
             EmailCapture.showCartEmailPrompt();
