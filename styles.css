@@ -1093,7 +1093,7 @@ body:has(.page-hero-bg.sc) .anchor-link:hover {
   margin: 10px 0 4px;
   padding: 0 2px;
   font-size: 0.9rem;
-  color: #999;
+  color: #bbb;
   line-height: 1.5;
   min-height: 1.45em;
   transition: opacity 0.25s ease;
@@ -2113,7 +2113,7 @@ body:has(.page-hero-bg.sc) .anchor-link:hover {
   border-color: var(--green);
   box-shadow: 0 0 0 3px rgba(0, 255, 133, 0.12);
 }
-.form-input::placeholder { color: #666; }
+.form-input::placeholder { color: #888; }
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -4275,7 +4275,7 @@ select:focus-visible,
   .selector-card .price-current { font-size: 1.45rem; }
   .custom-select { font-size: 0.92rem; padding: 8px 10px; }
   .qty-pills { gap: 4px; flex-wrap: wrap; }
-  .qty-pill { padding: 6px 10px; font-size: 0.75rem; }
+  .qty-pill { padding: 10px 14px; font-size: 0.8rem; min-height: 44px; }
 
   /* Carousel – native scroll on mobile */
   .carousel-wrapper { overflow: visible; }
@@ -4324,8 +4324,8 @@ select:focus-visible,
   .cart-table td { padding: 10px 8px; font-size: 0.85rem; }
   .cart-item-info h4 { font-size: 0.88rem; }
   .cart-item-info .meta { font-size: 0.78rem; }
-  .qty-input-group .qty-btn { width: 36px; height: 36px; }
-  .qty-input { width: 40px; font-size: 0.8rem; }
+  .qty-input-group .qty-btn { width: 44px; height: 44px; }
+  .qty-input { width: 48px; font-size: 0.85rem; }
 
   /* Cart summary */
   .cart-summary { padding: 20px; }
@@ -4414,9 +4414,9 @@ select:focus-visible,
   .hero { padding: 76px 0 20px; }
   .promo-bar:not(.hidden) ~ .hero { padding-top: 112px; }
   .hero h1 { font-size: 1.35rem; margin-bottom: 8px; }
-  .hero p { font-size: 0.78rem; margin-bottom: 12px; line-height: 1.5; }
-  .hero-badge { font-size: 0.62rem; padding: 4px 10px; margin-bottom: 10px; }
-  .hero-buttons .btn { padding: 10px 18px; font-size: 0.82rem; }
+  .hero p { font-size: 0.88rem; margin-bottom: 12px; line-height: 1.5; }
+  .hero-badge { font-size: 0.72rem; padding: 5px 12px; margin-bottom: 10px; }
+  .hero-buttons .btn { padding: 12px 22px; font-size: 0.88rem; }
   .hero-buttons { gap: 6px; }
 
   /* Promo bar */

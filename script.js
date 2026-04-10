@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
     select.addEventListener('change', () => {
       updatePrice(select.closest('.selector-card') || select.closest('.modal'));
       // Update service description
-      const descEl = select.parentElement.querySelector('.select-desc');
+      const descEl = select.parentElement ? select.parentElement.querySelector('.select-desc') : null;
       if (descEl) {
         const opt = select.options[select.selectedIndex];
         const desc = opt ? opt.getAttribute('data-desc') : '';
