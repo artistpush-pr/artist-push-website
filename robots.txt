@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Block admin/internal pages
+Disallow: /account.html
+Disallow: /cart.html
+Disallow: /checkout.html
+Disallow: /success.html
+Disallow: /policy-modals.html
+
+# Block asset directories from indexing (they don't need it)
+Disallow: /assets/
+
+Sitemap: https://breakoutmusic.io/sitemap.xml
