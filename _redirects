@@ -1,0 +1,5 @@
+# Redirect www to apex domain
+https://www.breakoutmusic.io/* https://breakoutmusic.io/:splat 301
+
+# Redirect old GitHub Pages domain if anyone has cached links
+https://artistpush-pr.github.io/artist-push-website/* https://breakoutmusic.io/:splat 301
