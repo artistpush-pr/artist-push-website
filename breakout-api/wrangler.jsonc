@@ -10,7 +10,6 @@
     }
   ],
   "vars": {
-    "CORS_ORIGIN": "https://breakoutmusic.io",
-    "ADMIN_PASSWORD": "CHANGE_ME_TO_SECURE_PASSWORD"
+    "CORS_ORIGIN": "https://breakoutmusic.io"
   }
 }
