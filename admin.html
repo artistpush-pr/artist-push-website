@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Breakout Admin</title>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #0a0a0a;
+      --card: #141414;
+      --border: #2a2a2a;
+      --green: #00FF85;
+      --green-dim: #00cc6a;
+      --text: #f0f0f0;
+      --text-dim: #999;
+      --red: #ff4d4d;
+      --yellow: #ffcc00;
+      --blue: #4d9fff;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* Login Screen */
+    .login-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .login-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px 40px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+    .login-box h1 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      color: var(--green);
+    }
+    .login-box p {
+      color: var(--text-dim);
+      margin-bottom: 32px;
+      font-size: 0.9rem;
+    }
+    .login-box input {
+      width: 100%;
+      padding: 14px 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 1rem;
+      margin-bottom: 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .login-box input:focus { border-color: var(--green); }
+    .login-box .btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--green);
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .login-box .btn:hover { background: var(--green-dim); }
+    .login-error {
+      color: var(--red);
+      font-size: 0.85rem;
+      margin-top: 12px;
+      display: none;
+    }
+
+    /* Dashboard */
+    .dashboard { display: none; }
+    .dashboard.active { display: block; }
+
+    /* Top bar */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .topbar-logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--green);
+    }
+    .topbar-right { display: flex; align-items: center; gap: 16px; }
+    .btn-logout {
+      padding: 8px 16px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-dim);
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .btn-logout:hover { border-color: var(--red); color: var(--red); }
+
+    /* Navigation tabs */
+    .nav-tabs {
+      display: flex;
+      gap: 4px;
+      padding: 16px 32px;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-tab {
+      padding: 10px 20px;
+      background: transparent;
+      border: none;
+      border-radius: 8px;
+      color: var(--text-dim);
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .nav-tab:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+    .nav-tab.active { color: var(--green); background: rgba(0,255,133,0.08); }
+
+    /* Content */
+    .content { padding: 32px; max-width: 1400px; margin: 0 auto; }
+
+    /* Stats cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .stat-card .label {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .stat-card .value {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    .stat-card .value.green { color: var(--green); }
+
+    /* Tables */
+    .table-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .table-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .table-header h2 { font-size: 1.1rem; }
+    .table-filters { display: flex; gap: 8px; }
+    .filter-btn {
+      padding: 6px 14px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-dim);
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover { border-color: var(--text-dim); }
+    .filter-btn.active { border-color: var(--green); color: var(--green); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th {
+      text-align: left;
+      padding: 12px 24px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-dim);
+      border-bottom: 1px solid var(--border);
+      font-weight: 500;
+    }
+    td {
+      padding: 14px 24px;
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--border);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover { background: rgba(255,255,255,0.02); }
+
+    /* Status badges */
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .badge-pending { background: rgba(255,204,0,0.15); color: var(--yellow); }
+    .badge-processing { background: rgba(77,159,255,0.15); color: var(--blue); }
+    .badge-completed { background: rgba(0,255,133,0.15); color: var(--green); }
+    .badge-cancelled { background: rgba(255,77,77,0.15); color: var(--red); }
+    .badge-paid { background: rgba(0,255,133,0.15); color: var(--green); }
+    .badge-unpaid { background: rgba(255,77,77,0.15); color: var(--red); }
+
+    /* Order detail modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      max-width: 700px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 32px;
+    }
+    .modal-close {
+      float: right;
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .modal h2 { margin-bottom: 24px; font-size: 1.2rem; }
+    .modal-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-row .label { color: var(--text-dim); font-size: 0.85rem; }
+    .modal-row .value { font-weight: 500; }
+    .modal-items { margin-top: 20px; }
+    .modal-items h3 { font-size: 0.95rem; margin-bottom: 12px; color: var(--text-dim); }
+    .modal-item {
+      background: var(--bg);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-item .item-info { font-size: 0.9rem; }
+    .modal-item .item-price { font-weight: 600; color: var(--green); }
+    .modal-actions {
+      margin-top: 24px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .modal-actions select, .modal-actions textarea {
+      padding: 10px 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .modal-actions select:focus, .modal-actions textarea:focus { border-color: var(--green); }
+    .modal-actions textarea { width: 100%; min-height: 60px; resize: vertical; }
+    .btn-save {
+      padding: 10px 24px;
+      background: var(--green);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .btn-save:hover { background: var(--green-dim); }
+
+    /* Page sections */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* Loading */
+    .loading {
+      text-align: center;
+      padding: 60px;
+      color: var(--text-dim);
+    }
+
+    /* Empty state */
+    .empty {
+      text-align: center;
+      padding: 60px;
+      color: var(--text-dim);
+    }
+    .empty-icon { font-size: 2rem; margin-bottom: 12px; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .content { padding: 16px; }
+      .topbar { padding: 12px 16px; }
+      .nav-tabs { padding: 12px 16px; overflow-x: auto; }
+      th, td { padding: 10px 14px; font-size: 0.8rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .stat-card { padding: 16px; }
+      .stat-card .value { font-size: 1.3rem; }
+      .table-header { flex-direction: column; gap: 12px; align-items: flex-start; }
+      .modal { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login Screen -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-box">
+      <h1>Breakout Admin</h1>
+      <p>Enter your admin password to continue</p>
+      <input type="password" id="passwordInput" placeholder="Password" autocomplete="current-password">
+      <button class="btn" onclick="login()">Sign In</button>
+      <div class="login-error" id="loginError">Wrong password. Try again.</div>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="dashboard" id="dashboard">
+    <div class="topbar">
+      <div class="topbar-logo">Breakout Admin</div>
+      <div class="topbar-right">
+        <span style="color: var(--text-dim); font-size: 0.85rem;" id="apiStatus"></span>
+        <button class="btn-logout" onclick="logout()">Log out</button>
+      </div>
+    </div>
+
+    <div class="nav-tabs">
+      <button class="nav-tab active" data-page="overview" onclick="showPage('overview')">Overview</button>
+      <button class="nav-tab" data-page="orders" onclick="showPage('orders')">Orders</button>
+      <button class="nav-tab" data-page="customers" onclick="showPage('customers')">Customers</button>
+      <button class="nav-tab" data-page="subscribers" onclick="showPage('subscribers')">Subscribers</button>
+    </div>
+
+    <div class="content">
+
+      <!-- Overview Page -->
+      <div class="page active" id="page-overview">
+        <div class="stats-grid" id="statsGrid">
+          <div class="stat-card"><div class="label">Total Orders</div><div class="value" id="statOrders">—</div></div>
+          <div class="stat-card"><div class="label">Revenue</div><div class="value green" id="statRevenue">—</div></div>
+          <div class="stat-card"><div class="label">Pending</div><div class="value" id="statPending">—</div></div>
+          <div class="stat-card"><div class="label">Customers</div><div class="value" id="statCustomers">—</div></div>
+          <div class="stat-card"><div class="label">Subscribers</div><div class="value" id="statSubscribers">—</div></div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header">
+            <h2>Recent Orders</h2>
+          </div>
+          <div id="recentOrdersTable">
+            <div class="loading">Loading...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Orders Page -->
+      <div class="page" id="page-orders">
+        <div class="table-card">
+          <div class="table-header">
+            <h2>All Orders</h2>
+            <div class="table-filters">
+              <button class="filter-btn active" data-status="" onclick="filterOrders(this, '')">All</button>
+              <button class="filter-btn" data-status="pending" onclick="filterOrders(this, 'pending')">Pending</button>
+              <button class="filter-btn" data-status="processing" onclick="filterOrders(this, 'processing')">Processing</button>
+              <button class="filter-btn" data-status="completed" onclick="filterOrders(this, 'completed')">Completed</button>
+              <button class="filter-btn" data-status="cancelled" onclick="filterOrders(this, 'cancelled')">Cancelled</button>
+            </div>
+          </div>
+          <div id="ordersTable">
+            <div class="loading">Loading...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Customers Page -->
+      <div class="page" id="page-customers">
+        <div class="table-card">
+          <div class="table-header"><h2>Customers</h2></div>
+          <div id="customersTable">
+            <div class="loading">Loading...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subscribers Page -->
+      <div class="page" id="page-subscribers">
+        <div class="table-card">
+          <div class="table-header"><h2>Email Subscribers</h2></div>
+          <div id="subscribersTable">
+            <div class="loading">Loading...</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Order Detail Modal -->
+  <div class="modal-overlay" id="orderModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <h2 id="modalTitle">Order Details</h2>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = 'https://breakout-api.artistpushnet.workers.dev';
+    let token = '';
+
+    // Login
+    async function login() {
+      const pw = document.getElementById('passwordInput').value;
+      if (!pw) return;
+      try {
+        const res = await fetch(`${API_URL}/api/admin/stats`, {
+          headers: { 'Authorization': `Bearer ${pw}` }
+        });
+        if (res.ok) {
+          token = pw;
+          sessionStorage.setItem('admin_token', pw);
+          document.getElementById('loginScreen').style.display = 'none';
+          document.getElementById('dashboard').classList.add('active');
+          document.getElementById('loginError').style.display = 'none';
+          loadOverview();
+        } else {
+          document.getElementById('loginError').style.display = 'block';
+        }
+      } catch (e) {
+        document.getElementById('loginError').textContent = 'Connection error';
+        document.getElementById('loginError').style.display = 'block';
+      }
+    }
+
+    // Enter key login
+    document.getElementById('passwordInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') login();
+    });
+
+    // Auto-login from session
+    (function() {
+      const saved = sessionStorage.getItem('admin_token');
+      if (saved) {
+        token = saved;
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('dashboard').classList.add('active');
+        loadOverview();
+      }
+    })();
+
+    function logout() {
+      token = '';
+      sessionStorage.removeItem('admin_token');
+      document.getElementById('dashboard').classList.remove('active');
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('passwordInput').value = '';
+    }
+
+    // API helper
+    async function api(path) {
+      const res = await fetch(`${API_URL}${path}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.status === 401) { logout(); return null; }
+      return res.json();
+    }
+
+    async function apiPost(path, data, method = 'PUT') {
+      const res = await fetch(`${API_URL}${path}`, {
+        method,
+        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      return res.json();
+    }
+
+    // Navigation
+    function showPage(page) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById(`page-${page}`).classList.add('active');
+      document.querySelector(`[data-page="${page}"]`).classList.add('active');
+
+      if (page === 'overview') loadOverview();
+      else if (page === 'orders') loadOrders();
+      else if (page === 'customers') loadCustomers();
+      else if (page === 'subscribers') loadSubscribers();
+    }
+
+    // Format helpers
+    function formatDate(d) {
+      if (!d) return '—';
+      const date = new Date(d + 'Z');
+      return date.toLocaleDateString('uk-UA', { day: '2-digit', month: '2-digit', year: 'numeric' }) +
+        ' ' + date.toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
+    }
+    function formatMoney(amount, currency = 'USD') {
+      return `$${parseFloat(amount || 0).toFixed(2)}`;
+    }
+    function statusBadge(status) {
+      return `<span class="badge badge-${status}">${status}</span>`;
+    }
+
+    // Overview
+    async function loadOverview() {
+      const data = await api('/api/admin/stats');
+      if (!data) return;
+
+      document.getElementById('statOrders').textContent = data.stats.totalOrders;
+      document.getElementById('statRevenue').textContent = formatMoney(data.stats.revenue);
+      document.getElementById('statPending').textContent = data.stats.pendingOrders;
+      document.getElementById('statCustomers').textContent = data.stats.totalCustomers;
+      document.getElementById('statSubscribers').textContent = data.stats.totalSubscribers;
+      document.getElementById('apiStatus').textContent = 'API connected';
+
+      if (data.recentOrders.length === 0) {
+        document.getElementById('recentOrdersTable').innerHTML = `
+          <div class="empty"><div class="empty-icon">📋</div>No orders yet</div>`;
+        return;
+      }
+
+      let html = `<table><thead><tr>
+        <th>Order</th><th>Customer</th><th>Amount</th><th>Status</th><th>Payment</th><th>Date</th>
+      </tr></thead><tbody>`;
+      for (const o of data.recentOrders) {
+        html += `<tr style="cursor:pointer" onclick="openOrder(${o.id})">
+          <td style="color:var(--green);font-weight:600">${o.order_number}</td>
+          <td>${o.email}</td>
+          <td>${formatMoney(o.total_amount)}</td>
+          <td>${statusBadge(o.status)}</td>
+          <td>${statusBadge(o.payment_status)}</td>
+          <td style="color:var(--text-dim)">${formatDate(o.created_at)}</td>
+        </tr>`;
+      }
+      html += '</tbody></table>';
+      document.getElementById('recentOrdersTable').innerHTML = html;
+    }
+
+    // Orders
+    let currentFilter = '';
+    async function loadOrders(status = currentFilter) {
+      const param = status ? `?status=${status}` : '';
+      const data = await api(`/api/admin/orders${param}`);
+      if (!data) return;
+
+      if (data.orders.length === 0) {
+        document.getElementById('ordersTable').innerHTML = `
+          <div class="empty"><div class="empty-icon">📋</div>No orders found</div>`;
+        return;
+      }
+
+      let html = `<table><thead><tr>
+        <th>Order</th><th>Customer</th><th>Amount</th><th>Status</th><th>Payment</th><th>Date</th>
+      </tr></thead><tbody>`;
+      for (const o of data.orders) {
+        html += `<tr style="cursor:pointer" onclick="openOrder(${o.id})">
+          <td style="color:var(--green);font-weight:600">${o.order_number}</td>
+          <td>${o.email}<br><span style="color:var(--text-dim);font-size:0.8rem">${o.customer_name || ''}</span></td>
+          <td>${formatMoney(o.total_amount)}</td>
+          <td>${statusBadge(o.status)}</td>
+          <td>${statusBadge(o.payment_status)}</td>
+          <td style="color:var(--text-dim)">${formatDate(o.created_at)}</td>
+        </tr>`;
+      }
+      html += '</tbody></table>';
+      document.getElementById('ordersTable').innerHTML = html;
+    }
+
+    function filterOrders(btn, status) {
+      currentFilter = status;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      loadOrders(status);
+    }
+
+    // Order detail modal
+    async function openOrder(id) {
+      const data = await api(`/api/admin/orders/${id}`);
+      if (!data) return;
+      const o = data.order;
+
+      let itemsHtml = '';
+      if (o.items && o.items.length) {
+        for (const item of o.items) {
+          itemsHtml += `<div class="modal-item">
+            <div class="item-info">
+              <strong>${item.platform}</strong> — ${item.service_type}
+              ${item.service_variant ? `(${item.service_variant})` : ''}
+              <br><span style="color:var(--text-dim);font-size:0.8rem">Qty: ${item.quantity} × ${formatMoney(item.unit_price)}</span>
+              ${item.target_url ? `<br><span style="color:var(--text-dim);font-size:0.8rem">${item.target_url}</span>` : ''}
+            </div>
+            <div class="item-price">${formatMoney(item.total_price)}</div>
+          </div>`;
+        }
+      }
+
+      document.getElementById('modalTitle').textContent = `Order ${o.order_number}`;
+      document.getElementById('modalContent').innerHTML = `
+        <div class="modal-row"><span class="label">Customer</span><span class="value">${o.customer_name || '—'} (${o.email})</span></div>
+        <div class="modal-row"><span class="label">Total</span><span class="value" style="color:var(--green)">${formatMoney(o.total_amount)} ${o.currency}</span></div>
+        <div class="modal-row"><span class="label">Status</span><span class="value">${statusBadge(o.status)}</span></div>
+        <div class="modal-row"><span class="label">Payment</span><span class="value">${statusBadge(o.payment_status)}</span></div>
+        <div class="modal-row"><span class="label">Created</span><span class="value">${formatDate(o.created_at)}</span></div>
+        <div class="modal-row"><span class="label">Updated</span><span class="value">${formatDate(o.updated_at)}</span></div>
+        ${o.notes ? `<div class="modal-row"><span class="label">Notes</span><span class="value">${o.notes}</span></div>` : ''}
+
+        <div class="modal-items">
+          <h3>Items</h3>
+          ${itemsHtml || '<div style="color:var(--text-dim)">No items</div>'}
+        </div>
+
+        <div class="modal-actions">
+          <select id="editStatus">
+            <option value="pending" ${o.status === 'pending' ? 'selected' : ''}>Pending</option>
+            <option value="processing" ${o.status === 'processing' ? 'selected' : ''}>Processing</option>
+            <option value="completed" ${o.status === 'completed' ? 'selected' : ''}>Completed</option>
+            <option value="cancelled" ${o.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+          </select>
+          <select id="editPayment">
+            <option value="unpaid" ${o.payment_status === 'unpaid' ? 'selected' : ''}>Unpaid</option>
+            <option value="paid" ${o.payment_status === 'paid' ? 'selected' : ''}>Paid</option>
+            <option value="refunded" ${o.payment_status === 'refunded' ? 'selected' : ''}>Refunded</option>
+          </select>
+          <button class="btn-save" onclick="updateOrder(${o.id})">Save Changes</button>
+        </div>
+        <div class="modal-actions" style="margin-top:12px">
+          <textarea id="editNotes" placeholder="Add notes...">${o.notes || ''}</textarea>
+        </div>
+      `;
+      document.getElementById('orderModal').classList.add('active');
+    }
+
+    async function updateOrder(id) {
+      const status = document.getElementById('editStatus').value;
+      const payment_status = document.getElementById('editPayment').value;
+      const notes = document.getElementById('editNotes').value;
+
+      await apiPost(`/api/admin/orders/${id}`, { status, payment_status, notes });
+      closeModal();
+      loadOrders();
+      loadOverview();
+    }
+
+    function closeModal() {
+      document.getElementById('orderModal').classList.remove('active');
+    }
+    document.getElementById('orderModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('orderModal')) closeModal();
+    });
+
+    // Customers
+    async function loadCustomers() {
+      const data = await api('/api/admin/customers');
+      if (!data) return;
+
+      if (data.customers.length === 0) {
+        document.getElementById('customersTable').innerHTML = `
+          <div class="empty"><div class="empty-icon">👥</div>No customers yet</div>`;
+        return;
+      }
+
+      let html = `<table><thead><tr>
+        <th>Email</th><th>Name</th><th>Orders</th><th>Total Spent</th><th>Joined</th>
+      </tr></thead><tbody>`;
+      for (const c of data.customers) {
+        html += `<tr>
+          <td>${c.email}</td>
+          <td>${c.name || '—'}</td>
+          <td>${c.order_count || 0}</td>
+          <td style="color:var(--green)">${formatMoney(c.total_spent)}</td>
+          <td style="color:var(--text-dim)">${formatDate(c.created_at)}</td>
+        </tr>`;
+      }
+      html += '</tbody></table>';
+      document.getElementById('customersTable').innerHTML = html;
+    }
+
+    // Subscribers
+    async function loadSubscribers() {
+      const data = await api('/api/admin/subscribers');
+      if (!data) return;
+
+      if (data.subscribers.length === 0) {
+        document.getElementById('subscribersTable').innerHTML = `
+          <div class="empty"><div class="empty-icon">📧</div>No subscribers yet</div>`;
+        return;
+      }
+
+      let html = `<table><thead><tr>
+        <th>Email</th><th>Name</th><th>Status</th><th>Source</th><th>Date</th>
+      </tr></thead><tbody>`;
+      for (const s of data.subscribers) {
+        html += `<tr>
+          <td>${s.email}</td>
+          <td>${s.name || '—'}</td>
+          <td>${s.subscribed ? statusBadge('completed') : statusBadge('cancelled')}</td>
+          <td style="color:var(--text-dim)">${s.source || '—'}</td>
+          <td style="color:var(--text-dim)">${formatDate(s.created_at)}</td>
+        </tr>`;
+      }
+      html += '</tbody></table>';
+      document.getElementById('subscribersTable').innerHTML = html;
+    }
+  </script>
+</body>
+</html>
