@@ -145,6 +145,13 @@
               <div id="card-errors" role="alert"></div>
             </div>
 
+            <div class="form-group" style="margin-bottom:16px;">
+              <label class="checkbox-label" style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:0.85rem;color:var(--grey-text);line-height:1.5;">
+                <input type="checkbox" id="terms-agree" style="margin-top:4px;accent-color:var(--green);min-width:18px;min-height:18px;">
+                <span>I agree to the <a href="#" onclick="openModal('modal-terms'); return false;" style="color:var(--green);">Terms of Service</a>, <a href="#" onclick="openModal('modal-refund'); return false;" style="color:var(--green);">Refund Policy</a>, and <a href="#" onclick="openModal('modal-privacy'); return false;" style="color:var(--green);">Privacy Policy</a>. I understand that my data will be processed by ARTISTPUSH OÜ to fulfill my order.</span>
+              </label>
+            </div>
+
             <button id="pay-button" class="btn btn-primary pay-btn" disabled>
               <span class="btn-text">Pay $0.00</span>
               <span class="spinner"></span>
@@ -193,7 +200,7 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-bottom" style="border-top:none;padding-top:0;">
-        <span>&copy; 2026 Breakout. All rights reserved.</span>
+        <span>&copy; 2026 ARTISTPUSH OÜ, trading as Breakout. Estonia, EU.</span>
         <div style="display:flex;gap:16px;">
           <a href="#" onclick="openModal('modal-terms'); return false;" style="color:var(--grey-text);font-size:0.85rem;">Terms</a>
           <a href="#" onclick="openModal('modal-privacy'); return false;" style="color:var(--grey-text);font-size:0.85rem;">Privacy</a>
@@ -293,7 +300,21 @@
       cardElement.on('change', (event) => {
         const errors = document.getElementById('card-errors');
         errors.textContent = event.error ? event.error.message : '';
-        document.getElementById('pay-button').disabled = !event.complete;
+        const termsChecked = document.getElementById('terms-agree').checked;
+        document.getElementById('pay-button').disabled = !event.complete || !termsChecked;
+      });
+
+      // Also toggle pay button when checkbox changes
+      document.getElementById('terms-agree').addEventListener('change', () => {
+        const termsChecked = document.getElementById('terms-agree').checked;
+        const payBtn = document.getElementById('pay-button');
+        // Only enable if card is also complete (button was not disabled for card reasons)
+        if (termsChecked) {
+          // Re-trigger card validation by checking current state
+          payBtn.disabled = payBtn.dataset.cardComplete !== 'true';
+        } else {
+          payBtn.disabled = true;
+        }
       });
     }
 
@@ -308,6 +329,11 @@
 
       if (!email) {
         alert('Please enter your email address.');
+        return;
+      }
+
+      if (!document.getElementById('terms-agree').checked) {
+        alert('Please agree to the Terms of Service and Refund Policy before proceeding.');
         return;
       }
 
