@@ -178,9 +178,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // Multiply by quantity if qty-input exists
+    const qtyInput = container.querySelector('.qty-input');
+    const quantity = qtyInput ? (parseInt(qtyInput.value) || 1) : 1;
+
     if (basePrice > 0) {
-      priceEl.textContent = '$' + basePrice.toFixed(2);
-      if (oldPriceEl) oldPriceEl.textContent = '$' + (basePrice * 2).toFixed(2);
+      const totalPrice = basePrice * quantity;
+      priceEl.textContent = '$' + totalPrice.toFixed(2);
+      if (oldPriceEl) oldPriceEl.textContent = '$' + (totalPrice * 2).toFixed(2);
     }
   }
 
