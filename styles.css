@@ -4626,3 +4626,26 @@ select:focus-visible,
 .rec-price { font-size: 1rem !important; }
 .rec-cta { font-size: 0.9rem !important; }
 .rec-badge { font-size: 0.7rem !important; padding: 4px 10px !important; }
+
+/* === Nomupay trust strip (cart/checkout) === */
+.secure-notice.bo-trust{display:flex;flex-direction:column;align-items:center;gap:14px;padding:18px 12px 8px;color:#cfd3d6;font:500 13px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:transparent;border:0}
+.bo-trust__row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.bo-trust__badge{display:inline-flex;align-items:center;justify-content:center;height:34px;min-width:54px;padding:0 10px;border-radius:8px;background:#fff}
+.bo-trust__badge--dark{background:#000;border:1px solid #2a2a2a}
+.bo-trust__lockline{display:flex;align-items:center;gap:8px;color:#9aa0a6;font-size:12px;text-align:center;justify-content:center;flex-wrap:wrap}
+.bo-trust__note{max-width:520px;margin:0;text-align:center;color:#8b9094;font-size:11.5px;line-height:1.55}
+.bo-trust__note strong{color:#cfd3d6;font-weight:600}
+
+
+/* === Trust strip — компактні іконки для desktop і mobile === */
+.secure-notice.bo-trust { padding:14px 8px 4px; }
+.secure-notice.bo-trust .bo-trust__row { gap:6px; flex-wrap:nowrap; }
+.secure-notice.bo-trust .bo-trust__badge { height:24px; min-width:38px; padding:0 6px; border-radius:6px; }
+.secure-notice.bo-trust .bo-trust__badge svg { max-width:30px; max-height:14px; width:auto; height:auto; }
+.secure-notice.bo-trust .bo-trust__lockline { font-size:11px; gap:6px; }
+@media (max-width:600px) {
+  .secure-notice.bo-trust .bo-trust__row { gap:4px; flex-wrap:wrap; justify-content:center; }
+  .secure-notice.bo-trust .bo-trust__badge { height:22px; min-width:32px; padding:0 5px; }
+  .secure-notice.bo-trust .bo-trust__badge svg { max-width:24px; max-height:12px; }
+  .secure-notice.bo-trust .bo-trust__lockline { font-size:10px; flex-wrap:wrap; text-align:center; line-height:1.4; }
+}

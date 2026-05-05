@@ -178,7 +178,7 @@
     '.rec-price { font-size:1rem; font-weight:600; color:#00FF85; }',
     '.rec-cta { font-size:0.9rem; font-weight:600; color:#888; transition:color .2s; }',
     '.rec-card:hover .rec-cta { color:#00FF85; }',
-    '.rec-badge { position:absolute; top:10px; right:10px; background:#00FF85; color:#000; font-size:0.7rem; font-weight:700; padding:4px 10px; border-radius:20px; text-transform:uppercase; letter-spacing:0.5px; }',
+      '.rec-card .rec-badge { position:absolute !important; top:8px !important; right:8px !important; left:auto !important; bottom:auto !important; width:auto !important; padding:3px 9px !important; border-radius:999px; background:#00FF85; color:#000; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.4px; line-height:1.4; z-index:3; white-space:nowrap; pointer-events:none; box-shadow:0 2px 6px rgba(0,0,0,0.35); border:0; }', '.rec-card-body h4 { padding-right:80px; padding-top:4px; }', '@media (max-width:600px) { .rec-card .rec-badge { font-size:8px !important; padding:2px 7px !important; top:6px !important; right:6px !important; } .rec-card-body h4 { padding-right:64px; font-size:1rem; } }',
     '@media(max-width:768px){ .rec-grid{grid-template-columns:1fr 1fr;} }',
     '@media(max-width:520px){ .rec-grid{grid-template-columns:1fr;} }'
   ].join('\n');
