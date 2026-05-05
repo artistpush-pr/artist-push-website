@@ -1,3 +1,4 @@
+import { sendOrderConfirmationEmail } from './email.js';
 /**
  * Breakout Music API — Cloudflare Worker
  * Handles orders, customers, subscribers, and admin endpoints
@@ -34,7 +35,7 @@ function isAuthorized(request, env) {
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const path = url.pathname;
     const method = request.method;
@@ -104,6 +105,9 @@ export default {
             item.targetUrl || null
           ).run();
         }
+
+        // Send confirmation email
+        console.log("ABOUT_TO_SEND_EMAIL", email, orderNumber); ctx.waitUntil(sendOrderConfirmationEmail(env, email, orderNumber, items, totalAmount, body.currency || 'USD'));
 
         return json({
           success: true,
