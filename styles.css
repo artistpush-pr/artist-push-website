@@ -4695,3 +4695,18 @@ select:focus-visible,
   .footer-legal { grid-template-columns:1fr !important; gap:24px !important; padding:24px 20px !important; }
   .footer-copy { margin:0 20px !important; }
 }
+
+
+/* === Hide browser autofill / password-manager icons in newsletter input === */
+.footer-newsletter-input::-webkit-credentials-auto-fill-button,
+.footer-newsletter-input::-webkit-contacts-auto-fill-button,
+.footer-newsletter-input::-webkit-strong-password-auto-fill-button {
+  display:none !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+  position:absolute !important;
+  right:0 !important;
+  width:0 !important;
+  height:0 !important;
+}
+.footer-newsletter-input { background-image:none !important; }
