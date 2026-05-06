@@ -4649,3 +4649,24 @@ select:focus-visible,
   .secure-notice.bo-trust .bo-trust__badge svg { max-width:24px; max-height:12px; }
   .secure-notice.bo-trust .bo-trust__lockline { font-size:10px; flex-wrap:wrap; text-align:center; line-height:1.4; }
 }
+
+
+/* === Nomupay-compliance footer === */
+.footer-legal{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px;padding:32px 32px 16px;max-width:1200px;margin:0 auto}
+.footer-legal .fl-col h5{font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:#fff;margin:0 0 10px}
+.footer-legal .fl-col p{font-size:13px;line-height:1.6;color:#9aa0a6;margin:0 0 8px}
+.footer-legal .fl-col a{color:#9aa0a6;text-decoration:none}
+.footer-legal .fl-col a:hover{color:#00FF85}
+.footer-legal .fl-muted{color:#7a7f83;font-size:12px}
+.fl-pay-row{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
+.fl-pay{display:inline-flex;align-items:center;justify-content:center;height:22px;min-width:36px;padding:0 6px;border-radius:4px;background:#fff;color:#1a1f71;font-size:9px;font-weight:900;letter-spacing:.4px;font-family:Arial Black,Arial,sans-serif}
+.fl-pay.fl-mc{background:linear-gradient(90deg,#eb001b 50%,#f79e1b 50%);color:#fff}
+.fl-pay.fl-amex{background:#1f72cd;color:#fff}
+.fl-pay.fl-ap{background:#000;color:#fff;border:1px solid #2a2a2a}
+.fl-pay.fl-crypto{background:#f7931a;color:#fff}
+.footer-copy{text-align:center;padding:16px 24px;font-size:12px;color:#7a7f83;border-top:1px solid #1f2125;margin-top:8px}
+@media (max-width:600px){
+  .footer-legal{gap:20px;padding:24px 16px 12px;grid-template-columns:1fr}
+  .footer-legal .fl-col h5{font-size:11px}
+  .footer-legal .fl-col p{font-size:12px}
+}
