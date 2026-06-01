@@ -1,6 +1,35 @@
 /* ============================================
-   ARTIST PUSH — Main JavaScript
+   Breakout — Main JavaScript
    ============================================ */
+
+/* ─── Per-variant price tables (Spotify) ───
+   Override the simple `base × modifier` calculator.
+   When the dropdown is set to one of these variant names,
+   updatePrice() looks up the price for the active qty tier here
+   instead of multiplying by data-modifier.
+   Tier labels MUST match the qty-pill text content exactly. */
+const SPOTIFY_VARIANT_PRICES = {
+  // Only the tiers that appear in the user's screenshots are listed here.
+  // Any (variant, tier) NOT in this table falls back to legacy base × modifier
+  // calculation, so existing behaviour for un-screenshot-ed tiers is preserved.
+  // Tier labels MUST match the qty-pill text content exactly.
+
+  // ── Spotify Plays (pills: 1K / 2K / 5K / 10K / 50K / 100K / 500K / 1M) ──
+  // 'Worldwide Plays' omitted: prices already match data-price attrs on pills.
+
+  'Real Plays + Organic Listeners': { '1K': 10, '5K': 30, '10K': 55, '50K': 225, '100K': 399, '500K': 1550, '1M': 2499 },
+  'Premium Royalty Plays':          { '1K': 8,  '2K': 12, '5K': 25, '10K': 45,  '100K': 425, '500K': 1499, '1M': 2299 },
+  'Targeted Plays':                 { '1K': 6,  '2K': 10, '5K': 22, '10K': 40,  '50K': 185, '100K': 350 },
+  'Ranking Plays':                  { '10K': 85, '50K': 399, '100K': 750, '500K': 2999, '1M': 4499 },
+  'Playlist / Album Plays':         { '1K': 6,  '2K': 10, '5K': 20, '10K': 35,  '100K': 299, '1M': 1900 },
+  'Algorithmic ADS Plays':          { '1K': 8,  '5K': 35, '10K': 60, '50K': 265, '100K': 499 },
+  'Algorithmic Radio Plays':        { '5K': 25, '10K': 45, '50K': 199 },
+  'Editorial Playlist Plays':       { '1K': 8,  '5K': 35, '10K': 55, '50K': 255, '100K': 499 },
+
+  // ── Monthly Listeners (pills: 1K / 2K / 5K / 10K / 50K / 100K / 500K) ──
+  // 'Regular Monthly Listeners' omitted: prices already match data-price attrs.
+  'Algorithmic-Targeted Listeners': { '1K': 15, '5K': 75, '10K': 139, '50K': 549 }
+};
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -88,6 +117,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextBtn = wrapper.querySelector('.carousel-next');
     if (!track) return;
 
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+      // Mobile: use native horizontal scroll (swipeable)
+      wrapper.style.overflow = 'visible';
+      track.style.overflowX = 'auto';
+      track.style.WebkitOverflowScrolling = 'touch';
+      track.style.scrollSnapType = 'x mandatory';
+      track.style.transition = 'none';
+      track.querySelectorAll('.service-card').forEach(card => {
+        card.style.scrollSnapAlign = 'start';
+      });
+      // Hide nav buttons on mobile — swipe instead
+      if (prevBtn) prevBtn.style.display = 'none';
+      if (nextBtn) nextBtn.style.display = 'none';
+      return;
+    }
+
+    // Desktop: transform-based carousel with buttons
     let pos = 0;
     const cards = track.querySelectorAll('.service-card');
     const cardWidth = cards[0] ? (cards[0].offsetWidth + 16) : 280; // card + gap
@@ -98,12 +146,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (nextBtn) nextBtn.addEventListener('click', () => {
-      pos = Math.min(pos + getCardStep() * 4, getMaxPos());
+      pos = Math.min(pos + cardWidth, getMaxPos());
       track.style.transform = `translateX(-${pos}px)`;
     });
 
     if (prevBtn) prevBtn.addEventListener('click', () => {
-      pos = Math.max(pos - getCardStep() * 4, 0);
+      pos = Math.max(pos - cardWidth, 0);
       track.style.transform = `translateX(-${pos}px)`;
     });
   });
@@ -123,6 +171,17 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.custom-select').forEach(select => {
     select.addEventListener('change', () => {
       updatePrice(select.closest('.selector-card') || select.closest('.modal'));
+      // Update service description
+      const descEl = select.parentElement ? select.parentElement.querySelector('.select-desc') : null;
+      if (descEl) {
+        const opt = select.options[select.selectedIndex];
+        const desc = opt ? opt.getAttribute('data-desc') : '';
+        descEl.classList.add('fade');
+        setTimeout(() => {
+          descEl.textContent = desc || '';
+          descEl.classList.remove('fade');
+        }, 200);
+      }
     });
   });
 
@@ -136,19 +195,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!priceEl) return;
 
-    // Get base price from active qty pill
-    let basePrice = activeQty ? parseFloat(activeQty.dataset.price || 0) : 0;
+    let basePrice = 0;
+    let usedVariantTable = false;
 
-    // Multiply by service type modifier if exists
-    if (select) {
-      const option = select.options[select.selectedIndex];
-      const mod = parseFloat(option.dataset.modifier || 1);
-      basePrice = basePrice * mod;
+    // 1) Try per-variant lookup table first (Spotify)
+    if (select && activeQty && select.selectedIndex >= 0 &&
+        typeof SPOTIFY_VARIANT_PRICES !== 'undefined') {
+      const variantName = (select.options[select.selectedIndex].text || '').trim();
+      const tierLabel   = (activeQty.textContent || '').trim();
+      const tbl = SPOTIFY_VARIANT_PRICES[variantName];
+      if (tbl && tbl[tierLabel] !== undefined) {
+        basePrice = tbl[tierLabel];
+        // NOTE: we deliberately do NOT mutate activeQty.dataset.price here.
+        // The Add-to-Cart handler reads priceEl.textContent (the displayed price),
+        // so the cart picks up the right value without touching data-price —
+        // and that keeps the fallback path (base × modifier) clean for variants
+        // that don't appear in SPOTIFY_VARIANT_PRICES.
+        usedVariantTable = true;
+      }
     }
 
+    // 2) Fallback: legacy base × modifier
+    if (!usedVariantTable) {
+      basePrice = activeQty ? parseFloat(activeQty.dataset.price || 0) : 0;
+      if (select && select.selectedIndex >= 0) {
+        const option = select.options[select.selectedIndex];
+        if (option) {
+          const mod = parseFloat(option.dataset.modifier || 1);
+          basePrice = basePrice * mod;
+        }
+      }
+    }
+
+    // Multiply by quantity if qty-input exists
+    const qtyInput = container.querySelector('.qty-input');
+    const quantity = qtyInput ? (parseInt(qtyInput.value) || 1) : 1;
+
     if (basePrice > 0) {
-      priceEl.textContent = '$' + basePrice.toFixed(2);
-      if (oldPriceEl) oldPriceEl.textContent = '$' + (basePrice * 2).toFixed(2);
+      const totalPrice = basePrice * quantity;
+      priceEl.textContent = '$' + totalPrice.toFixed(2);
+      if (oldPriceEl) oldPriceEl.textContent = '$' + (totalPrice * 2).toFixed(2);
     }
   }
 
@@ -302,8 +388,9 @@ document.addEventListener('DOMContentLoaded', () => {
     startAutoplay();
   }
 
-  // ─── Smooth Scroll for anchor links ───
+  // ─── Smooth Scroll for anchor links (skip if anchor-nav.js handles them) ───
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    if (anchor.classList.contains('anchor-link')) return; // handled by anchor-nav.js
     anchor.addEventListener('click', function(e) {
       const target = document.querySelector(this.getAttribute('href'));
       if (target) {
