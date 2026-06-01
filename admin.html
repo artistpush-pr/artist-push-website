@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-T9CSNK4N');</script>
+  <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Breakout Admin</title>
@@ -236,6 +243,8 @@
     .badge-cancelled { background: rgba(255,77,77,0.15); color: var(--red); }
     .badge-paid { background: rgba(0,255,133,0.15); color: var(--green); }
     .badge-unpaid { background: rgba(255,77,77,0.15); color: var(--red); }
+    .badge-fulfilled { background: rgba(0,255,133,0.15); color: var(--green); }
+    .badge-unfulfilled { background: rgba(150,150,150,0.18); color: #b0b0b0; }
 
     /* Order detail modal */
     .modal-overlay {
@@ -352,9 +361,57 @@
       .modal { padding: 20px; }
     }
   </style>
+  <!-- Ahrefs Web Analytics -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="eM59SREhxAVIVesHN8xp2Q" async></script>
+  <!-- Google tag (gtag.js) + Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5MSZ4MW7SP"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    // GDPR — deny analytics/ads cookies by default
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'analytics_storage': 'denied',
+      'functionality_storage': 'granted',
+      'security_storage': 'granted',
+      'wait_for_update': 500
+    });
+
+    // Apply previously stored consent (so returning visitors who accepted don't lose tracking)
+    if (localStorage.getItem('cookie_consent') === 'accepted') {
+      gtag('consent', 'update', {
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted',
+        'analytics_storage': 'granted'
+      });
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-5MSZ4MW7SP');
+  </script>
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wqyz3mj3jo");
+
+    // Apply previously stored consent so returning visitors get full tracking
+    if (localStorage.getItem('cookie_consent') === 'accepted') {
+      clarity('consent');
+    }
+  </script>
 </head>
 <body>
-
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T9CSNK4N"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
   <!-- Login Screen -->
   <div class="login-screen" id="loginScreen">
     <div class="login-box">
@@ -372,6 +429,7 @@
       <div class="topbar-logo">Breakout Admin</div>
       <div class="topbar-right">
         <span style="color: var(--text-dim); font-size: 0.85rem;" id="apiStatus"></span>
+        <button class="btn-logout" onclick="openAdminChangePassword()" style="margin-right:8px;">Change Password</button>
         <button class="btn-logout" onclick="logout()">Log out</button>
       </div>
     </div>
@@ -380,7 +438,8 @@
       <button class="nav-tab active" data-page="overview" onclick="showPage('overview')">Overview</button>
       <button class="nav-tab" data-page="orders" onclick="showPage('orders')">Orders</button>
       <button class="nav-tab" data-page="customers" onclick="showPage('customers')">Customers</button>
-      <button class="nav-tab" data-page="subscribers" onclick="showPage('subscribers')">Subscribers</button>
+      <button class="nav-tab" data-page="abandoned" onclick="showPage('abandoned')">Abandoned</button>
+        <button class="nav-tab" data-page="subscribers" onclick="showPage('subscribers')">Subscribers</button>
     </div>
 
     <div class="content">
@@ -393,6 +452,15 @@
           <div class="stat-card"><div class="label">Pending</div><div class="value" id="statPending">—</div></div>
           <div class="stat-card"><div class="label">Customers</div><div class="value" id="statCustomers">—</div></div>
           <div class="stat-card"><div class="label">Subscribers</div><div class="value" id="statSubscribers">—</div></div>
+        </div>
+
+        <div class="dash-card" style="margin-bottom:24px;">
+          <h3>Analytics <select id="analyticsPeriod" style="float:right;background:#0a0a0a;color:#fff;border:1px solid #2a2a2a;border-radius:6px;padding:4px 8px;font-size:0.85rem;"><option value="7">7 days</option><option value="30" selected>30 days</option><option value="90">90 days</option><option value="365">12 months</option></select></h3>
+          <div id="analyticsCards" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:16px;"></div>
+          <h4 style="margin-top:28px;margin-bottom:8px;font-size:1rem;">Promo codes</h4>
+          <div id="analyticsPromoTable" style="overflow-x:auto;"></div>
+          <h4 style="margin-top:20px;margin-bottom:8px;font-size:1rem;">Top services</h4>
+          <div id="analyticsTopTable" style="overflow-x:auto;"></div>
         </div>
 
         <div class="table-card">
@@ -411,6 +479,7 @@
           <div class="table-header">
             <h2>All Orders</h2>
             <div class="table-filters">
+              <input type="text" id="ordersSearch" placeholder="Search by order # or email..." style="background:#0a0a0a;color:#fff;border:1px solid #2a2a2a;border-radius:8px;padding:8px 12px;font-size:0.9rem;margin-right:12px;min-width:280px;">
               <button class="filter-btn active" data-status="" onclick="filterOrders(this, '')">All</button>
               <button class="filter-btn" data-status="pending" onclick="filterOrders(this, 'pending')">Pending</button>
               <button class="filter-btn" data-status="processing" onclick="filterOrders(this, 'processing')">Processing</button>
@@ -420,6 +489,33 @@
           </div>
           <div id="ordersTable">
             <div class="loading">Loading...</div>
+          </div>
+        </div>
+      </div>
+
+      
+      <!-- Abandoned Checkouts Page -->
+      <div class="page" id="page-abandoned">
+        <div class="container">
+          <div class="table-card">
+            <div class="table-header">
+              <h2>Abandoned Checkouts</h2>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <select id="abandonedFilter" style="background:#0a0a0a;color:#fff;border:1px solid #2a2a2a;border-radius:6px;padding:6px 10px;font-size:0.85rem;">
+                  <option value="all">All</option>
+                  <option value="open" selected>Open (not recovered)</option>
+                  <option value="recovered">Recovered</option>
+                </select>
+                <select id="abandonedDays" style="background:#0a0a0a;color:#fff;border:1px solid #2a2a2a;border-radius:6px;padding:6px 10px;font-size:0.85rem;">
+                  <option value="7">7 days</option>
+                  <option value="30" selected>30 days</option>
+                  <option value="90">90 days</option>
+                </select>
+              </div>
+            </div>
+            <div id="abandonedTable">
+              <div class="loading">Loading...</div>
+            </div>
           </div>
         </div>
       </div>
@@ -474,7 +570,7 @@
           document.getElementById('loginScreen').style.display = 'none';
           document.getElementById('dashboard').classList.add('active');
           document.getElementById('loginError').style.display = 'none';
-          loadOverview();
+          loadOverview(); loadAnalytics();
         } else {
           document.getElementById('loginError').style.display = 'block';
         }
@@ -496,7 +592,7 @@
         token = saved;
         document.getElementById('loginScreen').style.display = 'none';
         document.getElementById('dashboard').classList.add('active');
-        loadOverview();
+        loadOverview(); loadAnalytics();
       }
     })();
 
@@ -533,10 +629,22 @@
       document.getElementById(`page-${page}`).classList.add('active');
       document.querySelector(`[data-page="${page}"]`).classList.add('active');
 
-      if (page === 'overview') loadOverview();
+      if (page === 'overview') { loadOverview(); loadAnalytics(); }
       else if (page === 'orders') loadOrders();
+      else if (page === 'abandoned') loadAbandoned();
       else if (page === 'customers') loadCustomers();
       else if (page === 'subscribers') loadSubscribers();
+    }
+
+
+    // Orders search — filter on type
+    var _ordersSearchInput = document.getElementById('ordersSearch');
+    if (_ordersSearchInput) {
+      var _ordersSearchTimer;
+      _ordersSearchInput.addEventListener('input', function() {
+        clearTimeout(_ordersSearchTimer);
+        _ordersSearchTimer = setTimeout(renderOrdersTable, 200);
+      });
     }
 
     // Format helpers
@@ -554,6 +662,43 @@
     }
 
     // Overview
+
+
+    // ─── Analytics ───
+    async function loadAnalytics() {
+      const period = document.getElementById('analyticsPeriod').value;
+      const data = await api('/api/admin/analytics?period=' + period);
+      if (!data) return;
+      const fmt = (n) => '$' + Number(n || 0).toFixed(2);
+      const cards = [
+        { label: 'Orders', value: data.orders_count, sub: data.paid_count + ' paid · ' + data.unpaid_count + ' pending' },
+        { label: 'Paid revenue', value: fmt(data.paid_revenue), sub: 'last ' + data.period + ' days', accent: '#00FF85' },
+        { label: 'Pending revenue', value: fmt(data.pending_revenue), sub: 'awaiting PayPal', accent: '#ffcc00' },
+        { label: 'Average order', value: fmt(data.aov), sub: 'paid orders only' },
+      ];
+      document.getElementById('analyticsCards').innerHTML = cards.map(c => `
+        <div style="background:#0a0a0a;border:1px solid #1e1e1e;border-radius:12px;padding:16px;">
+          <div style="font-size:0.75rem;color:#888;text-transform:uppercase;letter-spacing:0.5px;">${c.label}</div>
+          <div style="font-size:1.6rem;font-weight:800;color:${c.accent || '#fff'};margin:6px 0 2px;">${c.value}</div>
+          <div style="font-size:0.75rem;color:#666;">${c.sub}</div>
+        </div>`).join('');
+
+      // Promo codes table
+      const promoRows = (data.promo_codes || []).map(p => `
+        <tr><td style="color:${p.active ? '#00FF85' : '#888'};font-weight:600;">${p.code}</td><td>${p.discount_percent}%</td><td>${p.uses_count}</td><td>${fmt(p.total_discount_given)}</td><td>${p.active ? 'active' : 'inactive'}</td></tr>`).join('');
+      document.getElementById('analyticsPromoTable').innerHTML = promoRows
+        ? `<table style="width:100%;border-collapse:collapse;font-size:0.9rem;"><thead><tr style="color:#888;text-align:left;border-bottom:1px solid #1e1e1e;"><th style="padding:8px 0;">Code</th><th>Discount</th><th>Uses</th><th>Total given</th><th>Status</th></tr></thead><tbody>${promoRows}</tbody></table>`
+        : '<div style="color:#888;font-size:0.9rem;">No promo codes yet.</div>';
+
+      // Top products table
+      const topRows = (data.top_products || []).map(p => `
+        <tr><td>${p.service_type}</td><td>${p.platform || '—'}</td><td>${p.orders}</td><td>${p.units}</td><td>${fmt(p.revenue)}</td></tr>`).join('');
+      document.getElementById('analyticsTopTable').innerHTML = topRows
+        ? `<table style="width:100%;border-collapse:collapse;font-size:0.9rem;"><thead><tr style="color:#888;text-align:left;border-bottom:1px solid #1e1e1e;"><th style="padding:8px 0;">Service</th><th>Platform</th><th>Orders</th><th>Units</th><th>Revenue</th></tr></thead><tbody>${topRows}</tbody></table>`
+        : '<div style="color:#888;font-size:0.9rem;">No orders in period.</div>';
+    }
+    document.getElementById('analyticsPeriod').addEventListener('change', loadAnalytics);
+
     async function loadOverview() {
       const data = await api('/api/admin/stats');
       if (!data) return;
@@ -572,15 +717,17 @@
       }
 
       let html = `<table><thead><tr>
-        <th>Order</th><th>Customer</th><th>Amount</th><th>Status</th><th>Payment</th><th>Date</th>
+        <th>Order</th><th>Customer</th><th>Amount</th><th>Method</th><th>Status</th><th>Payment</th><th>Fulfillment</th><th>Date</th>
       </tr></thead><tbody>`;
       for (const o of data.recentOrders) {
         html += `<tr style="cursor:pointer" onclick="openOrder(${o.id})">
           <td style="color:var(--green);font-weight:600">${o.order_number}</td>
           <td>${o.email}</td>
           <td>${formatMoney(o.total_amount)}</td>
+          <td><span style="text-transform:uppercase;font-size:0.75rem;color:${o.payment_method==='paypal'?'#0070ba':'#999'};font-weight:700;">${o.payment_method||'stripe'}</span></td>
           <td>${statusBadge(o.status)}</td>
           <td>${statusBadge(o.payment_status)}</td>
+          <td>${statusBadge(o.fulfillment_status || 'unfulfilled')}</td>
           <td style="color:var(--text-dim)">${formatDate(o.created_at)}</td>
         </tr>`;
       }
@@ -590,29 +737,77 @@
 
     // Orders
     let currentFilter = '';
+    let _allOrdersCache = [];
     async function loadOrders(status = currentFilter) {
       const param = status ? `?status=${status}` : '';
       const data = await api(`/api/admin/orders${param}`);
       if (!data) return;
+      _allOrdersCache = data.orders || [];
+      renderOrdersTable();
+    }
+    function renderOrdersTable() {
+      const searchEl = document.getElementById('ordersSearch');
+      const q = (searchEl ? searchEl.value : '').trim().toLowerCase();
+      let filtered = _allOrdersCache;
+      if (q) {
+        filtered = _allOrdersCache.filter(o =>
+          (o.order_number || '').toLowerCase().includes(q) ||
+          (o.email || '').toLowerCase().includes(q) ||
+          (o.customer_name || '').toLowerCase().includes(q)
+        );
+      }
+      const data = { orders: filtered };
 
       if (data.orders.length === 0) {
         document.getElementById('ordersTable').innerHTML = `
-          <div class="empty"><div class="empty-icon">📋</div>No orders found</div>`;
+          <div class="empty"><div class="empty-icon">📋</div>${q ? 'No orders match "' + q + '"' : 'No orders found'}</div>`;
         return;
       }
 
-      let html = `<table><thead><tr>
-        <th>Order</th><th>Customer</th><th>Amount</th><th>Status</th><th>Payment</th><th>Date</th>
-      </tr></thead><tbody>`;
+      // Group orders by date (extract YYYY-MM-DD from created_at)
+      const groups = {};
       for (const o of data.orders) {
-        html += `<tr style="cursor:pointer" onclick="openOrder(${o.id})">
-          <td style="color:var(--green);font-weight:600">${o.order_number}</td>
-          <td>${o.email}<br><span style="color:var(--text-dim);font-size:0.8rem">${o.customer_name || ''}</span></td>
-          <td>${formatMoney(o.total_amount)}</td>
-          <td>${statusBadge(o.status)}</td>
-          <td>${statusBadge(o.payment_status)}</td>
-          <td style="color:var(--text-dim)">${formatDate(o.created_at)}</td>
+        const dateKey = (o.created_at || '').slice(0, 10); // YYYY-MM-DD
+        if (!groups[dateKey]) groups[dateKey] = [];
+        groups[dateKey].push(o);
+      }
+      // Sort dates descending (newest first)
+      const dateKeys = Object.keys(groups).sort((a, b) => b.localeCompare(a));
+
+      let html = `<table><thead><tr>
+        <th>Order</th><th>Customer</th><th>Amount</th><th>Method</th><th>Status</th><th>Payment</th><th>Fulfillment</th><th>Date</th>
+      </tr></thead><tbody>`;
+
+      for (const dateKey of dateKeys) {
+        const dayOrders = groups[dateKey];
+        // Format date as "Monday, May 21, 2026"
+        const dateObj = new Date(dateKey + 'T00:00:00Z');
+        const dateLabel = dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+        const dayTotal = dayOrders.reduce((sum, o) => sum + Number(o.total_amount || 0), 0);
+        const paidCount = dayOrders.filter(o => o.payment_status === 'paid').length;
+        // Group header row
+        html += `<tr style="background:#0a0a0a;border-top:2px solid #1e1e1e;border-bottom:1px solid #1e1e1e;">
+          <td colspan="8" style="padding:14px 16px;font-weight:700;color:#fff;font-size:0.92rem;">
+            <span style="color:#00FF85;text-transform:capitalize;">${dateLabel}</span>
+            <span style="color:var(--text-dim);font-weight:500;margin-left:12px;">${dayOrders.length} order${dayOrders.length>1?'s':''}</span>
+            <span style="color:var(--text-dim);font-weight:500;margin-left:8px;">·</span>
+            <span style="color:var(--text-dim);font-weight:500;margin-left:8px;">${paidCount} paid</span>
+            <span style="float:right;color:#00FF85;font-weight:700;">${formatMoney(dayTotal)}</span>
+          </td>
         </tr>`;
+        // Order rows for this day
+        for (const o of dayOrders) {
+          html += `<tr style="cursor:pointer" onclick="openOrder(${o.id})">
+            <td style="color:var(--green);font-weight:600">${o.order_number}</td>
+            <td>${o.email}<br><span style="color:var(--text-dim);font-size:0.8rem">${o.customer_name || ''}</span></td>
+            <td>${formatMoney(o.total_amount)}</td>
+            <td><span style="text-transform:uppercase;font-size:0.75rem;color:${o.payment_method==='paypal'?'#0070ba':'#999'};font-weight:700;">${o.payment_method||'stripe'}</span></td>
+            <td>${statusBadge(o.status)}</td>
+            <td>${statusBadge(o.payment_status)}</td>
+            <td>${statusBadge(o.fulfillment_status || 'unfulfilled')}</td>
+            <td style="color:var(--text-dim)">${formatDate(o.created_at)}</td>
+          </tr>`;
+        }
       }
       html += '</tbody></table>';
       document.getElementById('ordersTable').innerHTML = html;
@@ -652,6 +847,13 @@
         <div class="modal-row"><span class="label">Total</span><span class="value" style="color:var(--green)">${formatMoney(o.total_amount)} ${o.currency}</span></div>
         <div class="modal-row"><span class="label">Status</span><span class="value">${statusBadge(o.status)}</span></div>
         <div class="modal-row"><span class="label">Payment</span><span class="value">${statusBadge(o.payment_status)}</span></div>
+        <div class="modal-row"><span class="label">Fulfillment</span><span class="value">${statusBadge(o.fulfillment_status || 'unfulfilled')}</span></div>
+        <div class="modal-row"><span class="label">Method</span><span class="value" style="text-transform:uppercase;font-weight:700;color:${o.payment_method==='paypal'?'#0070ba':(o.payment_method==='stripe'?'#635bff':'#999')}">${o.payment_method || '—'}</span></div>
+        ${o.payment_method === 'stripe' && o.stripe_session_id ? `
+          <div class="modal-row"><span class="label">Stripe Session</span><span class="value" style="font-family:monospace;font-size:0.85rem;">
+            <a href="https://dashboard.stripe.com/payments/${o.stripe_payment_intent || o.stripe_session_id}" target="_blank" rel="noopener" style="color:#635bff;">${(o.stripe_session_id || '').slice(0,18)}…</a>
+          </span></div>
+        ` : ''}
         <div class="modal-row"><span class="label">Created</span><span class="value">${formatDate(o.created_at)}</span></div>
         <div class="modal-row"><span class="label">Updated</span><span class="value">${formatDate(o.updated_at)}</span></div>
         ${o.notes ? `<div class="modal-row"><span class="label">Notes</span><span class="value">${o.notes}</span></div>` : ''}
@@ -673,7 +875,14 @@
             <option value="paid" ${o.payment_status === 'paid' ? 'selected' : ''}>Paid</option>
             <option value="refunded" ${o.payment_status === 'refunded' ? 'selected' : ''}>Refunded</option>
           </select>
+          <select id="editFulfillment">
+            <option value="unfulfilled" ${(o.fulfillment_status || 'unfulfilled') === 'unfulfilled' ? 'selected' : ''}>Unfulfilled</option>
+            <option value="fulfilled" ${o.fulfillment_status === 'fulfilled' ? 'selected' : ''}>Fulfilled</option>
+          </select>
           <button class="btn-save" onclick="updateOrder(${o.id})">Save Changes</button>
+          ${o.payment_method === 'stripe' && o.payment_status !== 'paid' ? `
+            <button class="btn-save" style="background:linear-gradient(90deg,#635bff,#7a73ff);margin-left:8px;" onclick="resendPaymentEmail(${o.id})">✉ Resend Stripe Email</button>
+          ` : ''}
         </div>
         <div class="modal-actions" style="margin-top:12px">
           <textarea id="editNotes" placeholder="Add notes...">${o.notes || ''}</textarea>
@@ -682,15 +891,32 @@
       document.getElementById('orderModal').classList.add('active');
     }
 
+    async function resendPaymentEmail(orderId) {
+      if (!confirm('Resend Stripe payment email to the customer?')) return;
+      try {
+        const r = await apiPost(`/api/admin/orders/${orderId}/resend-payment-email`, {});
+        if (r && r.ok) {
+          alert('✓ Payment email resent.\n\nStripe session: ' + (r.sessionId || '—'));
+        } else if (r && r.error) {
+          alert('Error: ' + r.error);
+        } else {
+          alert('Sent.');
+        }
+      } catch (err) {
+        alert('Network error: ' + err.message);
+      }
+    }
+
     async function updateOrder(id) {
       const status = document.getElementById('editStatus').value;
       const payment_status = document.getElementById('editPayment').value;
+      const fulfillment_status = document.getElementById('editFulfillment').value;
       const notes = document.getElementById('editNotes').value;
 
-      await apiPost(`/api/admin/orders/${id}`, { status, payment_status, notes });
+      await apiPost(`/api/admin/orders/${id}`, { status, payment_status, fulfillment_status, notes });
       closeModal();
       loadOrders();
-      loadOverview();
+      loadOverview(); loadAnalytics();
     }
 
     function closeModal() {
@@ -699,6 +925,32 @@
     document.getElementById('orderModal').addEventListener('click', (e) => {
       if (e.target === document.getElementById('orderModal')) closeModal();
     });
+
+
+    // ─── Abandoned ───
+    async function loadAbandoned() {
+      const filter = document.getElementById('abandonedFilter').value;
+      const days = document.getElementById('abandonedDays').value;
+      const data = await api(`/api/admin/abandoned-checkouts?filter=${filter}&days=${days}`);
+      if (!data) return;
+      if (!data.abandoned || data.abandoned.length === 0) {
+        document.getElementById('abandonedTable').innerHTML = '<div class="empty"><div class="empty-icon">🛒</div>No abandoned checkouts in this period.</div>';
+        return;
+      }
+      const rows = data.abandoned.map(a => {
+        const itemsCount = (a.items || []).length;
+        const itemsLabel = (a.items || []).map(i => i.serviceType + (i.serviceVariant ? ' · ' + i.serviceVariant : '') + ' × ' + i.quantity).join(', ');
+        const subtotal = a.subtotal ? '$' + Number(a.subtotal).toFixed(2) : '—';
+        const promo = a.promo_code ? `<span style="color:#00FF85;">${a.promo_code}</span>` : '<span style="color:#666;">—</span>';
+        const status = a.recovered
+          ? `<span style="color:#00FF85;">✓ Recovered</span><br><span style="color:#666;font-size:0.75rem;">${a.recovered_order_number || ''}</span>`
+          : '<span style="color:#ffcc00;">Open</span>';
+        return `<tr><td style="color:#fff;">${a.email}</td><td title="${itemsLabel}">${itemsCount} item${itemsCount>1?'s':''}</td><td>${subtotal}</td><td>${promo}</td><td>${status}</td><td style="color:var(--text-dim);">${formatDate(a.updated_at || a.created_at)}</td></tr>`;
+      }).join('');
+      document.getElementById('abandonedTable').innerHTML = `<table style="width:100%;border-collapse:collapse;font-size:0.9rem;"><thead><tr style="color:#888;text-align:left;border-bottom:1px solid #1e1e1e;"><th style="padding:10px 0;">Email</th><th>Items</th><th>Value</th><th>Promo</th><th>Status</th><th>Last activity</th></tr></thead><tbody>${rows}</tbody></table>`;
+    }
+    document.getElementById('abandonedFilter').addEventListener('change', loadAbandoned);
+    document.getElementById('abandonedDays').addEventListener('change', loadAbandoned);
 
     // Customers
     async function loadCustomers() {
@@ -754,5 +1006,87 @@
       document.getElementById('subscribersTable').innerHTML = html;
     }
   </script>
+
+  <!-- Admin Change Password Modal -->
+  <div id="adminChangePasswordModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);z-index:9999;align-items:center;justify-content:center;padding:20px;">
+    <div style="background:#0f0f0f;border:1px solid #1e1e1e;border-radius:18px;max-width:440px;width:100%;padding:28px;position:relative;">
+      <button type="button" onclick="closeAdminChangePassword()" style="position:absolute;top:14px;right:14px;width:32px;height:32px;border:none;border-radius:50%;background:#1a1a1a;color:#999;cursor:pointer;font-size:18px;line-height:1;">&times;</button>
+      <h2 style="margin:0 0 6px;color:#fff;font-size:1.4rem;font-weight:800;">Change Admin Password</h2>
+      <p style="color:#888;font-size:0.875rem;margin:0 0 22px;">After change, the new password is stored in the database and used immediately for all admin sessions.</p>
+
+      <form id="adminChangePasswordForm">
+        <div style="margin-bottom:14px;">
+          <label style="display:block;color:#fff;font-weight:600;margin-bottom:6px;font-size:0.9rem;">Current Password</label>
+          <input type="password" id="adminCpCurrent" placeholder="Your current admin password" required autocomplete="current-password" style="width:100%;padding:12px;background:#0a0a0a;border:1px solid #1e1e1e;border-radius:10px;color:#fff;font-size:0.95rem;">
+        </div>
+        <div style="margin-bottom:14px;">
+          <label style="display:block;color:#fff;font-weight:600;margin-bottom:6px;font-size:0.9rem;">New Password</label>
+          <input type="password" id="adminCpNew" placeholder="Min. 8 characters" required minlength="8" autocomplete="new-password" style="width:100%;padding:12px;background:#0a0a0a;border:1px solid #1e1e1e;border-radius:10px;color:#fff;font-size:0.95rem;">
+        </div>
+        <div style="margin-bottom:14px;">
+          <label style="display:block;color:#fff;font-weight:600;margin-bottom:6px;font-size:0.9rem;">Confirm New Password</label>
+          <input type="password" id="adminCpConfirm" placeholder="Repeat new password" required minlength="8" autocomplete="new-password" style="width:100%;padding:12px;background:#0a0a0a;border:1px solid #1e1e1e;border-radius:10px;color:#fff;font-size:0.95rem;">
+        </div>
+        <div id="adminCpError" style="color:#ff4d4d;font-size:0.875rem;margin:8px 0;min-height:18px;"></div>
+        <div id="adminCpSuccess" style="display:none;color:#00FF85;font-size:0.875rem;margin:8px 0;background:rgba(0,255,133,0.08);border:1px solid rgba(0,255,133,0.3);border-radius:8px;padding:10px 12px;">✅ Admin password updated.</div>
+        <div style="display:flex;gap:10px;margin-top:18px;">
+          <button type="button" onclick="closeAdminChangePassword()" style="flex:1;padding:12px;background:#1a1a1a;color:#fff;border:1px solid #2a2a2a;border-radius:10px;cursor:pointer;font-weight:600;">Cancel</button>
+          <button type="submit" style="flex:1;padding:12px;background:var(--green);color:#000;border:none;border-radius:10px;cursor:pointer;font-weight:700;">Update Password</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function openAdminChangePassword() {
+      document.getElementById('adminChangePasswordModal').style.display = 'flex';
+      document.getElementById('adminCpError').textContent = '';
+      document.getElementById('adminCpSuccess').style.display = 'none';
+      document.getElementById('adminChangePasswordForm').reset();
+      setTimeout(function(){ document.getElementById('adminCpCurrent').focus(); }, 50);
+    }
+    function closeAdminChangePassword() {
+      document.getElementById('adminChangePasswordModal').style.display = 'none';
+    }
+    document.getElementById('adminChangePasswordModal').addEventListener('click', function(e){
+      if (e.target === this) closeAdminChangePassword();
+    });
+    document.getElementById('adminChangePasswordForm').addEventListener('submit', async function(e){
+      e.preventDefault();
+      var current = document.getElementById('adminCpCurrent').value;
+      var newPw = document.getElementById('adminCpNew').value;
+      var confirm = document.getElementById('adminCpConfirm').value;
+      var errEl = document.getElementById('adminCpError');
+      var successEl = document.getElementById('adminCpSuccess');
+      errEl.textContent = '';
+      successEl.style.display = 'none';
+      if (newPw !== confirm) { errEl.textContent = 'New passwords do not match.'; return; }
+      if (newPw.length < 8) { errEl.textContent = 'New password must be at least 8 characters.'; return; }
+      if (current === newPw) { errEl.textContent = 'New password must differ from current.'; return; }
+      var btn = e.target.querySelector('button[type="submit"]');
+      btn.disabled = true; btn.textContent = 'Updating…';
+      try {
+        var r = await fetch(API_URL + '/api/admin/change-password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+          body: JSON.stringify({ currentPassword: current, newPassword: newPw })
+        });
+        var data = await r.json();
+        if (r.ok && data.success) {
+          // Token is now the NEW password (since admin auth uses password-as-token)
+          token = newPw;
+          sessionStorage.setItem('admin_token', newPw);
+          successEl.style.display = 'block';
+          setTimeout(closeAdminChangePassword, 1800);
+        } else {
+          errEl.textContent = data.error || 'Update failed.';
+        }
+      } catch (err) {
+        errEl.textContent = 'Network error: ' + err.message;
+      }
+      btn.disabled = false; btn.textContent = 'Update Password';
+    });
+  </script>
+
 </body>
 </html>

@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-T9CSNK4N');</script>
+  <!-- End Google Tag Manager -->
   <meta charset="UTF-8">
   <link rel="icon" type="image/x-icon" href="favicon.ico?v=3">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon.png?v=3">
   <link rel="apple-touch-icon" href="assets/favicon.png?v=3">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <meta http-equiv="X-Frame-Options" content="DENY">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +22,7 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Checkout — Breakout">
   <meta property="og:description" content="Complete your order for music promotion services.">
-  <meta property="og:url" content="https://breakoutmusic.io/checkout.html">
+  <meta property="og:url" content="https://breakoutmusic.io/checkout">
   <meta property="og:image" content="https://breakoutmusic.io/assets/favicon-512.png">
   <meta property="og:site_name" content="Breakout">
   <!-- Twitter Card -->
@@ -24,7 +30,7 @@
   <meta name="twitter:title" content="Checkout — Breakout">
   <meta name="twitter:description" content="Complete your order for music promotion services.">
   <meta name="twitter:image" content="https://breakoutmusic.io/assets/favicon-512.png">
-  <link rel="canonical" href="https://breakoutmusic.io/checkout.html">
+  <link rel="canonical" href="https://breakoutmusic.io/checkout">
 
   <!-- Schema.org: BreadcrumbList -->
   <script type="application/ld+json">
@@ -55,9 +61,57 @@
   </script>
   <link rel="stylesheet" href="styles.css">
   <script src="https://js.stripe.com/v3/"></script>
+  <!-- Ahrefs Web Analytics -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="eM59SREhxAVIVesHN8xp2Q" async></script>
+  <!-- Google tag (gtag.js) + Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5MSZ4MW7SP"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    // GDPR — deny analytics/ads cookies by default
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'analytics_storage': 'denied',
+      'functionality_storage': 'granted',
+      'security_storage': 'granted',
+      'wait_for_update': 500
+    });
+
+    // Apply previously stored consent (so returning visitors who accepted don't lose tracking)
+    if (localStorage.getItem('cookie_consent') === 'accepted') {
+      gtag('consent', 'update', {
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted',
+        'analytics_storage': 'granted'
+      });
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-5MSZ4MW7SP');
+  </script>
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wqyz3mj3jo");
+
+    // Apply previously stored consent so returning visitors get full tracking
+    if (localStorage.getItem('cookie_consent') === 'accepted') {
+      clarity('consent');
+    }
+  </script>
 </head>
 <body>
-
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T9CSNK4N"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
   <!-- ════════ NAVBAR ════════ -->
   <nav class="navbar">
     <div class="container">
@@ -132,17 +186,33 @@
 
           <!-- Card Details -->
           <div class="checkout-form-section">
-            <h2>&#128179; Payment Details</h2>
-            <div class="form-group">
-              <label for="card-name">Name on Card</label>
-              <input type="text" id="card-name" class="form-input" placeholder="John Doe" required>
+                        <h2>&#128179; Payment Details</h2>
+            <div class="payment-method-toggle" style="display:flex;gap:10px;margin-bottom:18px;">
+              <label data-pm-label="stripe" style="flex:1;display:flex;align-items:center;gap:10px;padding:14px 16px;background:#0f0f0f;border:2px solid #00FF85;border-radius:10px;cursor:pointer;font-weight:600;">
+                <input type="radio" name="payment-method" value="stripe" style="accent-color:#00FF85;">
+                Card (Stripe)
+              </label>
+              <label data-pm-label="paypal" style="flex:1;display:flex;align-items:center;gap:10px;padding:14px 16px;background:#0f0f0f;border:2px solid #00FF85;border-radius:10px;cursor:pointer;font-weight:600;">
+                <input type="radio" name="payment-method" value="paypal" style="accent-color:#00FF85;">
+                PayPal
+              </label>
             </div>
-            <div class="form-group">
-              <label>Card Number</label>
-              <div id="card-element">
-                <!-- Stripe Elements will mount here -->
+            <div data-pm-stripe style="display:none;background:#0f0f0f;border:1px solid #1e1e1e;border-radius:10px;padding:18px;margin-bottom:18px;">
+              <p style="margin:0;color:#b0b0b0;font-size:14px;line-height:1.6;">Place your order to receive a <strong style="color:#00FF85;">Stripe payment link</strong> by email. Pay securely with Card, Apple Pay, Google Pay, or Klarna. Order is created in <strong style="color:#00FF85;">Unpaid</strong> status until you complete the payment.</p>
+            </div>
+            <!-- Hidden — card-errors div kept for backward compat with handlePayment() -->
+            <div id="card-errors" role="alert" style="display:none;color:#ff4444;font-size:0.85rem;margin-top:8px;"></div>
+            <div data-pm-paypal style="display:none;background:#0f0f0f;border:1px solid #1e1e1e;border-radius:10px;padding:18px;margin-bottom:18px;">
+              <p style="margin:0;color:#b0b0b0;font-size:14px;line-height:1.6;">Place your order to receive payment instructions by email. Order is created in <strong style="color:#00FF85;">Unpaid</strong> status until you complete the PayPal transfer.</p>
+            </div>
+
+            <div class="form-group" style="margin-top:18px;padding-top:18px;border-top:1px solid #1e1e1e;">
+              <label for="promo-input" style="display:block;color:#fff;font-weight:600;margin-bottom:8px;font-size:0.9rem;">Discount code</label>
+              <div style="display:flex;gap:8px;">
+                <input type="text" id="promo-input" placeholder="e.g. FirstBreakout" style="flex:1;padding:12px;background:#0a0a0a;border:1px solid #1e1e1e;border-radius:10px;color:#fff;font-size:0.95rem;">
+                <button type="button" id="promo-apply-btn" style="padding:0 18px;background:#1a1a1a;color:#fff;border:1px solid #2a2a2a;border-radius:10px;cursor:pointer;font-weight:600;">Apply</button>
               </div>
-              <div id="card-errors" role="alert"></div>
+              <div id="promo-message" style="margin-top:8px;font-size:0.85rem;min-height:18px;"></div>
             </div>
 
             <div class="form-group" style="margin-bottom:16px;">
@@ -308,5 +378,24 @@
   <script src="search.js"></script>
       <script src="cookie-consent.js"></script>
 <script src="recommendations.js"></script>
+
+  <script>
+    // GA4 — begin_checkout
+    window.addEventListener('load', function() {
+      if (typeof gtag !== 'function' || typeof Cart === 'undefined') return;
+      var items = Cart.getItems();
+      if (!items.length) return;
+      gtag('event', 'begin_checkout', {
+        currency: 'USD',
+        value: Cart.getTotal(),
+        items: items.map(function(i) { return {
+          item_id: i.id, item_name: i.name,
+          item_category: i.platform || 'general',
+          item_variant: i.qtyLabel || i.serviceType || '',
+          price: i.price, quantity: i.quantity
+        }; })
+      });
+    });
+  </script>
 </body>
 </html>
