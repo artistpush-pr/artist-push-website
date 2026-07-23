@@ -682,6 +682,30 @@ var VAT_ID_REGEX = {
   ES: /^ES(?:[A-Z]\d{7}[A-Z]|[A-Z]\d{8}|\d{8}[A-Z])$/
 };
 var HOME_COUNTRY = "EE";
+var CARDINITY_CHECKOUT_URL = "https://checkout.cardinity.com";
+async function cardinitySign(attrs, secret) {
+  const keys = Object.keys(attrs).filter((k) => attrs[k] !== null && attrs[k] !== void 0 && attrs[k] !== "").sort();
+  const message = keys.map((k) => k + attrs[k]).join("");
+  const enc = new TextEncoder();
+  const key = await crypto.subtle.importKey(
+    "raw",
+    enc.encode(secret),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"]
+  );
+  const sigBuf = await crypto.subtle.sign("HMAC", key, enc.encode(message));
+  return [...new Uint8Array(sigBuf)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+__name(cardinitySign, "cardinitySign");
+async function verifyCardinityCallback(fields, secret) {
+  if (!fields.signature || !secret) return false;
+  const attrs = { ...fields };
+  delete attrs.signature;
+  const expected = await cardinitySign(attrs, secret);
+  return expected === String(fields.signature).toLowerCase();
+}
+__name(verifyCardinityCallback, "verifyCardinityCallback");
 function isValidVatIdFormat(country, vatId) {
   if (!country || !vatId) return false;
   let cleaned = String(vatId).replace(/[\s.\-]/g, "").toUpperCase();
@@ -1376,6 +1400,89 @@ var index_default = {
         }));
         return json2({ ok: true, sessionId, paymentUrl: stripeUrl }, 200, cors);
       }
+      if (path === "/api/geo" && method === "GET") {
+        const country = request.cf && request.cf.country || request.headers.get("CF-IPCountry") || null;
+        return json2({ country }, 200, cors);
+      }
+      if (path === "/api/cardinity/callback" && method === "POST") {
+        const siteOrigin = env.SITE_ORIGIN || "https://breakoutmusic.io";
+        const redirect = (loc) => new Response(null, { status: 303, headers: { Location: loc } });
+        let cbFields;
+        try {
+          const form = await request.formData();
+          cbFields = Object.fromEntries([...form.entries()].map(([k, v]) => [k, String(v)]));
+        } catch (err) {
+          console.error("CARDINITY_CALLBACK_PARSE_ERROR", err.message);
+          return redirect(`${siteOrigin}/checkout?cardinity_status=error`);
+        }
+        const cbOrderNumber = cbFields.order_id || "";
+        const validSig = await verifyCardinityCallback(cbFields, env.CARDINITY_PROJECT_SECRET);
+        if (!validSig) {
+          console.warn("CARDINITY_CALLBACK_INVALID_SIG", cbOrderNumber);
+          return redirect(`${siteOrigin}/checkout?cardinity_status=error&order=${encodeURIComponent(cbOrderNumber)}`);
+        }
+        console.log("CARDINITY_CALLBACK", cbFields.status, cbOrderNumber, cbFields.id);
+        if (cbFields.status !== "approved") {
+          return redirect(`${siteOrigin}/checkout?cardinity_status=declined&order=${encodeURIComponent(cbOrderNumber)}`);
+        }
+        try {
+          const current = await env.DB.prepare(
+            "SELECT id, payment_status FROM orders WHERE order_number = ?"
+          ).bind(cbOrderNumber).first();
+          if (!current) {
+            console.warn("CARDINITY_CALLBACK_ORDER_NOT_FOUND", cbOrderNumber);
+          } else if (current.payment_status !== "paid") {
+            await env.DB.prepare(
+              `UPDATE orders
+                  SET payment_status = 'paid',
+                      status = CASE WHEN status = 'pending' THEN 'processing' ELSE status END,
+                      updated_at = datetime('now')
+                WHERE id = ?`
+            ).bind(current.id).run();
+            ctx.waitUntil((async () => {
+              try {
+                const order = await env.DB.prepare(
+                  `SELECT o.order_number, o.total_amount, o.currency, o.created_at, c.email
+                     FROM orders o JOIN customers c ON o.customer_id = c.id
+                    WHERE o.id = ?`
+                ).bind(current.id).first();
+                const itemsResult = await env.DB.prepare(
+                  `SELECT platform, service_type, service_variant, quantity, unit_price, target_url
+                     FROM order_items WHERE order_id = ?`
+                ).bind(current.id).all();
+                const orderItems = (itemsResult.results || []).map((i) => ({
+                  platform: i.platform,
+                  serviceType: i.service_type,
+                  serviceVariant: i.service_variant,
+                  quantity: i.quantity,
+                  unitPrice: i.unit_price,
+                  targetUrl: i.target_url
+                }));
+                await sendOrderConfirmationEmail(env, order.email, order.order_number, orderItems, order.total_amount, order.currency || "USD");
+                if (env.SHEETS_WEBHOOK_URL) {
+                  const resp = await fetch(env.SHEETS_WEBHOOK_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      orderNumber: order.order_number,
+                      date: (order.created_at || "").slice(0, 10),
+                      email: order.email,
+                      items: orderItems,
+                      paymentMethod: "cardinity"
+                    })
+                  });
+                  console.log("SHEETS_WEBHOOK_SENT_CARDINITY", order.order_number, resp.status);
+                }
+              } catch (e) {
+                console.error("CARDINITY_POSTPAY_ERROR", e.message);
+              }
+            })());
+          }
+        } catch (err) {
+          console.error("CARDINITY_CALLBACK_HANDLER_ERROR", err.message);
+        }
+        return redirect(`${siteOrigin}/success?order=${encodeURIComponent(cbOrderNumber)}&provider=cardinity`);
+      }
       if (path === "/api/orders" && method === "POST") {
         const body = await request.json();
         const { email, name, items, paymentMethod, promoCode, billingCountry, vatId } = body;
@@ -1609,6 +1716,40 @@ var index_default = {
               success: false,
               order: { id: orderId, orderNumber, totalAmount, currency: body.currency || "USD" },
               error: "HiPay payment failed: " + err.message
+            }, 400, cors);
+          }
+        }
+        if (paymentMethod === "cardinity") {
+          try {
+            if (!env.CARDINITY_PROJECT_ID || !env.CARDINITY_PROJECT_SECRET) {
+              throw new Error("Cardinity is not configured");
+            }
+            const siteOrigin = env.SITE_ORIGIN || "https://breakoutmusic.io";
+            const apiOrigin = new URL(request.url).origin;
+            const desc = items.map((i) => `${i.quantity}x ${i.serviceType}`).join(", ").slice(0, 255);
+            const cFields = {
+              amount: totalAmount.toFixed(2),
+              currency: body.currency || "USD",
+              country: billingCountry || "US",
+              order_id: orderNumber,
+              description: desc,
+              email_address: email,
+              project_id: env.CARDINITY_PROJECT_ID,
+              return_url: `${apiOrigin}/api/cardinity/callback`,
+              cancel_url: `${siteOrigin}/checkout?cardinity_status=canceled&order=${encodeURIComponent(orderNumber)}`
+            };
+            cFields.signature = await cardinitySign(cFields, env.CARDINITY_PROJECT_SECRET);
+            return json2({
+              success: true,
+              order: { id: orderId, orderNumber, totalAmount, currency: body.currency || "USD" },
+              cardinity: { action: CARDINITY_CHECKOUT_URL, fields: cFields }
+            }, 201, cors);
+          } catch (err) {
+            console.error("CARDINITY_ORDER_FAILED", err.message);
+            return json2({
+              success: false,
+              order: { id: orderId, orderNumber, totalAmount, currency: body.currency || "USD" },
+              error: "Cardinity payment failed: " + err.message
             }, 400, cors);
           }
         }

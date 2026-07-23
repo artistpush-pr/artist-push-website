@@ -1,11 +1,6 @@
 name = "breakout-api"
 main = "src/index.ts"
 compatibility_date = "2024-12-01"
-usage_model = "standard"
-env = { }
-
-[triggers]
-crons = [ ]
 
 [vars]
 CORS_ORIGIN = "https://breakoutmusic.io"
@@ -14,9 +9,7 @@ HIPAY_BASE_URL = "https://secure-gateway.hipay-tpp.com/rest/v1"
 HIPAY_VAULT_URL = "https://secure2-vault.hipay-tpp.com/rest/v2"
 SITE_ORIGIN = "https://breakoutmusic.io"
 
-[unsafe]
-  [[unsafe.bindings]]
-  database_id = "6c1cc3c4-0137-4151-921a-5ace3fc30253"
-  id = "6c1cc3c4-0137-4151-921a-5ace3fc30253"
-  name = "DB"
-  type = "d1"
+[[d1_databases]]
+binding = "DB"
+database_name = "breakout-db"
+database_id = "6c1cc3c4-0137-4151-921a-5ace3fc30253"

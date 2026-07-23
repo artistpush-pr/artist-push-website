@@ -219,15 +219,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <!-- Card Details -->
           <div class="checkout-form-section">
                         <h2>&#128179; Payment Details</h2>
-            <div class="payment-method-toggle" style="display:flex;gap:10px;margin-bottom:18px;">
-              <label data-pm-label="paypal" style="flex:1;display:flex;align-items:center;gap:10px;padding:14px 16px;background:#0f0f0f;border:2px solid #00FF85;border-radius:10px;cursor:pointer;font-weight:600;">
-                <input type="radio" name="payment-method" value="paypal" style="accent-color:#00FF85;">
-                PayPal
-              </label>
-              <label data-pm-label="hipay" style="flex:1;display:flex;align-items:center;gap:10px;padding:14px 16px;background:#0f0f0f;border:2px solid #00FF85;border-radius:10px;cursor:pointer;font-weight:600;">
+            <div class="payment-method-toggle" style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px;">
+              <label data-pm-label="hipay" style="flex:1;min-width:140px;display:flex;align-items:center;gap:10px;padding:14px 16px;background:#0f0f0f;border:2px solid #00FF85;border-radius:10px;cursor:pointer;font-weight:600;">
                 <input type="radio" name="payment-method" value="hipay" style="accent-color:#00FF85;">
                 Card (HiPay)
               </label>
+              <label data-pm-label="cardinity" style="flex:1;min-width:140px;display:flex;align-items:center;gap:10px;padding:14px 16px;background:#0f0f0f;border:2px solid #1e1e1e;border-radius:10px;cursor:pointer;font-weight:600;">
+                <input type="radio" name="payment-method" value="cardinity" style="accent-color:#00FF85;">
+                Card (Cardinity)
+              </label>
+              <label data-pm-label="paypal" style="flex:1;min-width:140px;display:flex;align-items:center;gap:10px;padding:14px 16px;background:#0f0f0f;border:2px solid #1e1e1e;border-radius:10px;cursor:pointer;font-weight:600;">
+                <input type="radio" name="payment-method" value="paypal" style="accent-color:#00FF85;">
+                PayPal
+              </label>
+            </div>
+            <div data-pm-cardinity style="display:none;background:#0f0f0f;border:1px solid #1e1e1e;border-radius:10px;padding:18px;margin-bottom:18px;">
+              <p style="margin:0;color:#b0b0b0;font-size:14px;line-height:1.6;">You will be redirected to a secure Cardinity payment page to complete your card payment with 3-D Secure.</p>
             </div>
             <!-- Hidden — card-errors div kept for backward compat with handlePayment() -->
             <div id="card-errors" role="alert" style="display:none;color:#ff4444;font-size:0.85rem;margin-top:8px;"></div>
@@ -340,7 +347,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script src="auth.js"></script>
   <script src="script.js"></script>
   <script src="vat.js"></script>
-  <script src="checkout-api.js"></script>
+  <script src="checkout-api.js?v=20260723"></script>
   <!-- ════════ SEARCH OVERLAY ════════ -->
   <div class="search-overlay" id="searchOverlay">
     <div class="search-modal">
