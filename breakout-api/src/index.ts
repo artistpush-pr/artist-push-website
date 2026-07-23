@@ -683,9 +683,7 @@ var VAT_ID_REGEX = {
 };
 var HOME_COUNTRY = "EE";
 var CARDINITY_CHECKOUT_URL = "https://checkout.cardinity.com";
-async function cardinitySign(attrs, secret) {
-  const keys = Object.keys(attrs).filter((k) => attrs[k] !== null && attrs[k] !== void 0 && attrs[k] !== "").sort();
-  const message = keys.map((k) => k + attrs[k]).join("");
+async function cardinityHmacHex(message, secret) {
   const enc = new TextEncoder();
   const key = await crypto.subtle.importKey(
     "raw",
@@ -697,13 +695,26 @@ async function cardinitySign(attrs, secret) {
   const sigBuf = await crypto.subtle.sign("HMAC", key, enc.encode(message));
   return [...new Uint8Array(sigBuf)].map((b) => b.toString(16).padStart(2, "0")).join("");
 }
+__name(cardinityHmacHex, "cardinityHmacHex");
+async function cardinitySign(attrs, secret) {
+  const keys = Object.keys(attrs).filter((k) => attrs[k] !== null && attrs[k] !== void 0 && attrs[k] !== "").sort();
+  const message = keys.map((k) => k + attrs[k]).join("");
+  return cardinityHmacHex(message, secret);
+}
 __name(cardinitySign, "cardinitySign");
 async function verifyCardinityCallback(fields, secret) {
   if (!fields.signature || !secret) return false;
+  const provided = String(fields.signature).toLowerCase();
   const attrs = { ...fields };
   delete attrs.signature;
-  const expected = await cardinitySign(attrs, secret);
-  return expected === String(fields.signature).toLowerCase();
+  const keys = Object.keys(attrs).sort();
+  // Cardinity signs callback responses over ALL attributes including empty
+  // ones (e.g. live=""), unlike requests where empty attrs are omitted.
+  // Accept either variant to be safe.
+  const msgAll = keys.map((k) => k + attrs[k]).join("");
+  if (await cardinityHmacHex(msgAll, secret) === provided) return true;
+  const msgNonEmpty = keys.filter((k) => attrs[k] !== null && attrs[k] !== void 0 && attrs[k] !== "").map((k) => k + attrs[k]).join("");
+  return await cardinityHmacHex(msgNonEmpty, secret) === provided;
 }
 __name(verifyCardinityCallback, "verifyCardinityCallback");
 function isValidVatIdFormat(country, vatId) {

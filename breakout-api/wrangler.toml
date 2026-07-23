@@ -13,3 +13,6 @@ SITE_ORIGIN = "https://breakoutmusic.io"
 binding = "DB"
 database_name = "breakout-db"
 database_id = "6c1cc3c4-0137-4151-921a-5ace3fc30253"
+
+[observability.logs]
+enabled = true
