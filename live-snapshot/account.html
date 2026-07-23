@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-T9CSNK4N');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/x-icon" href="favicon.ico?v=3">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon.png?v=3">
+  <link rel="apple-touch-icon" href="assets/favicon.png?v=3">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Account — Breakout</title>
+  <meta name="description" content="Manage your Breakout account and view order history.">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Account — Breakout">
+  <meta property="og:description" content="Manage your Breakout account and view order history.">
+  <meta property="og:url" content="https://breakoutmusic.io/account">
+  <meta property="og:image" content="https://breakoutmusic.io/assets/favicon-512.png">
+  <meta property="og:site_name" content="Breakout">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Account — Breakout">
+  <meta name="twitter:description" content="Manage your Breakout account and view order history.">
+  <meta name="twitter:image" content="https://breakoutmusic.io/assets/favicon-512.png">
+  <link rel="canonical" href="https://breakoutmusic.io/account">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Ahrefs Web Analytics -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="eM59SREhxAVIVesHN8xp2Q" async></script>
+  <!-- Google tag (gtag.js) + Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5MSZ4MW7SP"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    // GDPR — deny analytics/ads cookies by default
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'analytics_storage': 'denied',
+      'functionality_storage': 'granted',
+      'security_storage': 'granted',
+      'wait_for_update': 500
+    });
+
+    // Apply previously stored consent (so returning visitors who accepted don't lose tracking)
+    if (localStorage.getItem('cookie_consent') === 'accepted') {
+      gtag('consent', 'update', {
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted',
+        'analytics_storage': 'granted'
+      });
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-5MSZ4MW7SP');
+  </script>
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wqyz3mj3jo");
+
+    // Apply previously stored consent so returning visitors get full tracking
+    if (localStorage.getItem('cookie_consent') === 'accepted') {
+      clarity('consent');
+    }
+  </script>
+  <style>
+    .forgot-password-row {
+      text-align: right;
+      margin: 6px 0 28px;
+    }
+    .forgot-password-row a {
+      color: #00FF85;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      padding: 6px 4px;
+      display: inline-block;
+      transition: opacity 0.2s ease;
+    }
+    .forgot-password-row a:hover {
+      opacity: 0.75;
+      text-decoration: underline;
+    }
+    .forgot-password-row a:active {
+      opacity: 0.55;
+    }
+    @media (max-width: 640px) {
+      .forgot-password-row {
+        text-align: center;
+        margin: 8px 0 28px;
+      }
+      .forgot-password-row a {
+        font-size: 0.95rem;
+        padding: 10px 12px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T9CSNK4N"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+  <!-- ════════ PROMO BAR ════════ -->
+  <div class="promo-bar" id="promoBar">
+    <div class="promo-bar-inner">
+      <span class="promo-bar-text"><strong>15% OFF</strong> your first order — use code <span class="promo-bar-code">FIRST15</span></span>
+      <button class="promo-bar-copy" onclick="navigator.clipboard.writeText('FIRST15'); this.textContent='Copied!';">Copy Code</button>
+      <button class="promo-bar-close" onclick="document.getElementById('promoBar').classList.add('hidden'); sessionStorage.setItem('promo_closed','1');" aria-label="Close">&times;</button>
+    </div>
+  </div>
+  <script>if(sessionStorage.getItem('promo_closed')) document.getElementById('promoBar').classList.add('hidden');</script>
+
+  <!-- ════════ NAVBAR ════════ -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar-logo">
+        <img src="assets/logo.png" alt="Breakout" class="logo-img">
+      </a>
+      <div class="navbar-links">
+        <a href="index.html">Home</a>
+        <a href="spotify.html">Spotify</a>
+        <a href="soundcloud.html">SoundCloud</a>
+        <a href="blog.html">Blog</a>
+      </div>
+      <div class="navbar-cta">
+        <div class="navbar-icons">
+          <button class="search-trigger" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+          <a href="account.html" class="auth-trigger active" aria-label="Account"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
+          <a href="cart.html" class="cart-icon-link" aria-label="Cart"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span class="cart-badge">0</span></a>
+        </div>
+        <a href="index.html#popular-services" class="btn btn-primary btn-sm">Get Started</a>
+        <button class="mobile-toggle" aria-label="Menu">&#9776;</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav">
+    <button class="mobile-nav-close" aria-label="Close">&#10005;</button>
+    <a href="index.html">Home</a>
+    <a href="spotify.html">Spotify</a>
+    <a href="soundcloud.html">SoundCloud</a>
+    <a href="blog.html">Blog</a>
+    <a href="account.html">My Account</a>
+    <a href="cart.html">Cart</a>
+    <a href="#" class="search-trigger mobile-search-trigger"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:8px;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Search</a>
+  </div>
+
+  <!-- ════════ PAGE HERO ════════ -->
+  <section class="page-hero">
+    <div class="container">
+      <h1>My <span class="green">Account</span></h1>
+      <p class="page-hero-sub" id="accountSubtitle">Sign in or create an account to track your orders.</p>
+    </div>
+  </section>
+
+  <!-- ════════ AUTH FORMS (shown when logged out) ════════ -->
+  <section class="section" id="authSection">
+    <div class="container">
+      <div class="auth-container">
+        <!-- Login Tab / Register Tab -->
+        <div class="auth-tabs">
+          <button class="auth-tab active" data-tab="login">Sign In</button>
+          <button class="auth-tab" data-tab="register">Create Account</button>
+        </div>
+
+        <!-- Login Form -->
+        <form class="auth-form" id="loginForm">
+          <div class="auth-field">
+            <label for="loginEmail">Email</label>
+            <input type="email" id="loginEmail" placeholder="your@email.com" required>
+          </div>
+          <div class="auth-field">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" placeholder="Your password" required>
+          </div>
+          <div class="auth-error" id="loginError"></div>
+          <div class="forgot-password-row"><a href="#" data-forgot-link>Forgot your password?</a></div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Sign In</button>
+        </form>
+
+        <!-- Register Form -->
+        <form class="auth-form" id="registerForm" style="display:none;">
+          <div class="auth-field">
+            <label for="regName">Name</label>
+            <input type="text" id="regName" placeholder="Your name" required>
+          </div>
+          <div class="auth-field">
+            <label for="regEmail">Email</label>
+            <input type="email" id="regEmail" placeholder="your@email.com" required>
+          </div>
+          <div class="auth-field">
+            <label for="regPassword">Password</label>
+            <input type="password" id="regPassword" placeholder="Min. 6 characters" required minlength="6">
+          </div>
+          <div class="auth-error" id="registerError"></div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Create Account</button>
+        </form>
+        <!-- Forgot Password Form -->
+        <form class="auth-form" id="forgotForm" style="display:none;">
+          <p style="color:#b0b0b0;font-size:0.9rem;margin:0 0 18px;line-height:1.55;">Enter your email and we'll send you a link to reset your password.</p>
+          <div class="auth-field">
+            <label for="forgotEmail">Email</label>
+            <input type="email" id="forgotEmail" placeholder="your@email.com" required>
+          </div>
+          <div class="auth-error" id="forgotError"></div>
+          <div id="forgotSuccess" style="display:none;color:#00FF85;font-size:0.9rem;background:rgba(0,255,133,0.08);border:1px solid rgba(0,255,133,0.3);border-radius:10px;padding:14px;margin:12px 0;line-height:1.5;">✉ If an account exists for that email, a reset link has been sent. Check your inbox (and spam folder) within a few minutes.</div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Send Reset Link</button>
+          <div style="text-align:center;margin-top:16px;">
+            <a href="#" data-back-to-login style="color:#888;font-size:0.875rem;text-decoration:none;">&larr; Back to Sign In</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ DASHBOARD (shown when logged in) ════════ -->
+  <section class="section" id="dashboardSection" style="display:none;">
+    <div class="container">
+      <div class="dashboard-grid">
+
+        <!-- Profile Card -->
+        <div class="dash-card">
+          <h3>Profile</h3>
+          <form id="profileForm">
+            <div class="auth-field">
+              <label for="profileName">Name</label>
+              <input type="text" id="profileName" required>
+            </div>
+            <div class="auth-field">
+              <label for="profileEmail">Email</label>
+              <input type="email" id="profileEmail" required>
+            </div>
+            <div class="auth-error" id="profileError"></div>
+            <div class="auth-success" id="profileSuccess"></div>
+            <div class="dash-card-actions">
+              <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
+              <button type="button" class="btn btn-dark btn-sm" id="logoutBtn">Log Out</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Orders Card -->
+        <div class="dash-card dash-card-wide">
+          <h3>Order History</h3>
+          <div id="ordersContainer">
+            <div class="orders-empty">No orders yet. <a href="index.html#popular-services">Browse services</a> to get started.</div>
+          </div>
+        </div>
+
+
+        <!-- Change Password Card (opens modal) -->
+        <div class="dash-card">
+          <h3>Security</h3>
+          <p style="color:#b0b0b0;font-size:0.9rem;margin:8px 0 18px;line-height:1.5;">Keep your account secure by updating your password regularly.</p>
+          <div class="dash-card-actions">
+            <button type="button" class="btn btn-primary btn-sm" id="openChangePasswordBtn">Change Password</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ FOOTER ════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-newsletter">
+          <h4>Stay in the Loop</h4>
+          <p>Get promotion tips, exclusive deals & new service updates.</p>
+          <form class="footer-newsletter-form">
+            <input type="email" name="email" class="footer-newsletter-input" placeholder="Your email" aria-label="Email address for newsletter" required autocomplete="email" data-1p-ignore="true" data-lpignore="true" data-form-type="other">
+            <button type="submit" class="footer-newsletter-btn">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-legal">
+    <div class="fl-col">
+      <h5>Company</h5>
+      <p><strong>ARTISTPUSH OÜ</strong> · trading as Breakout<br>Pudisoo küla, Männimäe/1,<br>Kuusalu vald, Harju maakond,<br>74626, Estonia, EU</p>
+    </div>
+    <div class="fl-col">
+      <h5>Customer support</h5>
+      <p><a href="mailto:breakoutmusicsupport@gmail.com">breakoutmusicsupport@gmail.com</a><br><a href="tel:+3726027879">+372 602 7879</a><br><span class="fl-muted">24/7 customer support</span><br><a href="/contact" style="color:#00FF85">Contact page →</a></p>
+    </div>
+    <div class="fl-col">
+      <h5>Accepted payments</h5>
+      <p class="fl-pay-row"><span class="fl-pay">VISA</span><span class="fl-pay fl-mc">MC</span><span class="fl-pay fl-amex">AMEX</span><span class="fl-pay fl-ap">Pay</span><span class="fl-pay fl-crypto">BTC</span></p>
+      
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 ARTISTPUSH OÜ, trading as Breakout. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ════════ SEARCH OVERLAY ════════ -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-modal">
+      <div class="search-header">
+        <div class="search-field-wrap">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search services, packages..." autocomplete="off" spellcheck="false">
+          <kbd class="search-kbd">ESC</kbd>
+        </div>
+        <button id="searchClose" class="search-close-btn" aria-label="Close search">&times;</button>
+      </div>
+      <div class="search-results" id="searchResults">
+        <div class="search-hint">Search services, packages & articles...</div>
+      </div>
+      <div class="search-footer">
+        <div class="search-footer-hint"><kbd>ESC</kbd> to close</div>
+        <div class="search-footer-hint"><kbd>&#8984;K</kbd> to toggle</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="cart.js"></script>
+  <script src="auth.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // ─── Account Page Logic ───
+    (function() {
+      const authSection = document.getElementById('authSection');
+      const dashSection = document.getElementById('dashboardSection');
+      const subtitle = document.getElementById('accountSubtitle');
+
+      // Tabs
+      document.querySelectorAll('.auth-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById('loginForm').style.display = tab.dataset.tab === 'login' ? 'block' : 'none';
+          document.getElementById('registerForm').style.display = tab.dataset.tab === 'register' ? 'block' : 'none';
+          var ff = document.getElementById('forgotForm'); if (ff) ff.style.display = 'none';
+          document.getElementById('loginError').textContent = '';
+          document.getElementById('registerError').textContent = '';
+        });
+      });
+
+      // Login
+
+      // ─── Forgot Password ───
+      var forgotLink = document.querySelector('[data-forgot-link]');
+      var backToLogin = document.querySelector('[data-back-to-login]');
+      var loginFormEl = document.getElementById('loginForm');
+      var regFormEl = document.getElementById('registerForm');
+      var forgotFormEl = document.getElementById('forgotForm');
+      function showForm(which) {
+        loginFormEl.style.display = which === 'login' ? 'block' : 'none';
+        regFormEl.style.display = which === 'register' ? 'block' : 'none';
+        forgotFormEl.style.display = which === 'forgot' ? 'block' : 'none';
+        document.querySelectorAll('.auth-tab').forEach(function(t){
+          if (which === 'forgot') t.classList.remove('active');
+          else t.classList.toggle('active', t.dataset.tab === which);
+        });
+      }
+      if (forgotLink) {
+        forgotLink.addEventListener('click', function(e){ e.preventDefault(); showForm('forgot'); document.getElementById('forgotError').textContent=''; document.getElementById('forgotSuccess').style.display='none'; });
+      }
+      if (backToLogin) {
+        backToLogin.addEventListener('click', function(e){ e.preventDefault(); showForm('login'); });
+      }
+      if (forgotFormEl) {
+        forgotFormEl.addEventListener('submit', async function(e){
+          e.preventDefault();
+          var em = document.getElementById('forgotEmail').value.trim();
+          var btn = forgotFormEl.querySelector('button[type="submit"]');
+          btn.disabled = true; btn.textContent = 'Sending…';
+          var res = await Auth.forgotPassword(em);
+          btn.disabled = false; btn.textContent = 'Send Reset Link';
+          if (res.ok) {
+            document.getElementById('forgotError').textContent = '';
+            document.getElementById('forgotSuccess').style.display = 'block';
+          } else {
+            document.getElementById('forgotError').textContent = res.error || 'Something went wrong.';
+          }
+        });
+      }
+
+      document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const result = await Auth.login(
+          document.getElementById('loginEmail').value,
+          document.getElementById('loginPassword').value
+        );
+        if (result.ok) {
+          showDashboard(result.user);
+        } else {
+          document.getElementById('loginError').textContent = result.error;
+        }
+      });
+
+      // Register
+      document.getElementById('registerForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const result = await Auth.register(
+          document.getElementById('regName').value,
+          document.getElementById('regEmail').value,
+          document.getElementById('regPassword').value
+        );
+        if (result.ok) {
+          showDashboard(result.user);
+        } else {
+          document.getElementById('registerError').textContent = result.error;
+        }
+      });
+
+      // Profile update
+      document.getElementById('profileForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const result = Auth.updateProfile({
+          name: document.getElementById('profileName').value,
+          email: document.getElementById('profileEmail').value
+        });
+        if (result.ok) {
+          document.getElementById('profileSuccess').textContent = 'Profile updated!';
+          document.getElementById('profileError').textContent = '';
+          subtitle.textContent = 'Welcome back, ' + result.user.name + '!';
+          setTimeout(() => document.getElementById('profileSuccess').textContent = '', 3000);
+        } else {
+          document.getElementById('profileError').textContent = result.error;
+          document.getElementById('profileSuccess').textContent = '';
+        }
+      });
+
+      // Logout
+
+      // ─── Change Password (modal) ───
+      var cpModal = document.getElementById('changePasswordModal');
+      var openCpBtn = document.getElementById('openChangePasswordBtn');
+      var closeCpBtn = document.getElementById('closeChangePasswordBtn');
+      var cpCancelBtn = document.getElementById('cpCancelBtn');
+      function openCpModal() {
+        if (!cpModal) return;
+        cpModal.style.display = 'flex';
+        document.getElementById('cpError').textContent = '';
+        document.getElementById('cpSuccess').style.display = 'none';
+        document.getElementById('changePasswordForm').reset();
+        setTimeout(function(){ document.getElementById('cpCurrent').focus(); }, 50);
+      }
+      function closeCpModal() { if (cpModal) cpModal.style.display = 'none'; }
+      if (openCpBtn) openCpBtn.addEventListener('click', openCpModal);
+      if (closeCpBtn) closeCpBtn.addEventListener('click', closeCpModal);
+      if (cpCancelBtn) cpCancelBtn.addEventListener('click', closeCpModal);
+      if (cpModal) cpModal.addEventListener('click', function(e){ if (e.target === cpModal) closeCpModal(); });
+      document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && cpModal && cpModal.style.display === 'flex') closeCpModal(); });
+      var cpForm = document.getElementById('changePasswordForm');
+      if (cpForm) {
+        cpForm.addEventListener('submit', async function(e){
+          e.preventDefault();
+          var current = document.getElementById('cpCurrent').value;
+          var newPw = document.getElementById('cpNew').value;
+          var confirm = document.getElementById('cpConfirm').value;
+          var errEl = document.getElementById('cpError');
+          var successEl = document.getElementById('cpSuccess');
+          errEl.textContent = '';
+          successEl.style.display = 'none';
+          if (newPw !== confirm) { errEl.textContent = 'New passwords do not match.'; return; }
+          if (newPw.length < 8) { errEl.textContent = 'New password must be at least 8 characters.'; return; }
+          if (current === newPw) { errEl.textContent = 'New password must differ from current.'; return; }
+          var btn = cpForm.querySelector('button[type="submit"]');
+          btn.disabled = true; btn.textContent = 'Updating…';
+          var res = await Auth.changePassword(current, newPw);
+          btn.disabled = false; btn.textContent = 'Update Password';
+          if (res.ok) {
+            successEl.style.display = 'block';
+            cpForm.reset();
+            setTimeout(function(){ closeCpModal(); }, 1800);
+          } else {
+            errEl.textContent = res.error || 'Failed to change password.';
+          }
+        });
+      }
+
+      document.getElementById('logoutBtn').addEventListener('click', () => {
+        Auth.logout();
+        showAuth();
+      });
+
+      function showDashboard(user) {
+        authSection.style.display = 'none';
+        dashSection.style.display = 'block';
+        subtitle.textContent = 'Welcome back, ' + user.name + '!';
+        document.getElementById('profileName').value = user.name;
+        document.getElementById('profileEmail').value = user.email;
+        renderOrders();
+      }
+
+      function showAuth() {
+        authSection.style.display = 'block';
+        dashSection.style.display = 'none';
+        subtitle.textContent = 'Sign in or create an account to track your orders.';
+      }
+
+      function renderOrders() {
+        const orders = Auth.getOrders();
+        const container = document.getElementById('ordersContainer');
+
+        if (orders.length === 0) {
+          container.innerHTML = '<div class="orders-empty">No orders yet. <a href="index.html#popular-services">Browse services</a> to get started.</div>';
+          return;
+        }
+
+        let html = '';
+        orders.forEach(order => {
+          const date = new Date(order.date);
+          const dateStr = date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+          const itemsList = order.items.map(i => {
+            const label = i.name + (i.qtyLabel ? ' (' + i.qtyLabel + ')' : '');
+            return '<span class="order-item-tag">' + label + ' &times; ' + i.quantity + '</span>';
+          }).join('');
+
+          html += '<div class="order-card">' +
+            '<div class="order-header">' +
+              '<div class="order-id">' + order.id + '</div>' +
+              '<div class="order-status order-status--' + order.status.toLowerCase().replace(/\s/g,'-') + '">' + order.status + '</div>' +
+            '</div>' +
+            '<div class="order-items">' + itemsList + '</div>' +
+            '<div class="order-footer">' +
+              '<span class="order-date">' + dateStr + '</span>' +
+              '<span class="order-total">$' + order.total.toFixed(2) + '</span>' +
+            '</div>' +
+          '</div>';
+        });
+
+        container.innerHTML = html;
+      }
+
+      // Check if logged in on load
+      const user = Auth.getUser();
+      if (user) {
+        showDashboard(user);
+      }
+    })();
+  </script>
+  <script src="email-tracking.js"></script>
+  <script src="email-capture.js"></script>
+  <script src="search.js"></script>
+      <script src="cookie-consent.js"></script>
+<script src="recommendations.js"></script>
+
+  <!-- Change Password Modal -->
+  <div class="modal-overlay" id="changePasswordModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);z-index:9999;align-items:center;justify-content:center;padding:20px;">
+    <div style="background:#0f0f0f;border:1px solid #1e1e1e;border-radius:18px;max-width:440px;width:100%;padding:28px;position:relative;max-height:90vh;overflow-y:auto;">
+      <button type="button" id="closeChangePasswordBtn" aria-label="Close" style="position:absolute;top:14px;right:14px;width:32px;height:32px;border:none;border-radius:50%;background:#1a1a1a;color:#999;cursor:pointer;font-size:18px;line-height:1;">&times;</button>
+      <h2 style="margin:0 0 6px;color:#fff;font-size:1.4rem;font-weight:800;">Change Password</h2>
+      <p style="color:#888;font-size:0.875rem;margin:0 0 22px;">Enter your current password and choose a new one.</p>
+
+      <form id="changePasswordForm">
+        <div class="auth-field" style="margin-bottom:14px;">
+          <label for="cpCurrent" style="display:block;color:#fff;font-weight:600;margin-bottom:6px;font-size:0.9rem;">Current Password</label>
+          <input type="password" id="cpCurrent" placeholder="Your current password" required autocomplete="current-password" style="width:100%;padding:12px;background:#0a0a0a;border:1px solid #1e1e1e;border-radius:10px;color:#fff;font-size:0.95rem;">
+        </div>
+        <div class="auth-field" style="margin-bottom:14px;">
+          <label for="cpNew" style="display:block;color:#fff;font-weight:600;margin-bottom:6px;font-size:0.9rem;">New Password</label>
+          <input type="password" id="cpNew" placeholder="Min. 8 characters" required minlength="8" autocomplete="new-password" style="width:100%;padding:12px;background:#0a0a0a;border:1px solid #1e1e1e;border-radius:10px;color:#fff;font-size:0.95rem;">
+        </div>
+        <div class="auth-field" style="margin-bottom:14px;">
+          <label for="cpConfirm" style="display:block;color:#fff;font-weight:600;margin-bottom:6px;font-size:0.9rem;">Confirm New Password</label>
+          <input type="password" id="cpConfirm" placeholder="Repeat new password" required minlength="8" autocomplete="new-password" style="width:100%;padding:12px;background:#0a0a0a;border:1px solid #1e1e1e;border-radius:10px;color:#fff;font-size:0.95rem;">
+        </div>
+        <div class="auth-error" id="cpError" style="color:#ff4d4d;font-size:0.875rem;margin:8px 0;min-height:18px;"></div>
+        <div class="auth-success" id="cpSuccess" style="display:none;color:#00FF85;font-size:0.875rem;margin:8px 0;background:rgba(0,255,133,0.08);border:1px solid rgba(0,255,133,0.3);border-radius:8px;padding:10px 12px;">✅ Password updated successfully.</div>
+        <div style="display:flex;gap:10px;margin-top:18px;">
+          <button type="button" id="cpCancelBtn" class="btn btn-dark btn-sm" style="flex:1;">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm" style="flex:1;">Update Password</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1fb5f496f18488f',t:'MTc4NDgxNjkxMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
