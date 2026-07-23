@@ -219,18 +219,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <!-- Card Details -->
           <div class="checkout-form-section">
                         <h2>&#128179; Payment Details</h2>
-            <div class="payment-method-toggle" style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px;">
-              <label data-pm-label="hipay" style="flex:1;min-width:140px;display:flex;align-items:center;gap:10px;padding:14px 16px;background:#0f0f0f;border:2px solid #00FF85;border-radius:10px;cursor:pointer;font-weight:600;">
+            <style>
+              .payment-method-toggle{display:flex;flex-direction:column;gap:10px;margin-bottom:18px;}
+              .pm-option{display:flex;align-items:center;gap:10px;padding:14px 16px;background:#0f0f0f;border:2px solid #1e1e1e;border-radius:10px;cursor:pointer;font-weight:600;}
+              .pm-option>span:first-of-type{white-space:nowrap;}
+              .pm-proc{color:#8a8a8a;font-weight:500;font-size:0.85em;}
+              .pm-badge{margin-left:auto;background:rgba(0,255,133,0.12);color:#00FF85;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;white-space:nowrap;}
+              @media (max-width: 400px){
+                .pm-option{padding:12px 12px;gap:8px;}
+                .pm-badge{font-size:10px;padding:3px 6px;}
+              }
+            </style>
+            <div class="payment-method-toggle">
+              <label data-pm-label="hipay" class="pm-option">
                 <input type="radio" name="payment-method" value="hipay" style="accent-color:#00FF85;">
-                Card (HiPay)
+                <span>Pay by Card <span class="pm-proc">(HiPay)</span></span>
+                <span class="pm-badge">Recommended for US</span>
               </label>
-              <label data-pm-label="cardinity" style="flex:1;min-width:140px;display:flex;align-items:center;gap:10px;padding:14px 16px;background:#0f0f0f;border:2px solid #1e1e1e;border-radius:10px;cursor:pointer;font-weight:600;">
+              <label data-pm-label="cardinity" class="pm-option">
                 <input type="radio" name="payment-method" value="cardinity" style="accent-color:#00FF85;">
-                Card (Cardinity)
+                <span>Pay by Card <span class="pm-proc">(Cardinity)</span></span>
               </label>
-              <label data-pm-label="paypal" style="flex:1;min-width:140px;display:flex;align-items:center;gap:10px;padding:14px 16px;background:#0f0f0f;border:2px solid #1e1e1e;border-radius:10px;cursor:pointer;font-weight:600;">
+              <label data-pm-label="paypal" class="pm-option">
                 <input type="radio" name="payment-method" value="paypal" style="accent-color:#00FF85;">
-                PayPal
+                <span>PayPal</span>
               </label>
             </div>
             <div data-pm-cardinity style="display:none;background:#0f0f0f;border:1px solid #1e1e1e;border-radius:10px;padding:18px;margin-bottom:18px;">
