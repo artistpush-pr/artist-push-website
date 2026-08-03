@@ -22,8 +22,7 @@
   '#bo-box-overlay.bo-show{opacity:1;}'+
   '.bo-box-modal{position:relative;text-align:center;padding:20px;max-width:560px;width:94%;animation:bo-in .55s ease-out;}'+
   '@keyframes bo-in{0%{opacity:0;transform:scale(.85)}100%{opacity:1;transform:scale(1)}}'+
-  '.bo-box-img{width:min(340px,74vw);aspect-ratio:1/1;object-fit:cover;display:block;margin:0 auto;border-radius:18px;filter:drop-shadow(0 20px 70px rgba(124,58,237,.5));animation:bo-glow 3s ease-in-out infinite;}'+
-  '@keyframes bo-glow{0%,100%{filter:drop-shadow(0 20px 70px rgba(124,58,237,.5))}50%{filter:drop-shadow(0 20px 90px rgba(0,255,133,.45))}}'+
+  '.bo-box-img{width:min(340px,74vw);aspect-ratio:1/1;object-fit:cover;display:block;margin:0 auto;border-radius:18px;filter:drop-shadow(0 20px 70px rgba(0,255,133,.35));}'+
   '.bo-percent{font-size:clamp(2.6rem,9vw,4rem);font-weight:900;color:#00FF85;line-height:1;margin-top:16px;text-shadow:0 0 60px rgba(0,255,133,.5);}'+
   '.bo-title{color:#fff;font-size:clamp(1.3rem,4vw,1.8rem);font-weight:800;margin:10px 0 4px;letter-spacing:.5px;}'+
   '.bo-code-wrap{display:flex;align-items:center;justify-content:center;gap:10px;margin:20px auto 6px;flex-wrap:wrap;}'+
@@ -46,7 +45,7 @@
   overlay.innerHTML=''+
     '<div class="bo-box-modal">'+
       '<button class="bo-close" aria-label="Close">&#10005;</button>'+
-      '<img class="bo-box-img" src="assets/box/box-open.jpg" alt="Dragon breaking out of the box">'+
+      '<img class="bo-box-img" src="assets/box/box-open-green.jpg" alt="Dragon breaking out of the box">'+
       '<div class="bo-percent">25% OFF</div>'+
       '<div class="bo-title">Your discount broke out</div>'+
       '<div class="bo-code-wrap">'+
