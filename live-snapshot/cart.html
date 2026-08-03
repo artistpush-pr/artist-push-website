@@ -302,21 +302,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script src="auth.js"></script>
   <script src="script.js"></script>
   <script>
-    // ─── Promo codes registry ───
-    const PROMO_CODES = {
-      'FIRST15': { percent: 15, label: '15% off first order', minItems: 1 },
-      'DOUBLE5': { percent: 5, label: '5% off (2+ items)', minItems: 2 },
-      'FIRSTBREAKOUT': { percent: 20, label: '20% off - welcome promo', minItems: 1 },
-    };
+    // ─── Promo codes: validated server-side (same registry as checkout) ───
+    const PROMO_API = 'https://breakout-api.artistpushnet.workers.dev';
 
-    let activePromo = null;
+    let activePromo = null; // {code, percent, minItems, label}
 
-    // Restore promo from session
+    function validatePromoCode(code, cb) {
+      fetch(PROMO_API + '/api/promo/validate?code=' + encodeURIComponent(code) + '&items=' + Cart.getCount())
+        .then(function(r){ return r.json(); })
+        .then(function(d){ cb(d && d.valid ? { code: d.code, percent: d.discountPercent, minItems: d.minItems || 1, label: d.discountPercent + '% off' } : null); })
+        .catch(function(){ cb(null); });
+    }
+
+    // Restore promo saved by the checkout or the gift widget
     (function() {
-      const saved = sessionStorage.getItem('active_promo');
+      let saved = sessionStorage.getItem('active_promo');
+      if (!saved) {
+        try {
+          const lp = JSON.parse(localStorage.getItem('breakout_promo') || 'null');
+          if (lp && lp.code && (!lp.exp || Date.now() < lp.exp)) saved = lp.code;
+        } catch (e) {}
+      }
       if (saved) {
-        const code = saved.toUpperCase();
-        if (PROMO_CODES[code]) activePromo = code;
+        validatePromoCode(saved.toUpperCase(), function(p) {
+          if (p) { activePromo = p; sessionStorage.setItem('active_promo', p.code); renderCart(); }
+        });
       }
     })();
 
@@ -331,33 +341,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         return;
       }
 
-      const promo = PROMO_CODES[code];
-      if (!promo) {
-        msg.textContent = 'Invalid promo code. Please try again.';
-        msg.className = 'promo-message error';
-        input.value = '';
-        return;
-      }
-
-      const itemCount = Cart.getCount();
-      if (itemCount < promo.minItems) {
-        msg.textContent = `This code requires at least ${promo.minItems} item${promo.minItems > 1 ? 's' : ''} in your cart.`;
-        msg.className = 'promo-message error';
-        return;
-      }
-
-      // Apply
-      activePromo = code;
-      sessionStorage.setItem('active_promo', code);
-      msg.textContent = '';
+      msg.textContent = 'Checking...';
       msg.className = 'promo-message';
-      input.value = '';
-      renderCart();
+      validatePromoCode(code, function(promo) {
+        if (!promo) {
+          msg.textContent = 'Invalid promo code. Please try again.';
+          msg.className = 'promo-message error';
+          input.value = '';
+          return;
+        }
+        if (Cart.getCount() < promo.minItems) {
+          msg.textContent = `This code requires at least ${promo.minItems} item${promo.minItems > 1 ? 's' : ''} in your cart.`;
+          msg.className = 'promo-message error';
+          return;
+        }
+        activePromo = promo;
+        sessionStorage.setItem('active_promo', promo.code);
+        msg.textContent = '';
+        msg.className = 'promo-message';
+        input.value = '';
+        renderCart();
+      });
     }
 
     function removePromo() {
       activePromo = null;
       sessionStorage.removeItem('active_promo');
+      try { localStorage.removeItem('breakout_promo'); } catch (e) {}
       document.getElementById('promo-message').textContent = '';
       document.getElementById('promo-message').className = 'promo-message';
       renderCart();
@@ -424,25 +434,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       let discount = 0;
 
       // Validate promo still meets requirements
-      if (activePromo && PROMO_CODES[activePromo]) {
-        const promo = PROMO_CODES[activePromo];
-        if (Cart.getCount() < promo.minItems) {
-          activePromo = null;
-          sessionStorage.removeItem('active_promo');
-        }
+      if (activePromo && Cart.getCount() < activePromo.minItems) {
+        activePromo = null;
+        sessionStorage.removeItem('active_promo');
       }
 
-      if (activePromo && PROMO_CODES[activePromo]) {
-        const promo = PROMO_CODES[activePromo];
-        discount = subtotal * (promo.percent / 100);
+      if (activePromo) {
+        discount = subtotal * (activePromo.percent / 100);
 
         discountRow.style.display = 'flex';
-        document.getElementById('discount-label').textContent = `Discount (${activePromo})`;
+        document.getElementById('discount-label').textContent = `Discount (${activePromo.code})`;
         document.getElementById('discount-amount').textContent = '-$' + discount.toFixed(2);
 
         promoApplied.style.display = 'flex';
         document.getElementById('promo-applied-text').innerHTML =
-          `<strong>${activePromo}</strong> — ${promo.label} (-${promo.percent}%)`;
+          `<strong>${activePromo.code}</strong> — ${activePromo.label} (-${activePromo.percent}%)`;
         promoInputGroup.style.display = 'none';
       } else {
         discountRow.style.display = 'none';
