@@ -139,6 +139,14 @@ const Cart = {
     // Don't show if already dismissed this session
     if (sessionStorage.getItem('upsell_dismissed')) return;
 
+    // Don't spam visitors who already hold a promo code (e.g. the email
+    // campaign's BREAKOUT25 gift) — only one code applies per order anyway
+    try {
+      if (sessionStorage.getItem('active_promo')) return;
+      const lp = JSON.parse(localStorage.getItem('breakout_promo') || 'null');
+      if (lp && lp.code && (!lp.exp || Date.now() < lp.exp)) return;
+    } catch (e) {}
+
     // Remove any existing popup
     const existingPopup = document.querySelector('.upsell-overlay');
     if (existingPopup) existingPopup.remove();
