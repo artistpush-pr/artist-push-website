@@ -3,3 +3,10 @@ https://www.breakoutmusic.io/* https://breakoutmusic.io/:splat 301
 
 # Redirect old GitHub Pages domain if anyone has cached links
 https://artistpush-pr.github.io/artist-push-website/* https://breakoutmusic.io/:splat 301
+
+# Standalone FAQ and policy pages (moved out of on-page modals)
+/faq.html /faq 301
+/terms.html /terms 301
+/privacy.html /privacy 301
+/refund-policy.html /refund-policy 301
+/cookies.html /cookies 301

@@ -53,26 +53,9 @@ const SOUNDCLOUD_VARIANT_PRICES = {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ─── Load shared policy modals if not already present ───
-  if (!document.getElementById('modal-terms')) {
-    fetch('policy-modals.html')
-      .then(r => r.text())
-      .then(html => {
-        const div = document.createElement('div');
-        div.innerHTML = html;
-        document.body.appendChild(div);
-        // Re-bind overlay click-to-close for new modals
-        div.querySelectorAll('.modal-overlay').forEach(overlay => {
-          overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) {
-              overlay.classList.remove('active');
-              document.body.style.overflow = '';
-            }
-          });
-        });
-      })
-      .catch(() => {}); // Silently fail if file not found (index.html has inline modals)
-  }
+  // FAQ and the four policies live on real pages now (/faq, /terms, /privacy,
+  // /refund-policy, /cookies) — the shared-modal loader is gone on purpose so
+  // the duplicated text never comes back into commercial pages.
 
   // ─── Scroll Animations ───
   const observer = new IntersectionObserver((entries) => {

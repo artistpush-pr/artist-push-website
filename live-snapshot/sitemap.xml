@@ -36,4 +36,24 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://breakoutmusic.io/faq</loc>
+    <lastmod>2026-08-12</lastmod>
+  </url>
+  <url>
+    <loc>https://breakoutmusic.io/terms</loc>
+    <lastmod>2026-08-12</lastmod>
+  </url>
+  <url>
+    <loc>https://breakoutmusic.io/privacy</loc>
+    <lastmod>2026-08-12</lastmod>
+  </url>
+  <url>
+    <loc>https://breakoutmusic.io/refund-policy</loc>
+    <lastmod>2026-08-12</lastmod>
+  </url>
+  <url>
+    <loc>https://breakoutmusic.io/cookies</loc>
+    <lastmod>2026-08-12</lastmod>
+  </url>
 </urlset>
