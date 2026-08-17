@@ -117,7 +117,7 @@ const Cart = {
     notif.innerHTML = `
       <span class="cart-notif-icon">&#10003;</span>
       <span><strong>${name}</strong> added to cart</span>
-      <a href="cart.html" class="cart-notif-link">View Cart &rarr;</a>
+      <a href="/cart" class="cart-notif-link">View Cart &rarr;</a>
     `;
     document.body.appendChild(notif);
 
@@ -152,10 +152,10 @@ const Cart = {
     if (existingPopup) existingPopup.remove();
 
     // Determine "Browse Services" link based on current page
-    let browseHref = 'index.html#popular-services';
+    let browseHref = '/#popular-services';
     const path = window.location.pathname;
-    if (path.includes('spotify')) browseHref = 'spotify.html#packages';
-    else if (path.includes('soundcloud')) browseHref = 'soundcloud.html#packages';
+    if (path.includes('spotify')) browseHref = '/spotify#packages';
+    else if (path.includes('soundcloud')) browseHref = '/soundcloud#packages';
     else if (path.includes('index') || path.endsWith('/')) browseHref = '#popular-services';
 
     const overlay = document.createElement('div');
