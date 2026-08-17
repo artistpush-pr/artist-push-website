@@ -75,7 +75,7 @@ function buildOrderEmailHtml(orderNumber, email, items, totalAmount, currency) {
     </table>
   </td></tr>
   <tr><td style="padding:24px 0;text-align:center;">
-    <p style="margin:0 0 8px;color:#999;font-size:12px;">Questions? <a href="mailto:hello@breakoutmusic.io" style="color:#00FF85;text-decoration:none;">breakoutmusicsupport@gmail.com</a></p>
+    <p style="margin:0 0 8px;color:#999;font-size:12px;">Questions? <a href="mailto:breakoutmusicsupport@gmail.com" style="color:#00FF85;text-decoration:none;">breakoutmusicsupport@gmail.com</a></p>
     <p style="margin:0;color:#666;font-size:11px;">&copy; 2026 Breakout. Estonia, EU.</p>
   </td></tr>
 </table>
@@ -100,7 +100,8 @@ async function sendOrderConfirmationEmail(env, email, orderNumber, items, totalA
         sender: { name: "Jay Finn", email: "hello@breakoutmusic.io" },
         to: [{ email }],
         subject: "Order Confirmed \u2014 " + orderNumber,
-        htmlContent: html
+        htmlContent: html,
+        replyTo: { email: "breakoutmusicsupport@gmail.com", name: "Breakout Support" }
       })
     });
     const body = await res.text();
@@ -161,7 +162,7 @@ function buildPayPalEmailHtml(orderNumber, email, items, totalAmount, currency) 
 <tr><td align="center" style="font-size:12.5px;color:#94a3b8;padding:18px 12px;line-height:1.6;">
   <strong style="color:#475569;font-size:14px;">Breakout</strong><br>
   Pudisoo k\xFCla, M\xE4nnim\xE4e/1, Kuusalu vald, Harju maakond, 74626, Estonia<br>
-  <a href="mailto:breakoutmusic@gmail.com" style="color:#94a3b8;">breakoutmusic@gmail.com</a><br>
+  <a href="mailto:breakoutmusicsupport@gmail.com" style="color:#94a3b8;">breakoutmusicsupport@gmail.com</a><br>
   &copy; 2026 Breakout \xB7 All rights reserved
 </td></tr>
 </table>
@@ -184,7 +185,8 @@ async function sendPayPalInstructionsEmail(env, email, orderNumber, items, total
         sender: { name: "Breakout", email: "hello@breakoutmusic.io" },
         to: [{ email }],
         subject: "Order #" + orderNumber + " \u2014 complete payment via PayPal",
-        htmlContent: html
+        htmlContent: html,
+        replyTo: { email: "breakoutmusicsupport@gmail.com", name: "Breakout Support" }
       })
     });
     const body = await res.text();
@@ -210,7 +212,7 @@ function buildPasswordResetHtml(name, resetUrl) {
 </td></tr>
 <tr><td align="center" style="font-size:12px;color:#94a3b8;padding:18px 12px;line-height:1.6;">
   <strong style="color:#475569;font-size:13px;">Breakout</strong> \xB7 Estonia, EU<br>
-  <a href="mailto:breakoutmusic@gmail.com" style="color:#94a3b8;">breakoutmusic@gmail.com</a>
+  <a href="mailto:breakoutmusicsupport@gmail.com" style="color:#94a3b8;">breakoutmusicsupport@gmail.com</a>
 </td></tr></table></td></tr></table></body></html>`;
 }
 __name(buildPasswordResetHtml, "buildPasswordResetHtml");
@@ -228,7 +230,8 @@ async function sendPasswordResetEmail(env, email, name, resetUrl) {
         sender: { name: "Breakout", email: "hello@breakoutmusic.io" },
         to: [{ email }],
         subject: "Reset your Breakout password",
-        htmlContent: html
+        htmlContent: html,
+        replyTo: { email: "breakoutmusicsupport@gmail.com", name: "Breakout Support" }
       })
     });
     console.log("PWRESET_BREVO_RESPONSE", res.status);
@@ -364,7 +367,7 @@ async function sendStripePaymentEmail(env, opts) {
         to: [{ email: opts.customerEmail }],
         subject: `Breakout | Complete Your Stripe Payment | Order #${opts.orderNumber}`,
         htmlContent: html,
-        replyTo: { email: "breakoutmusic@gmail.com", name: "Breakout Support" }
+        replyTo: { email: "breakoutmusicsupport@gmail.com", name: "Breakout Support" }
       })
     });
     const body = await res.text();
