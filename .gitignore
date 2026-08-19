@@ -17,3 +17,6 @@ npm-debug.log*
 # IDE
 .vscode/
 .idea/
+
+# Wrangler local cache (account IDs, not needed in the repo)
+.wrangler/
