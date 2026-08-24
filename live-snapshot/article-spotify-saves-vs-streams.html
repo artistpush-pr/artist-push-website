@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-T9CSNK4N');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/x-icon" href="favicon.ico?v=3">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon.png?v=3">
+  <link rel="apple-touch-icon" href="assets/favicon.png?v=3">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saves, Streams or Monthly Listeners: What Drives Reach — Breakout</title>
+  <meta name="description" content="What each metric counts, why comparing them is the wrong frame, and the mechanism in Spotify's source-of-streams data that explains what a save does.">
+  <meta name="author" content="Daniel Rivera">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://breakoutmusic.io/article-spotify-saves-vs-streams">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Saves, Streams or Monthly Listeners: What Drives Reach">
+  <meta property="og:description" content="What each metric counts, why comparing them is the wrong frame, and the mechanism in Spotify's source-of-streams data that explains what a save does.">
+  <meta property="og:url" content="https://breakoutmusic.io/article-spotify-saves-vs-streams">
+  <meta property="og:site_name" content="Breakout">
+  <meta property="article:published_time" content="2026-08-24">
+  <meta property="article:modified_time" content="2026-08-24">
+  <meta property="article:author" content="Daniel Rivera">
+  <meta property="article:section" content="Spotify Growth">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Schema.org Article structured data (E-E-A-T) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Saves, Streams or Monthly Listeners: Which Metric Drives Reach",
+    "description": "What each metric counts, why comparing them is the wrong frame, and the mechanism in Spotify's source-of-streams data that explains what a save does.",
+    "image": "https://breakoutmusic.io/assets/favicon-512.png",
+    "datePublished": "2026-08-24",
+    "dateModified": "2026-08-24",
+    "wordCount": 1332,
+    "author": {
+      "@type": "Person",
+      "name": "Daniel Rivera",
+      "jobTitle": "Head of Music Strategy",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Breakout"
+      },
+      "description": "8+ years in music marketing. Former Spotify for Artists advisor. Has managed promotion campaigns for 2,000+ independent artists."
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Breakout",
+      "url": "https://breakoutmusic.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://breakoutmusic.io/assets/logo.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://breakoutmusic.io/article-spotify-saves-vs-streams"
+    }
+  }
+  </script>
+
+  <!-- Schema.org: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://breakoutmusic.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://breakoutmusic.io/blog" },
+      { "@type": "ListItem", "position": 3, "name": "Saves vs Streams", "item": "https://breakoutmusic.io/article-spotify-saves-vs-streams" }
+    ]
+  }
+  </script>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Is adding a song to a playlist the same as saving it?", "acceptedAnswer": { "@type": "Answer", "text": "No. Playlist adds and saves are two distinct actions in Spotify's analytics. A playlist add means your song has been added to a playlist; a save means it's been added to someone's library. Both give a listener an easy way back to your music, but only the latter counts as a save." } },
+      { "@type": "Question", "name": "What constitutes a good save rate?", "acceptedAnswer": { "@type": "Answer", "text": "There's no publicly available benchmark, and anyone claiming to know the right number is speaking from their own campaign data. The useful comparison is your own trend: does this track convert at a higher rate than the last one, with similar promotion behind it?" } },
+      { "@type": "Question", "name": "Why do my stream numbers increase while my monthly listeners decrease?", "acceptedAnswer": { "@type": "Answer", "text": "Because your regulars are listening more frequently while fewer new listeners are finding you. Streams count plays; listeners count people. It typically indicates that a placement has ended and your existing audience is carrying the number." } },
+      { "@type": "Question", "name": "Do saves ever expire?", "acceptedAnswer": { "@type": "Answer", "text": "No. A save stays until the listener removes it. It's the only metric here that doesn't decay: streams and listeners always drop off, saves accumulate." } },
+      { "@type": "Question", "name": "Which number should I use when pitching to a playlist curator or record label?", "acceptedAnswer": { "@type": "Answer", "text": "Your save rate and your active source share — the proportion of streams coming from profiles, libraries and queues rather than from placements. Those two are hard to inflate, and they tell a professional reader whether the listenership is genuine. Stream counts, by contrast, are the easiest statistic on your profile to be sceptical of." } }
+    ]
+  }
+  </script>
+  <!-- Ahrefs Web Analytics -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="eM59SREhxAVIVesHN8xp2Q" async></script>
+  <!-- Google tag (gtag.js) + Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5MSZ4MW7SP"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    // GDPR — deny analytics/ads cookies by default
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'analytics_storage': 'denied',
+      'functionality_storage': 'granted',
+      'security_storage': 'granted',
+      'wait_for_update': 500
+    });
+
+    // Apply previously stored consent (so returning visitors who accepted don't lose tracking)
+    if (localStorage.getItem('cookie_consent') === 'accepted') {
+      gtag('consent', 'update', {
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted',
+        'analytics_storage': 'granted'
+      });
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-5MSZ4MW7SP');
+  </script>
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wqyz3mj3jo");
+
+    // Apply previously stored consent so returning visitors get full tracking
+    if (localStorage.getItem('cookie_consent') === 'accepted') {
+      clarity('consent');
+    }
+  </script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T9CSNK4N"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+  <!-- ════════ PROMO BAR ════════ -->
+  <div class="promo-bar" id="promoBar">
+    <div class="promo-bar-inner">
+      <span class="promo-bar-text"><strong>15% OFF</strong> your first order — use code <span class="promo-bar-code">FIRST15</span></span>
+      <button class="promo-bar-copy" onclick="navigator.clipboard.writeText('FIRST15'); this.textContent='Copied!';">Copy Code</button>
+      <button class="promo-bar-close" onclick="document.getElementById('promoBar').classList.add('hidden'); sessionStorage.setItem('promo_closed','1');" aria-label="Close">&times;</button>
+    </div>
+  </div>
+  <script>if(sessionStorage.getItem('promo_closed')) document.getElementById('promoBar').classList.add('hidden');</script>
+
+  <!-- ════════ NAVBAR ════════ -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="navbar-logo">
+        <img src="assets/logo.png" alt="Breakout" class="logo-img">
+      </a>
+      <div class="navbar-links">
+        <a href="/">Home</a>
+        <a href="/spotify">Spotify</a>
+        <a href="/soundcloud">SoundCloud</a>
+        <a href="/blog" class="active">Blog</a>
+      </div>
+      <div class="navbar-cta">
+        <div class="navbar-icons">
+          <button class="search-trigger" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+          <a href="/account" class="auth-trigger" aria-label="Account"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
+          <a href="/cart" class="cart-icon-link" aria-label="Cart"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span class="cart-badge">0</span></a>
+        </div>
+        <a href="/#popular-services" class="btn btn-primary btn-sm">Get Started</a>
+        <button class="mobile-toggle" aria-label="Menu">&#9776;</button>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-nav">
+    <button class="mobile-nav-close" aria-label="Close">&#10005;</button>
+    <a href="/">Home</a>
+    <a href="/spotify">Spotify</a>
+    <a href="/soundcloud">SoundCloud</a>
+    <a href="/blog">Blog</a>
+    <a href="/account">My Account</a>
+    <a href="/cart">Cart</a>
+    <a href="#" class="search-trigger mobile-search-trigger"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:8px;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Search</a>
+  </div>
+
+  <!-- ════════ BREADCRUMB ════════ -->
+  <div class="breadcrumb">
+    <div class="container">
+      <a href="/">Home</a><span class="sep">/</span><a href="/blog">Blog</a><span class="sep">/</span><span>Saves vs Streams</span>
+    </div>
+  </div>
+
+  <!-- ════════ ARTICLE ════════ -->
+  <article class="article-page">
+    <div class="container">
+      <div class="article-layout">
+
+        <!-- MAIN CONTENT -->
+        <div class="article-main">
+
+          <!-- Article Banner -->
+          <div class="article-banner fade-up" style="background:linear-gradient(135deg,#112d3a,#1DB954 260%);height:220px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:4rem;">💾</div>
+
+          <!-- Article Header — E-E-A-T: clear topic, date, authorship -->
+          <header class="article-header fade-up">
+            <div class="blog-card-meta" style="margin-bottom: 16px;">
+              <span class="blog-card-category">Spotify Growth</span>
+              <span class="blog-card-read">7 min read</span>
+            </div>
+            <h1>Saves, Streams or Monthly Listeners: Which Metric Drives Reach</h1>
+            <p class="article-excerpt">Streams are counted whenever anyone listens to your music for 30 seconds or more. From any source, anywhere. That's literally it — and it's also why the stream count is the least informative of the three: a stream from someone who won't remember your name tomorrow looks the same as a stream from someone who played the song forty times.</p>
+
+            <!-- E-E-A-T: Publication & update dates -->
+            <div class="article-dates">
+              <span>Published: <time datetime="2026-08-24">August 24, 2026</time></span>
+            </div>
+
+            <!-- E-E-A-T: Author box with credentials (Experience & Expertise) -->
+            <div class="author-box">
+              <img class="author-avatar" src="assets/avatars/Head-of-Music-Strategy.jpg" alt="Daniel Rivera" style="width:48px;height:48px;border-radius:50%;object-fit:cover;">
+              <div class="author-info">
+                <div class="author-name">Daniel Rivera</div>
+                <div class="author-title">Head of Music Strategy at Breakout</div>
+                <div class="author-credentials">8+ years in music marketing &middot; Former Spotify for Artists advisor &middot; Managed promotion for 2,000+ independent artists</div>
+              </div>
+            </div>
+          </header>
+
+          <!-- E-E-A-T: Table of Contents (signals depth & structure) -->
+          <nav class="article-toc fade-up" aria-label="Table of Contents">
+            <h2>Table of Contents</h2>
+            <ol>
+              <li><a href="#what-they-mean">What they mean</a></li>
+              <li><a href="#which-metric-drives-reach">Which metric drives reach?</a></li>
+              <li><a href="#heres-the-distinction-that-matters">Here's the distinction that matters</a></li>
+              <li><a href="#what-a-save-really-means">What a save really means</a></li>
+              <li><a href="#the-ratios-that-matter">The ratios that matter</a></li>
+              <li><a href="#when-to-look">When to look</a></li>
+              <li><a href="#the-numbers-that-dont-tell">The numbers that don't tell the truth</a></li>
+              <li><a href="#faq">FAQ</a></li>
+            </ol>
+          </nav>
+
+          <!-- Article Body -->
+          <div class="article-body fade-up">
+
+<section id="what-they-mean">
+<h2>What they mean</h2>
+<p><strong>Streams</strong> are counted whenever anyone listens to your music for 30 seconds or more. From any source, anywhere. That's literally it — and it's also why the stream count is the least informative of the three: a stream from someone who won't remember your name tomorrow looks the same as a stream from someone who played the song forty times.</p>
+<p><strong>Monthly listeners</strong> counts one individual who has listened to at least one of your songs in the past 28 days. Five songs? Forty plays? Still one monthly listener. And this is a rolling window, not a calendar month, so it's draining at one end while it fills at the other.</p>
+<p><strong>A save</strong> is when someone taps the plus icon on your track and it goes into their library. Saving from a music video saves the audio track too. What doesn't count as a save? Adding a song to a playlist — Spotify treats that as a separate action in its analytics. All of it is counted in UTC, which is why your metrics will often change during hours you're asleep.</p>
+</section>
+
+<section id="which-metric-drives-reach">
+<h2>Which metric drives reach?</h2>
+<p>None of them. They're all outcomes, not inputs. They're just different ways of looking at the same event.</p>
+<p>The metric you want if you're trying to understand the input isn't listed above. It's where your streams come from, and Spotify tells you right there in your artist dashboard.</p>
+</section>
+
+<section id="heres-the-distinction-that-matters">
+<h2>Here's the distinction that matters</h2>
+<p>Spotify classifies your streams into two groups, and these terms are theirs, not ours.</p>
+<p><strong>Active</strong> is listening the person chose: your artist page, your album pages and your "This is…" playlist; the listener's own playlists and library, meaning Liked Songs and saved albums; and the listener's queue.</p>
+<p><strong>Programmed</strong> is listening that was served to them: editorial and personalized editorial playlists, including charts; personalized playlists, autoplay and mixes — Discover Weekly, Release Radar, Radio, Autoplay, Daily Mix, daylist and AI DJ; and other users' playlists.</p>
+<p>Two songs with the same number of streams might sit on opposite sides of this divide, and they are fundamentally different. One is being listened to by an audience. The other has merely been shown.</p>
+</section>
+
+<section id="what-a-save-really-means">
+<h2>What a save really means</h2>
+<p>Now for the mechanics, which don't depend on any ideas about what the algorithm does — only on those definitions.</p>
+<p>When a listener saves a track, it goes into their library. Their library is an <strong>active source</strong>. So a save is the one action that turns a listener whose streams were served to them into a listener whose future plays will be counted as chosen.</p>
+<p>That's the whole case for saves, and it doesn't rest on any claim about algorithmic weighting. A playlist placement provides programmed streams for as long as it lasts. A save provides the listener with a way back to you after it ends. Without saves, when the placement ends the streams end.</p>
+<p>One caution: you'll read articles claiming that save rate is the single strongest indicator of algorithmic support, sometimes with specific percentages attached. Spotify doesn't publish weighting information. Those figures come from promotion companies analysing their own campaigns, and confident precision about a system nobody outside Spotify can see is a marketing signal rather than a finding.</p>
+</section>
+
+<section id="the-ratios-that-matter">
+<h2>The ratios that matter</h2>
+<p>Taken individually, the three metrics don't tell you much. Together, they say quite a bit.</p>
+<p><strong>Streams to listeners</strong> is your repeat listening rate. A ratio near 1 means most people heard you once and bounced. Above 2 or 3 means a significant chunk came back for more.</p>
+<p><strong>Saves to listeners</strong> is your conversion rate — the proportion of people who heard you and wanted a way back. It's the metric that tells you whether the next round of promotion has anything to build on.</p>
+<p><strong>Active to programmed</strong> tells you whether you've built an audience or just secured a spot. If streams go up while the proportion of active streams drops, the placement is doing all the heavy lifting — and when it stops, the traffic stops with it.</p>
+<p><strong>Monthly listeners against the segment tiers</strong> tells you the shape underneath the headline. Two artists might both have 5,000 monthly listeners, but if one has a healthy Super Listener base and the other doesn't they're in very different businesses — and <a href="/article-increase-spotify-monthly-listeners">the segment breakdown behind the monthly listener total</a> is where you'll see it.</p>
+</section>
+
+<section id="when-to-look">
+<h2>When to look</h2>
+<p>Streams are the number to check least often. They move for reasons that have nothing to do with you — a placement begins, a placement ends — and they tell you nothing about what's left afterwards.</p>
+<p>Pay attention to saves while the campaign is still running and immediately after, because that's when the conversion either happens or doesn't. Then watch the ratio of active to programmed streams in the following weeks, because that's when you find out whether any of it stuck. Monthly listeners is the least useful to monitor during a campaign, since its 28-day window means it trails everything else by design.</p>
+<p>It's only during release week that things change quickly enough to read all of these numbers at once. Those are <a href="/article-spotify-release-week-checklist">the days you should plan ahead for</a>.</p>
+</section>
+
+<section id="the-numbers-that-dont-tell">
+<h2>The numbers that don't tell the truth</h2>
+<p>Every ratio above can be broken by buying the wrong half of it.</p>
+<p>Purchase streams, and your save rate drops — making it look as though many people listened and nobody cared. Purchase saves without streams, and the ratio skyrockets to absurdity, which is its own kind of tell. Purchase monthly listeners, and your segment breakdown remains unchanged, because delivered listeners don't become Super Listeners.</p>
+<p>We sell all of these, <a href="/spotify#saves">the saves included</a>, so consider that a given. To be transparent about it: these products change the top half of a fraction while the bottom half is left untouched. If you're going to buy them, the only justification is aesthetic — you want your profile to look active to someone who's deciding whether to hit play — and it only works if the song can hold that person once they do.</p>
+<p>None of it generates the thing the ratios are supposed to measure: a listener who voluntarily comes back.</p>
+</section>
+
+<section id="faq">
+<h2>FAQ</h2>
+<h3>Is adding a song to a playlist the same as saving it?</h3>
+<p>No. Playlist adds and saves are two distinct actions in Spotify's analytics. A playlist add means your song has been added to a playlist; a save means it's been added to someone's library. Both give a listener an easy way back to your music, but only the latter counts as a save.</p>
+<h3>What constitutes a good save rate?</h3>
+<p>There's no publicly available benchmark, and anyone claiming to know the right number is speaking from their own campaign data. The useful comparison is your own trend: does this track convert at a higher rate than the last one, with similar promotion behind it?</p>
+<h3>Why do my stream numbers increase while my monthly listeners decrease?</h3>
+<p>Because your regulars are listening more frequently while fewer new listeners are finding you. Streams count plays; listeners count people. It typically indicates that a placement has ended and your existing audience is carrying the number.</p>
+<h3>Do saves ever expire?</h3>
+<p>No. A save stays until the listener removes it. It's the only metric here that doesn't decay: streams and listeners always drop off, saves accumulate.</p>
+<h3>Which number should I use when pitching to a playlist curator or record label?</h3>
+<p>Your save rate and your active source share — the proportion of streams coming from profiles, libraries and queues rather than from placements. Those two are hard to inflate, and they tell a professional reader whether the listenership is genuine. Stream counts, by contrast, are the easiest statistic on your profile to be sceptical of.</p>
+</section>
+
+            <div class="article-editorial-note">
+              <strong>Editorial Note:</strong> This article was written by the Breakout music strategy team based on hands-on experience managing thousands of artist promotion campaigns. While we offer paid promotion services, our blog content is intended to be genuinely helpful regardless of whether you use our services. Last updated August 24, 2026.
+            </div>
+
+          </div>
+
+          <!-- Author Box (bottom) — E-E-A-T: Reinforced expertise -->
+          <div class="author-box author-box-bottom fade-up">
+            <img class="author-avatar" src="assets/avatars/Head-of-Music-Strategy.jpg" alt="Daniel Rivera" style="width:64px;height:64px;border-radius:50%;object-fit:cover;">
+            <div class="author-info">
+              <div class="author-name" style="font-size: 1.05rem;">About Daniel Rivera</div>
+              <div class="author-bio">Daniel leads music strategy at Breakout, where his team manages promotion campaigns for independent artists across hip-hop, electronic, R&B, and indie pop. With 8+ years in music marketing and experience as a former Spotify for Artists advisor, he focuses on data-driven release strategies that work with the algorithm, not against it.</div>
+            </div>
+          </div>
+
+
+        </div>
+
+        <!-- SIDEBAR -->
+        <aside class="article-sidebar">
+          <!-- CTA Box -->
+          <div class="sidebar-cta fade-up">
+            <h3>Ready to Grow Your Streams?</h3>
+            <p>Our promotion packages are designed to feed the algorithm exactly what it wants — real engagement from real listeners.</p>
+            <a href="/spotify" class="btn btn-primary" style="width: 100%;">View Spotify Packages</a>
+            <a href="/soundcloud" class="btn btn-outline" style="width: 100%; margin-top: 12px;">View SoundCloud Packages</a>
+          </div>
+
+          <!-- Quick Links -->
+          <div class="sidebar-popular fade-up">
+            <h3>In This Article</h3>
+            <ul>
+              <li><a href="#what-they-mean">What they mean</a></li>
+              <li><a href="#which-metric-drives-reach">Which metric drives reach?</a></li>
+              <li><a href="#heres-the-distinction-that-matters">Here's the distinction that matters</a></li>
+              <li><a href="#what-a-save-really-means">What a save really means</a></li>
+              <li><a href="#the-ratios-that-matter">The ratios that matter</a></li>
+              <li><a href="#when-to-look">When to look</a></li>
+              <li><a href="#the-numbers-that-dont-tell">The numbers that don't tell the truth</a></li>
+              <li><a href="#faq">FAQ</a></li>
+            </ul>
+          </div>
+
+          <!-- Trust Signals -->
+          <div class="sidebar-trust fade-up">
+            <h3>Why Trust Breakout?</h3>
+            <div class="trust-stat">
+              <div class="trust-stat-number">2,000+</div>
+              <div class="trust-stat-label">Artists promoted</div>
+            </div>
+            <div class="trust-stat">
+              <div class="trust-stat-number">8+ Years</div>
+              <div class="trust-stat-label">Industry experience</div>
+            </div>
+            <div class="trust-stat">
+              <div class="trust-stat-number">4.8/5</div>
+              <div class="trust-stat-label">Average rating</div>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </article>
+
+  <!-- Scroll to Top -->
+  <button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">&#8593;</button>
+
+  <!-- ════════ SEARCH OVERLAY ════════ -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-modal">
+      <div class="search-header">
+        <div class="search-field-wrap">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search services, packages..." autocomplete="off" spellcheck="false">
+          <kbd class="search-kbd">ESC</kbd>
+        </div>
+        <button id="searchClose" class="search-close-btn" aria-label="Close search">&times;</button>
+      </div>
+      <div class="search-results" id="searchResults">
+        <div class="search-hint">Search services, packages & articles...</div>
+      </div>
+      <div class="search-footer">
+        <div class="search-footer-hint"><kbd>ESC</kbd> to close</div>
+        <div class="search-footer-hint"><kbd>&#8984;K</kbd> to toggle</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ FOOTER ════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="navbar-logo"><img src="assets/logo.png" alt="Breakout" class="logo-img"></a>
+          <p>Professional music promotion services for Spotify and SoundCloud. Trusted by thousands of artists worldwide.</p>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <div class="footer-links">
+            <a href="/spotify">Spotify Promotion</a>
+            <a href="/soundcloud">SoundCloud Promotion</a>
+          </div>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <div class="footer-links">
+            <a href="/blog">Blog</a>
+            <a href="/#testimonials">Testimonials</a>
+            <a href="/#faq">FAQ</a>
+          </div>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <div class="footer-links">
+            <a href="/blog">Blog</a>
+            <a href="mailto:breakoutmusicsupport@gmail.com">Contact Us</a>
+          </div>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <div class="footer-links">
+            <a href="/terms">Terms of Service</a>
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/refund-policy">Refund Policy</a>
+            <a href="/cookies">Cookie Policy</a>
+          </div>
+        </div>
+        <!-- Newsletter -->
+        <div class="footer-newsletter">
+          <h4>Stay in the Loop</h4>
+          <p>Get promotion tips, exclusive deals & new service updates.</p>
+          <form class="footer-newsletter-form">
+            <input type="email" name="email" class="footer-newsletter-input" placeholder="Your email" aria-label="Email address for newsletter" required autocomplete="email" data-1p-ignore="true" data-lpignore="true" data-form-type="other">
+            <button type="submit" class="footer-newsletter-btn">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-legal">
+    <div class="fl-col">
+      <h5>Company</h5>
+      <p><strong>ARTISTPUSH OÜ</strong> · trading as Breakout<br>Pudisoo küla, Männimäe/1,<br>Kuusalu vald, Harju maakond,<br>74626, Estonia, EU</p>
+    </div>
+    <div class="fl-col">
+      <h5>Customer support</h5>
+      <p><a href="mailto:breakoutmusicsupport@gmail.com">breakoutmusicsupport@gmail.com</a><br><a href="tel:+3726027879">+372 602 7879</a><br><span class="fl-muted">24/7 customer support</span><br><a href="/contact" style="color:#00FF85">Contact page →</a></p>
+    </div>
+    <div class="fl-col">
+      <h5>Accepted payments</h5>
+      <p class="fl-pay-row"><span class="fl-pay">VISA</span><span class="fl-pay fl-mc">MC</span><span class="fl-pay fl-amex">AMEX</span><span class="fl-pay fl-ap">Pay</span><span class="fl-pay fl-crypto">BTC</span></p>
+      
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 ARTISTPUSH OÜ, trading as Breakout. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="cart.js?v=3"></script>
+  <script src="auth.js"></script>
+  <script src="script.js"></script>
+  <script src="email-tracking.js"></script>
+  <script src="email-capture.js"></script>
+  <script src="search.js"></script>
+      <script src="cookie-consent.js"></script>
+<script src="recommendations.js"></script>
+</body>
+</html>

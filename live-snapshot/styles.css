@@ -4716,3 +4716,10 @@ select:focus-visible,
   height:0 !important;
 }
 .footer-newsletter-input { background-image:none !important; }
+
+/* ---------- Article tables (Aug 2026 blog batch) ---------- */
+.article-body .table-scroll { overflow-x: auto; margin: 20px 0; }
+.article-body table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 560px; }
+.article-body th, .article-body td { border: 1px solid var(--dark-border); padding: 10px 12px; text-align: left; vertical-align: top; }
+.article-body th { background: rgba(0,255,133,0.07); color: var(--green); font-weight: 700; white-space: nowrap; }
+.article-body td strong { color: #fff; }
