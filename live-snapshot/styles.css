@@ -4725,14 +4725,3 @@ select:focus-visible,
 .article-body td strong { color: #fff; }
 
 
-/* ---------- Upsell corner card (audit B2 v2) ---------- */
-.upsell-card { position: fixed; bottom: 20px; left: 20px; z-index: 9990; max-width: 360px; background: #141414; border: 1px solid rgba(0,255,133,0.3); border-radius: 14px; padding: 20px; box-shadow: 0 12px 40px rgba(0,0,0,.55); opacity: 0; transform: translateY(24px); transition: all .35s ease; pointer-events: none; }
-.upsell-card.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
-.upsell-card .upsell-close { top: 8px; right: 10px; }
-.upsell-card-head { color: #fff; font-weight: 700; font-size: 0.95rem; margin-bottom: 12px; padding-right: 24px; }
-.upsell-card-off { color: var(--green); font-weight: 900; margin-right: 6px; }
-.upsell-card .upsell-code { margin: 0 0 14px; }
-.upsell-card-actions { display: flex; gap: 10px; }
-.upsell-card-actions .upsell-btn { flex: 1; padding: 10px 12px; font-size: 0.85rem; text-align: center; }
-.upsell-card .upsell-timer { margin-top: 10px; font-size: 0.75rem; }
-@media (max-width: 480px) { .upsell-card { left: 12px; right: 12px; bottom: 12px; max-width: none; } }

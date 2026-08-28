@@ -134,10 +134,10 @@ const Cart = {
     this._showUpsellPopup(name);
   },
 
-  // ─── Upsell: compact corner card (audit B2 v2 — Yana's call) ───
-  // The old full-screen modal steered people back to the catalog with no
-  // View Cart button. The offer stays (it sells), but as a small card that
-  // does not block the page, with View Cart as the primary action.
+  // ─── Upsell: centered modal (audit B2 v3 — Yana's call) ───
+  // Same modal as always — centered, impossible to miss — but View Cart
+  // is the primary action now (the audit's core complaint was that the
+  // only CTA led back to the catalog and the cart was unreachable).
   _showUpsellPopup(itemName) {
     if (sessionStorage.getItem('upsell_dismissed')) return;
 
@@ -149,58 +149,61 @@ const Cart = {
       if (lp && lp.code && (!lp.exp || Date.now() < lp.exp)) return;
     } catch (e) {}
 
-    const existingCard = document.querySelector('.upsell-card');
-    if (existingCard) existingCard.remove();
+    const existingPopup = document.querySelector('.upsell-overlay');
+    if (existingPopup) existingPopup.remove();
 
     let browseHref = '/#popular-services';
     const path = window.location.pathname;
     if (path.includes('spotify')) browseHref = '/spotify#packages';
     else if (path.includes('soundcloud')) browseHref = '/soundcloud#packages';
 
-    const card = document.createElement('div');
-    card.className = 'upsell-card';
-    card.innerHTML = `
-      <button class="upsell-close" aria-label="Close">&times;</button>
-      <div class="upsell-card-head"><span class="upsell-card-off">5% OFF</span> Add a second service &amp; save</div>
-      <div class="upsell-code">
-        <span>Promo code:</span>
-        <strong>DOUBLE5</strong>
-        <button class="upsell-copy" onclick="navigator.clipboard.writeText('DOUBLE5'); this.textContent='Copied!';">Copy</button>
+    const overlay = document.createElement('div');
+    overlay.className = 'upsell-overlay';
+    overlay.innerHTML = `
+      <div class="upsell-popup">
+        <button class="upsell-close" aria-label="Close">&times;</button>
+        <div class="upsell-badge">LIMITED OFFER</div>
+        <div class="upsell-discount">5% OFF</div>
+        <h3>Add a Second Item &amp; Save</h3>
+        <p>You just added <strong>${itemName}</strong>. Add any second service to your cart and get <strong>5% off</strong> your entire order.</p>
+        <div class="upsell-code">
+          <span>Promo code:</span>
+          <strong>DOUBLE5</strong>
+          <button class="upsell-copy" onclick="navigator.clipboard.writeText('DOUBLE5'); this.textContent='Copied!';">Copy</button>
+        </div>
+        <div class="upsell-actions">
+          <a href="/cart" class="btn btn-primary upsell-btn">View Cart &rarr;</a>
+          <a href="${browseHref}" class="btn btn-outline upsell-btn upsell-browse">Browse Services</a>
+        </div>
+        <div class="upsell-timer">Offer expires in <span class="upsell-countdown">10:00</span></div>
       </div>
-      <div class="upsell-card-actions">
-        <a href="/cart" class="btn btn-primary upsell-btn">View Cart &rarr;</a>
-        <a href="${browseHref}" class="btn btn-outline upsell-btn upsell-browse">Browse Services</a>
-      </div>
-      <div class="upsell-timer">Offer expires in <span class="upsell-countdown">10:00</span></div>
     `;
-    document.body.appendChild(card);
+    document.body.appendChild(overlay);
 
-    // On small screens keep the card above the cookie banner if it is open
-    const cb = document.getElementById('cookie-banner');
-    if (cb && window.innerWidth <= 480) {
-      card.style.bottom = (cb.offsetHeight + 24) + 'px';
-    }
-
-    const closeCard = () => {
+    const closePopup = () => {
       sessionStorage.setItem('upsell_dismissed', '1');
-      card.classList.remove('visible');
-      setTimeout(() => card.remove(), 300);
+      overlay.classList.remove('visible');
+      setTimeout(() => overlay.remove(), 300);
     };
-    card.querySelector('.upsell-close').addEventListener('click', closeCard);
-    card.querySelector('.upsell-browse').addEventListener('click', () => {
-      card.classList.remove('visible');
-      setTimeout(() => card.remove(), 300);
+
+    overlay.querySelector('.upsell-close').addEventListener('click', closePopup);
+    overlay.querySelector('.upsell-browse').addEventListener('click', () => {
+      overlay.classList.remove('visible');
+      setTimeout(() => overlay.remove(), 300);
+    });
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closePopup();
     });
 
-    setTimeout(() => card.classList.add('visible'), 800);
+    setTimeout(() => overlay.classList.add('visible'), 800);
 
     let seconds = 600;
-    const countdownEl = card.querySelector('.upsell-countdown');
+    const countdownEl = overlay.querySelector('.upsell-countdown');
     const timer = setInterval(() => {
       seconds--;
-      if (seconds <= 0 || !document.body.contains(card)) {
+      if (seconds <= 0 || !document.body.contains(overlay)) {
         clearInterval(timer);
-        if (document.body.contains(card)) closeCard();
+        if (document.body.contains(overlay)) closePopup();
         return;
       }
       const m = Math.floor(seconds / 60);
