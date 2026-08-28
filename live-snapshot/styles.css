@@ -4668,7 +4668,7 @@ select:focus-visible,
 .fl-pay{display:inline-flex;align-items:center;justify-content:center;height:22px;min-width:36px;padding:0 6px;border-radius:4px;background:#fff;color:#1a1f71;font-size:9px;font-weight:900;letter-spacing:.4px;font-family:Arial Black,Arial,sans-serif}
 .fl-pay.fl-mc{background:linear-gradient(90deg,#eb001b 50%,#f79e1b 50%);color:#fff}
 .fl-pay.fl-amex{background:#1f72cd;color:#fff}
-.fl-pay.fl-ap{background:#000;color:#fff;border:1px solid #2a2a2a}
+.fl-pay.fl-pp{background:#003087;color:#fff;letter-spacing:.2px}
 .fl-pay.fl-crypto{background:#f7931a;color:#fff}
 .footer-copy{text-align:center;padding:16px 24px;font-size:12px;color:#7a7f83;border-top:1px solid #1f2125;margin-top:8px}
 @media (max-width:600px){
