@@ -1,3 +1,4 @@
+window.__boJs = true; // heartbeat for the js-anim watchdog (audit B3)
 /* ============================================
    Breakout — Main JavaScript
    ============================================ */

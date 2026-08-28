@@ -1664,12 +1664,19 @@ body:has(.page-hero-bg.sc) .anchor-link:hover {
 }
 
 /* Scroll animations */
+/* Content is visible by default — the scroll animation is an enhancement
+   that only arms itself when JS confirms it is alive (html.js-anim),
+   so a failed script.js can never blank the page (audit B3). */
 .fade-up {
-  opacity: 0;
-  transform: translateY(30px);
+  opacity: 1;
+  transform: none;
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
-.fade-up.visible {
+html.js-anim .fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+}
+html.js-anim .fade-up.visible {
   opacity: 1;
   transform: translateY(0);
 }
