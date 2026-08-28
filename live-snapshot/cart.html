@@ -46,7 +46,7 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=20260830">
   <!-- Ahrefs Web Analytics -->
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="eM59SREhxAVIVesHN8xp2Q" async></script>
   <!-- Google tag (gtag.js) + Consent Mode v2 -->
@@ -184,15 +184,6 @@
           </tbody>
         </table>
 
-        <!-- Cross-sell strip (audit B2): the DOUBLE5 offer lives here now
-             instead of a popup that interrupted add-to-cart -->
-        <div id="upsell-strip" class="upsell-strip" style="display:none;">
-          <span class="upsell-strip-text">Add a <strong>second service</strong> and save <strong>5%</strong> on your entire order &mdash; code <strong class="upsell-strip-code">DOUBLE5</strong></span>
-          <span class="upsell-strip-actions">
-            <button class="upsell-strip-copy" onclick="navigator.clipboard.writeText('DOUBLE5'); this.textContent='Copied!';">Copy</button>
-            <a href="/#popular-services" class="upsell-strip-browse">Browse services &rarr;</a>
-          </span>
-        </div>
 
         <div class="cart-summary">
           <!-- Promo Code Field -->
@@ -293,7 +284,7 @@
     </div>
   </footer>
 
-  <script src="cart.js?v=4"></script>
+  <script src="cart.js?v=5"></script>
   <script src="auth.js"></script>
   <script src="script.js"></script>
   <script>
@@ -384,18 +375,6 @@
 
       emptyEl.style.display = 'none';
       contentEl.style.display = 'block';
-
-      // Cross-sell strip: only for a single-item cart with no promo in play
-      const stripEl = document.getElementById('upsell-strip');
-      if (stripEl) {
-        let hasPromo = !!activePromo;
-        try {
-          if (sessionStorage.getItem('active_promo')) hasPromo = true;
-          const lp = JSON.parse(localStorage.getItem('breakout_promo') || 'null');
-          if (lp && lp.code && (!lp.exp || Date.now() < lp.exp)) hasPromo = true;
-        } catch (e) {}
-        stripEl.style.display = (items.length === 1 && !hasPromo) ? 'flex' : 'none';
-      }
 
       function esc(str) { const d = document.createElement('div'); d.textContent = str || ''; return d.innerHTML; }
 

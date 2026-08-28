@@ -4724,12 +4724,15 @@ select:focus-visible,
 .article-body th { background: rgba(0,255,133,0.07); color: var(--green); font-weight: 700; white-space: nowrap; }
 .article-body td strong { color: #fff; }
 
-/* ---------- Cart cross-sell strip (audit B2) ---------- */
-.upsell-strip { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin:20px 0; padding:14px 18px; background:rgba(0,255,133,0.06); border:1px solid rgba(0,255,133,0.25); border-radius:12px; }
-.upsell-strip-text { color:#cfd3d6; font-size:0.9rem; }
-.upsell-strip-code { color:var(--green); letter-spacing:1px; }
-.upsell-strip-actions { display:flex; align-items:center; gap:14px; flex-shrink:0; }
-.upsell-strip-copy { background:#141414; color:#fff; border:1px solid #2a2a2a; border-radius:8px; padding:8px 16px; font-size:0.85rem; font-weight:600; cursor:pointer; transition:border-color .15s; }
-.upsell-strip-copy:hover { border-color:var(--green); }
-.upsell-strip-browse { color:var(--green); font-size:0.85rem; font-weight:600; text-decoration:none; }
-.upsell-strip-browse:hover { text-decoration:underline; }
+
+/* ---------- Upsell corner card (audit B2 v2) ---------- */
+.upsell-card { position: fixed; bottom: 20px; left: 20px; z-index: 9990; max-width: 360px; background: #141414; border: 1px solid rgba(0,255,133,0.3); border-radius: 14px; padding: 20px; box-shadow: 0 12px 40px rgba(0,0,0,.55); opacity: 0; transform: translateY(24px); transition: all .35s ease; pointer-events: none; }
+.upsell-card.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.upsell-card .upsell-close { top: 8px; right: 10px; }
+.upsell-card-head { color: #fff; font-weight: 700; font-size: 0.95rem; margin-bottom: 12px; padding-right: 24px; }
+.upsell-card-off { color: var(--green); font-weight: 900; margin-right: 6px; }
+.upsell-card .upsell-code { margin: 0 0 14px; }
+.upsell-card-actions { display: flex; gap: 10px; }
+.upsell-card-actions .upsell-btn { flex: 1; padding: 10px 12px; font-size: 0.85rem; text-align: center; }
+.upsell-card .upsell-timer { margin-top: 10px; font-size: 0.75rem; }
+@media (max-width: 480px) { .upsell-card { left: 12px; right: 12px; bottom: 12px; max-width: none; } }

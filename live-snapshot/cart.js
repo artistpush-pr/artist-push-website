@@ -129,6 +129,84 @@ const Cart = {
       notif.classList.remove('visible');
       setTimeout(() => notif.remove(), 300);
     }, 4500);
+
+    // Show the compact upsell card after a short delay
+    this._showUpsellPopup(name);
+  },
+
+  // ─── Upsell: compact corner card (audit B2 v2 — Yana's call) ───
+  // The old full-screen modal steered people back to the catalog with no
+  // View Cart button. The offer stays (it sells), but as a small card that
+  // does not block the page, with View Cart as the primary action.
+  _showUpsellPopup(itemName) {
+    if (sessionStorage.getItem('upsell_dismissed')) return;
+
+    // Don't spam visitors who already hold a promo code (e.g. the email
+    // campaign's BREAKOUT25 gift) — only one code applies per order anyway
+    try {
+      if (sessionStorage.getItem('active_promo')) return;
+      const lp = JSON.parse(localStorage.getItem('breakout_promo') || 'null');
+      if (lp && lp.code && (!lp.exp || Date.now() < lp.exp)) return;
+    } catch (e) {}
+
+    const existingCard = document.querySelector('.upsell-card');
+    if (existingCard) existingCard.remove();
+
+    let browseHref = '/#popular-services';
+    const path = window.location.pathname;
+    if (path.includes('spotify')) browseHref = '/spotify#packages';
+    else if (path.includes('soundcloud')) browseHref = '/soundcloud#packages';
+
+    const card = document.createElement('div');
+    card.className = 'upsell-card';
+    card.innerHTML = `
+      <button class="upsell-close" aria-label="Close">&times;</button>
+      <div class="upsell-card-head"><span class="upsell-card-off">5% OFF</span> Add a second service &amp; save</div>
+      <div class="upsell-code">
+        <span>Promo code:</span>
+        <strong>DOUBLE5</strong>
+        <button class="upsell-copy" onclick="navigator.clipboard.writeText('DOUBLE5'); this.textContent='Copied!';">Copy</button>
+      </div>
+      <div class="upsell-card-actions">
+        <a href="/cart" class="btn btn-primary upsell-btn">View Cart &rarr;</a>
+        <a href="${browseHref}" class="btn btn-outline upsell-btn upsell-browse">Browse Services</a>
+      </div>
+      <div class="upsell-timer">Offer expires in <span class="upsell-countdown">10:00</span></div>
+    `;
+    document.body.appendChild(card);
+
+    // On small screens keep the card above the cookie banner if it is open
+    const cb = document.getElementById('cookie-banner');
+    if (cb && window.innerWidth <= 480) {
+      card.style.bottom = (cb.offsetHeight + 24) + 'px';
+    }
+
+    const closeCard = () => {
+      sessionStorage.setItem('upsell_dismissed', '1');
+      card.classList.remove('visible');
+      setTimeout(() => card.remove(), 300);
+    };
+    card.querySelector('.upsell-close').addEventListener('click', closeCard);
+    card.querySelector('.upsell-browse').addEventListener('click', () => {
+      card.classList.remove('visible');
+      setTimeout(() => card.remove(), 300);
+    });
+
+    setTimeout(() => card.classList.add('visible'), 800);
+
+    let seconds = 600;
+    const countdownEl = card.querySelector('.upsell-countdown');
+    const timer = setInterval(() => {
+      seconds--;
+      if (seconds <= 0 || !document.body.contains(card)) {
+        clearInterval(timer);
+        if (document.body.contains(card)) closeCard();
+        return;
+      }
+      const m = Math.floor(seconds / 60);
+      const sec = seconds % 60;
+      countdownEl.textContent = `${m}:${sec.toString().padStart(2, '0')}`;
+    }, 1000);
   },
 
   // ─── Init: update badges on page load ───
