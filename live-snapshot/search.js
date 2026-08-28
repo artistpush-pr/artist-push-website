@@ -9,10 +9,10 @@
   /* ---------- Search Data Index ---------- */
   var searchData = [
     // ——— SPOTIFY PACKAGES ———
-    { title: 'Starter Mix', desc: '3K Plays + 100 Saves + 300 Followers — perfect kickstart for new releases.', price: '$12', platform: 'spotify', type: 'package', url: '/spotify#packages', tags: 'bundle starter beginner plays saves followers' },
-    { title: 'Pro Mix', desc: '30K Plays + 1K Saves + 1K Followers — accelerate your growth.', price: '$90', platform: 'spotify', type: 'package', url: '/spotify#packages', tags: 'bundle pro plays saves followers' },
-    { title: 'Digger Mix', desc: '50K Plays + 3K Saves + 3K Followers — serious promotion power.', price: '$150', platform: 'spotify', type: 'package', url: '/spotify#packages', tags: 'bundle digger plays saves followers' },
-    { title: 'Star Mix', desc: '100K Plays + 5K Saves + 5K Followers — full-scale campaign.', price: '$299', platform: 'spotify', type: 'package', url: '/spotify#packages', tags: 'bundle star plays saves followers' },
+    { title: 'Basic', desc: '3K Plays + 100 Saves + 300 Followers — perfect kickstart for new releases.', price: '$12', platform: 'spotify', type: 'package', url: '/spotify#packages', tags: 'bundle starter beginner plays saves followers' },
+    { title: 'Standard', desc: '30K Plays + 1K Saves + 1K Followers — accelerate your growth.', price: '$90', platform: 'spotify', type: 'package', url: '/spotify#packages', tags: 'bundle pro plays saves followers' },
+    { title: 'Mainstage', desc: '50K Plays + 3K Saves + 3K Followers — serious promotion power.', price: '$150', platform: 'spotify', type: 'package', url: '/spotify#packages', tags: 'bundle digger plays saves followers' },
+    { title: 'Headliner', desc: '100K Plays + 5K Saves + 5K Followers — full-scale campaign.', price: '$299', platform: 'spotify', type: 'package', url: '/spotify#packages', tags: 'bundle star plays saves followers' },
 
     // ——— SPOTIFY INDIVIDUAL SERVICES ———
     { title: 'Spotify Plays', desc: 'Worldwide, targeted, premium royalty, algorithmic, editorial & podcast plays.', price: 'from $6', platform: 'spotify', type: 'service', url: '/spotify#plays', tags: 'streams plays worldwide targeted premium royalty ranking playlist album algorithmic radio editorial podcast' },
@@ -24,7 +24,7 @@
     { title: 'Playlist Pitching', desc: 'We pitch your music directly to genre-matched curators with real feedback and placements.', price: 'from $89', platform: 'spotify', type: 'service', url: '/spotify#pitching', tags: 'pitching curators organic feedback placements blogs' },
 
     // ——— SOUNDCLOUD PACKAGES ———
-    { title: 'SC Starter', desc: '1K Plays + 25 Likes + 100 Followers — great launchpad for new tracks.', price: '$8', platform: 'soundcloud', type: 'package', url: '/soundcloud#packages', tags: 'bundle starter beginner plays likes followers' },
+    { title: 'SC Basic', desc: '1K Plays + 25 Likes + 100 Followers — great launchpad for new tracks.', price: '$8', platform: 'soundcloud', type: 'package', url: '/soundcloud#packages', tags: 'bundle starter beginner plays likes followers' },
     { title: 'SC Artist', desc: '10K Plays + 50 Likes + 150 Followers — grow your SoundCloud presence.', price: '$12', platform: 'soundcloud', type: 'package', url: '/soundcloud#packages', tags: 'bundle artist plays likes followers' },
     { title: 'SC Pro', desc: '50K Plays + 100 Likes + 500 Followers — for the serious SoundCloud artist.', price: '$38', platform: 'soundcloud', type: 'package', url: '/soundcloud#packages', tags: 'bundle pro plays likes followers' },
     { title: 'SC Digger', desc: '100K Plays + 500 Likes + 1K Followers — major boost.', price: '$70', platform: 'soundcloud', type: 'package', url: '/soundcloud#packages', tags: 'bundle digger plays likes followers' },
