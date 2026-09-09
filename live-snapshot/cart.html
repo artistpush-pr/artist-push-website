@@ -47,7 +47,7 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="styles.css?v=20260909c">
+  <link rel="stylesheet" href="styles.css?v=20260909d">
   <!-- Ahrefs Web Analytics -->
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="eM59SREhxAVIVesHN8xp2Q" async></script>
   <!-- Google tag (gtag.js) + Consent Mode v2 -->
@@ -498,7 +498,7 @@
       }
 
       emptyEl.style.display = 'none';
-      contentEl.style.display = 'block';
+      contentEl.style.display = ''; // чистимо inline, щоб CSS-grid з медіа-правила діяв
 
       renderUpsell(items);
 
