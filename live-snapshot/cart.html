@@ -47,7 +47,7 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="styles.css?v=20260909d">
+  <link rel="stylesheet" href="styles.css?v=20260909e">
   <!-- Ahrefs Web Analytics -->
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="eM59SREhxAVIVesHN8xp2Q" async></script>
   <!-- Google tag (gtag.js) + Consent Mode v2 -->
@@ -438,6 +438,23 @@
       return null;
     }
 
+    // ─── Cart v2: обіцянка смужки виконується завжди ───
+    // Другий товар доданий БУДЬ-ЯКИМ шляхом (не лише кнопкою Add) → DOUBLE5
+    // застосовується сам. Прапорець захищає від циклу validate→render→validate.
+    let double5AutoTried = false;
+    function maybeAutoApplyDouble5(items) {
+      if (items.length < 2) { double5AutoTried = false; return; }
+      if (activePromo || double5AutoTried) return;
+      double5AutoTried = true;
+      validatePromoCode('DOUBLE5', function (p) {
+        if (p && Cart.getCount() >= p.minItems) {
+          activePromo = p;
+          sessionStorage.setItem('active_promo', p.code);
+          renderCart();
+        }
+      });
+    }
+
     function renderUpsell(items) {
       const box = document.getElementById('cart-upsell');
       if (!box) return;
@@ -501,6 +518,7 @@
       contentEl.style.display = ''; // чистимо inline, щоб CSS-grid з медіа-правила діяв
 
       renderUpsell(items);
+      maybeAutoApplyDouble5(items);
 
       function esc(str) { const d = document.createElement('div'); d.textContent = str || ''; return d.innerHTML; }
 
