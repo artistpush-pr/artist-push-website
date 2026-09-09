@@ -4739,9 +4739,10 @@ select:focus-visible,
   #cart-content { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 36px; align-items: start; }
   #cart-content > .cart-table { grid-column: 1; margin: 0; }
   #cart-content > .cart-summary { grid-column: 2; margin: 0; max-width: none; position: sticky; top: 96px; }
-  /* хедер SERVICE/QTY/PRICE/TOTAL зверху, без верхнього відступу — рядки
-     таблиці й картка праворуч стартують з однієї лінії */
-  #cart-content > .cart-table th { padding-top: 0; padding-bottom: 12px; }
+  /* рядки товарів і картка праворуч стартують з ОДНІЄЇ лінії; хедер
+     SERVICE/QTY/PRICE/TOTAL випливає НАД цю лінію (негативний відступ) */
+  #cart-content > .cart-table { margin-top: -48px; }
+  #cart-content > .cart-table th { padding-top: 0; padding-bottom: 12px; height: 30px; box-sizing: border-box; vertical-align: top; }
 }
 .cart-upsell { border: 1px solid rgba(0,255,133,0.25); background: rgba(0,255,133,0.045); border-radius: 12px; padding: 16px; margin: 18px 0 4px; }
 .cart-upsell-top { display: flex; align-items: center; gap: 10px; color: #cfd3d6; font-size: 0.83rem; line-height: 1.45; }
