@@ -47,7 +47,7 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="styles.css?v=20260831">
+  <link rel="stylesheet" href="styles.css?v=20260909">
   <!-- Ahrefs Web Analytics -->
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="eM59SREhxAVIVesHN8xp2Q" async></script>
   <!-- Google tag (gtag.js) + Consent Mode v2 -->
@@ -185,6 +185,21 @@
           </tbody>
         </table>
 
+        <!-- Cart v2: cross-sell strip + one relevant recommendation -->
+        <div id="cart-upsell" class="cart-upsell" style="display:none;">
+          <div class="cart-upsell-top" id="cart-upsell-top">
+            <span class="cart-upsell-plus">+</span>
+            <span>Add a second service and save <strong>5%</strong> on your order</span>
+          </div>
+          <div class="cart-upsell-bar" id="cart-upsell-bar"><i></i></div>
+          <p class="cart-upsell-label">Recommended for you</p>
+          <div class="cart-rec" id="cart-rec-row">
+            <div class="cart-rec-ico" id="cart-rec-ico">&#9654;</div>
+            <div class="cart-rec-name" id="cart-rec-name"></div>
+            <div class="cart-rec-price" id="cart-rec-price"></div>
+            <button class="cart-rec-add" id="cart-rec-add" type="button">Add</button>
+          </div>
+        </div>
 
         <div class="cart-summary">
           <!-- Promo Code Field -->
@@ -215,6 +230,7 @@
             <span>Total</span>
             <span id="cart-total">$0.00</span>
           </div>
+          <div id="eu-consent-note" class="eu-consent-note" style="display:none;">By clicking &ldquo;Proceed to Checkout&rdquo;, I request immediate performance of the service. If I cancel, I pay for the part already completed; my right of withdrawal ends once the service is fully performed. <a href="/terms" target="_blank" rel="noopener">Terms of Service</a> &middot; <a href="/refund-policy" target="_blank" rel="noopener">Refund &amp; Cancellation Policy</a></div>
           <a href="/checkout" class="btn btn-primary btn-lg" style="width:100%; margin-top:20px;">
             Proceed to Checkout &#8594;
           </a>
@@ -228,6 +244,12 @@
           </div>
           <div class="bo-trust__lockline">&#128274; 3-D Secure &middot; SSL/TLS encrypted</div>
         </div>
+        </div>
+
+        <!-- Cart v2: sticky mobile checkout bar -->
+        <div id="cart-sticky" class="cart-sticky">
+          <div class="cart-sticky-total"><span>Total</span><span id="cart-sticky-amount">$0.00</span></div>
+          <a href="/checkout" class="btn btn-primary cart-sticky-btn">Proceed to Checkout &#8594;</a>
         </div>
       </div>
     </div>
@@ -360,6 +382,104 @@
       renderCart();
     }
 
+    // ─── Cart v2: recommendation engine ───
+    // Base tier of every service, exactly as the product pages build items.
+    const REC_CATALOG = {
+      sp_plays:     { id:'spotify-plays',       name:'Spotify Plays',       qtyLabel:'1K',  price:6,  platform:'Spotify' },
+      sp_followers: { id:'spotify-followers',   name:'Spotify Followers',   qtyLabel:'500', price:3,  platform:'Spotify' },
+      sp_listeners: { id:'monthly-listeners',   name:'Monthly Listeners',   qtyLabel:'1K',  price:10, platform:'Spotify' },
+      sp_saves:     { id:'spotify-saves',       name:'Spotify Saves',       qtyLabel:'100', price:1,  platform:'Spotify' },
+      sc_plays:     { id:'soundcloud-plays',    name:'SoundCloud Plays',    qtyLabel:'1K',  price:6,  platform:'SoundCloud' },
+      sc_likes:     { id:'soundcloud-likes',    name:'SoundCloud Likes',    qtyLabel:'50',  price:3,  platform:'SoundCloud' },
+      sc_reposts:   { id:'soundcloud-reposts',  name:'SoundCloud Reposts',  qtyLabel:'50',  price:3,  platform:'SoundCloud' },
+      sc_followers: { id:'soundcloud-followers',name:'SoundCloud Followers',qtyLabel:'100', price:4,  platform:'SoundCloud' },
+    };
+
+    // Chains per Yana's rules (followers->plays, plays->listeners, organic->followers);
+    // packages never get what they already contain.
+    function recChainFor(item) {
+      const n = (item.name || '').toLowerCase();
+      const sc = ((item.platform || '').toLowerCase().indexOf('sound') > -1) || n.indexOf('soundcloud') > -1 || n.indexOf('sc ') === 0;
+      if (sc) {
+        if (n === 'sc basic' || n === 'sc artist') return ['sc_reposts', 'sc_likes']; // package holds plays+likes+followers
+        if (n.indexOf('organic') > -1)  return ['sc_followers', 'sc_reposts'];
+        if (n.indexOf('repost') > -1)   return ['sc_followers', 'sc_plays', 'sc_likes'];
+        if (n.indexOf('like') > -1)     return ['sc_reposts', 'sc_followers', 'sc_plays'];
+        if (n.indexOf('follower') > -1) return ['sc_plays', 'sc_likes', 'sc_reposts'];
+        if (n.indexOf('comment') > -1)  return ['sc_likes', 'sc_reposts'];
+        if (n.indexOf('play') > -1)     return ['sc_likes', 'sc_reposts', 'sc_followers'];
+        return ['sc_reposts', 'sc_likes', 'sc_followers'];
+      }
+      if (n === 'basic' || n === 'standard' || n === 'mainstage' || n === 'headliner') return ['sp_listeners']; // package holds plays+saves+followers
+      if (n.indexOf('playlist') > -1 || n.indexOf('pitching') > -1 || n.indexOf('featured') > -1) return ['sp_listeners', 'sp_saves', 'sp_plays'];
+      if (n.indexOf('listener') > -1) return ['sp_saves', 'sp_plays', 'sp_followers'];
+      if (n.indexOf('save') > -1)     return ['sp_plays', 'sp_listeners', 'sp_followers'];
+      if (n.indexOf('follower') > -1) return ['sp_plays', 'sp_listeners', 'sp_saves'];
+      if (n.indexOf('play') > -1)     return ['sp_listeners', 'sp_saves', 'sp_followers'];
+      return ['sp_plays', 'sp_listeners', 'sp_saves'];
+    }
+
+    function recInCart(items, rec) {
+      return items.some(i => i.id === rec.id || (i.name || '').toLowerCase() === rec.name.toLowerCase());
+    }
+
+    function pickRecommendation(items) {
+      if (!items.length) return null;
+      const chains = [items[items.length - 1]].concat(items.slice(0, -1));
+      for (const it of chains) {
+        for (const key of recChainFor(it)) {
+          const r = REC_CATALOG[key];
+          if (r && !recInCart(items, r)) return r;
+        }
+      }
+      return null;
+    }
+
+    function renderUpsell(items) {
+      const box = document.getElementById('cart-upsell');
+      if (!box) return;
+      const rec = pickRecommendation(items);
+      if (!rec) { box.style.display = 'none'; return; }
+      // будь-який активний промокод (DOUBLE5 вже застосований чи BREAKOUT25 з
+      // розсилки) — обіцянку «save 5%» ховаємо: коди не сумуються / вже виконано
+      const promoOn = !!activePromo;
+      document.getElementById('cart-upsell-top').style.display = promoOn ? 'none' : 'flex';
+      document.getElementById('cart-upsell-bar').style.display = promoOn ? 'none' : 'block';
+      const sc = rec.platform === 'SoundCloud';
+      const ico = document.getElementById('cart-rec-ico');
+      ico.innerHTML = sc ? '&#9729;' : '&#9654;';
+      ico.className = 'cart-rec-ico' + (sc ? ' sc' : '');
+      document.getElementById('cart-rec-row').className = 'cart-rec' + (sc ? ' sc' : '');
+      document.getElementById('cart-rec-name').textContent = rec.qtyLabel + ' ' + rec.name;
+      document.getElementById('cart-rec-price').textContent = '+$' + rec.price.toFixed(2);
+      document.getElementById('cart-rec-add').onclick = function () {
+        sessionStorage.setItem('upsell_dismissed', '1'); // мета попапа досягнута — не дублювати
+        Cart.addItem({ id: rec.id, name: rec.name, serviceType: '', qtyLabel: rec.qtyLabel, quantity: 1, price: rec.price, platform: rec.platform });
+        if (!activePromo) {
+          validatePromoCode('DOUBLE5', function (p) {
+            if (p && Cart.getCount() >= p.minItems) { activePromo = p; sessionStorage.setItem('active_promo', p.code); }
+            renderCart();
+          });
+        } else { renderCart(); }
+      };
+      box.style.display = 'block';
+    }
+
+    // ─── Cart v2: EU-only consent note (hidden unless geo says EU) ───
+    (function () {
+      const EU = ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE'];
+      fetch(PROMO_API + '/api/geo')
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          const c = ((d && d.country) || '').toUpperCase();
+          if (EU.indexOf(c) > -1) {
+            const n = document.getElementById('eu-consent-note');
+            if (n) n.style.display = 'block';
+          }
+        })
+        .catch(function () {});
+    })();
+
     function renderCart() {
       const items = Cart.getItems();
       const emptyEl = document.getElementById('cart-empty');
@@ -376,6 +496,8 @@
 
       emptyEl.style.display = 'none';
       contentEl.style.display = 'block';
+
+      renderUpsell(items);
 
       function esc(str) { const d = document.createElement('div'); d.textContent = str || ''; return d.innerHTML; }
 
@@ -445,6 +567,8 @@
 
       const total = subtotal - discount;
       document.getElementById('cart-total').textContent = '$' + total.toFixed(2);
+      const stickyAmt = document.getElementById('cart-sticky-amount');
+      if (stickyAmt) stickyAmt.textContent = '$' + total.toFixed(2);
     }
 
     function updateCartQty(idx, delta) {
