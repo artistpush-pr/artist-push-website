@@ -187,17 +187,6 @@
 
 
         <div class="cart-summary">
-          <!-- Promo Code Field -->
-          <div class="promo-input-group" id="promo-input-group">
-            <input type="text" id="promo-input" class="promo-input" placeholder="Promo code" autocomplete="off" spellcheck="false">
-            <button class="btn btn-primary promo-apply-btn" id="promo-apply-btn" onclick="applyPromo()">Apply</button>
-          </div>
-          <div id="promo-message" class="promo-message"></div>
-          <!-- Applied promo (hidden by default) -->
-          <div id="promo-applied" class="promo-applied" style="display:none;">
-            <span id="promo-applied-text"></span>
-            <button class="promo-remove" onclick="removePromo()">&times;</button>
-          </div>
 
           <div class="cart-summary-row">
             <span>Subtotal</span>
@@ -215,6 +204,19 @@
             <span>Total</span>
             <span id="cart-total">$0.00</span>
           </div>
+
+          <!-- Promo Code Field -->
+          <div class="promo-input-group" id="promo-input-group">
+            <input type="text" id="promo-input" class="promo-input" placeholder="Promo code" autocomplete="off" spellcheck="false">
+            <button class="btn btn-primary promo-apply-btn" id="promo-apply-btn" onclick="applyPromo()">Apply</button>
+          </div>
+          <div id="promo-message" class="promo-message"></div>
+          <!-- Applied promo (hidden by default) -->
+          <div id="promo-applied" class="promo-applied" style="display:none;">
+            <span id="promo-applied-text"></span>
+            <button class="promo-remove" onclick="removePromo()">&times;</button>
+          </div>
+
 
           <!-- Cart v2: cross-sell strip + one relevant recommendation -->
           <div id="cart-upsell" class="cart-upsell" style="display:none;">
