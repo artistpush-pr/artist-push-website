@@ -47,7 +47,7 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="styles.css?v=20260909">
+  <link rel="stylesheet" href="styles.css?v=20260909c">
   <!-- Ahrefs Web Analytics -->
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="eM59SREhxAVIVesHN8xp2Q" async></script>
   <!-- Google tag (gtag.js) + Consent Mode v2 -->
@@ -185,21 +185,6 @@
           </tbody>
         </table>
 
-        <!-- Cart v2: cross-sell strip + one relevant recommendation -->
-        <div id="cart-upsell" class="cart-upsell" style="display:none;">
-          <div class="cart-upsell-top" id="cart-upsell-top">
-            <span class="cart-upsell-plus">+</span>
-            <span>Add a second service and save <strong>5%</strong> on your order</span>
-          </div>
-          <div class="cart-upsell-bar" id="cart-upsell-bar"><i></i></div>
-          <p class="cart-upsell-label">Recommended for you</p>
-          <div class="cart-rec" id="cart-rec-row">
-            <div class="cart-rec-ico" id="cart-rec-ico">&#9654;</div>
-            <div class="cart-rec-name" id="cart-rec-name"></div>
-            <div class="cart-rec-price" id="cart-rec-price"></div>
-            <button class="cart-rec-add" id="cart-rec-add" type="button">Add</button>
-          </div>
-        </div>
 
         <div class="cart-summary">
           <!-- Promo Code Field -->
@@ -230,6 +215,24 @@
             <span>Total</span>
             <span id="cart-total">$0.00</span>
           </div>
+
+          <!-- Cart v2: cross-sell strip + one relevant recommendation -->
+          <div id="cart-upsell" class="cart-upsell" style="display:none;">
+          <div class="cart-upsell-top" id="cart-upsell-top">
+            <span class="cart-upsell-plus">+</span>
+            <span>Add a second service and save <strong>5%</strong> on your order</span>
+          </div>
+          <div class="cart-upsell-bar" id="cart-upsell-bar"><i></i></div>
+          <p class="cart-upsell-label">Recommended for you</p>
+          <div class="cart-rec" id="cart-rec-row">
+            <div class="cart-rec-ico" id="cart-rec-ico">&#9654;</div>
+            <div class="cart-rec-info">
+              <div class="cart-rec-name" id="cart-rec-name"></div>
+              <div class="cart-rec-price" id="cart-rec-price"></div>
+            </div>
+            <button class="cart-rec-add" id="cart-rec-add" type="button">Add</button>
+          </div>
+        </div>
           <div id="eu-consent-note" class="eu-consent-note" style="display:none;">By clicking &ldquo;Proceed to Checkout&rdquo;, I request immediate performance of the service. If I cancel, I pay for the part already completed; my right of withdrawal ends once the service is fully performed. <a href="/terms" target="_blank" rel="noopener">Terms of Service</a> &middot; <a href="/refund-policy" target="_blank" rel="noopener">Refund &amp; Cancellation Policy</a></div>
           <a href="/checkout" class="btn btn-primary btn-lg" style="width:100%; margin-top:20px;">
             Proceed to Checkout &#8594;
