@@ -64,14 +64,28 @@
         }
       });
 
-      // Also trigger after 45 seconds on page (mobile fallback)
-      setTimeout(() => {
-        if (!triggered && !sessionStorage.getItem('exit_popup_shown') && !localStorage.getItem('ap_subscriber')) {
+      // Mobile (audit M10): no mouse to leave with, so instead of a dumb
+      // 45s timer we wait until the visitor has seen 60% of the page and
+      // then scrolls UP — a natural "I'm done here" signal.
+      let deepEnough = false;
+      let lastY = window.scrollY;
+      const onScroll = () => {
+        if (triggered || sessionStorage.getItem('exit_popup_shown') || localStorage.getItem('ap_subscriber')) {
+          window.removeEventListener('scroll', onScroll);
+          return;
+        }
+        const doc = document.documentElement;
+        const depth = (window.scrollY + window.innerHeight) / doc.scrollHeight;
+        if (depth >= 0.6) deepEnough = true;
+        if (deepEnough && window.scrollY < lastY - 40) {
           triggered = true;
           overlay.classList.add('active');
           sessionStorage.setItem('exit_popup_shown', '1');
+          window.removeEventListener('scroll', onScroll);
         }
-      }, 45000);
+        lastY = window.scrollY;
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
 
       // Close on overlay click
       overlay.addEventListener('click', (e) => {
@@ -90,8 +104,17 @@
         if (email && this._validateEmail(email) && window.AP_EMAIL) {
           window.AP_EMAIL.saveSubscriber(email, 'exit_popup');
           window.AP_EMAIL.addTag('discount_10pct');
-          e.target.innerHTML = '<div class="email-popup-success">You\'re in! Check your inbox for your 10% discount code.</div>';
-          setTimeout(() => overlay.classList.remove('active'), 3000);
+          // Audit M10: the code is shown right here, not "check your inbox"
+          // (no automation ever sent it). It also self-applies at checkout.
+          try {
+            sessionStorage.setItem('active_promo', 'WELCOME10');
+            localStorage.setItem('breakout_promo', JSON.stringify({ code: 'WELCOME10' }));
+          } catch (err) {}
+          e.target.innerHTML = '<div class="email-popup-success">You\'re in! Your 10% code:</div>' +
+            '<div class="email-popup-code"><strong>WELCOME10</strong>' +
+            '<button type="button" class="email-popup-copy" onclick="navigator.clipboard.writeText(\'WELCOME10\'); this.textContent=\'Copied!\';">Copy</button></div>' +
+            '<div class="email-popup-note">Applied automatically at checkout.</div>';
+          setTimeout(() => overlay.classList.remove('active'), 6000);
         }
       });
     },

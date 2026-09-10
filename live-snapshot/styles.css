@@ -4846,3 +4846,9 @@ select:focus-visible,
   .email-popup-note { font-size: 12.5px; }
   /* платіжні вордмарки VISA/MC/PayPal у футері лишаються як є — це декор, не текст для читання */
 }
+
+/* ---------- M10 (аудит): код у попапі одразу після підписки ---------- */
+.email-popup-code { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 12px 0 6px; }
+.email-popup-code strong { border: 2px dashed var(--green); border-radius: 10px; padding: 10px 18px; color: #fff; font-size: 1.1rem; letter-spacing: 2px; background: rgba(0,255,133,0.06); }
+.email-popup-copy { background: #141414; color: #fff; border: 1px solid #2a2a2a; border-radius: 10px; padding: 10px 16px; font-size: 0.85rem; font-weight: 700; cursor: pointer; min-height: 44px; }
+.email-popup-copy:hover { border-color: var(--green); }
