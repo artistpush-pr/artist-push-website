@@ -238,6 +238,12 @@
     }
   }
 
+  // Re-entry guard: cart calls init() at parse time (CLS fix, audit D1),
+  // then the DOMContentLoaded listener fires again — second call must no-op.
+  var _initDone = false;
+  var _init = init;
+  init = function() { if (_initDone) return; _initDone = true; _init(); };
+
   window.Recommendations = { trackView:trackView, getRecentlyViewed:getRecentlyViewed, buildTopSellers:buildTopSellers, buildExplore:buildExplore, init:init };
 
   if (document.readyState === 'loading') {
