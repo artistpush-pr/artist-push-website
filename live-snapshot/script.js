@@ -462,3 +462,31 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('DOMContentLoaded', initPackageCarousels);
   } else { initPackageCarousels(); }
 })();
+
+
+// ─── M11 (audit): homepage services carousel — scroll progress bar on mobile ───
+(function () {
+  function initCarouselProgress() {
+    if (window.innerWidth > 768) return;
+    document.querySelectorAll('.carousel-wrapper').forEach(function (wrap) {
+      const track = wrap.querySelector('.carousel-track');
+      if (!track || track.scrollWidth <= track.clientWidth) return;
+      const bar = document.createElement('div');
+      bar.className = 'carousel-progress';
+      bar.innerHTML = '<i></i>';
+      wrap.insertAdjacentElement('afterend', bar);
+      const fill = bar.firstChild;
+      function paint() {
+        const max = track.scrollWidth - track.clientWidth;
+        const p = max > 0 ? track.scrollLeft / max : 0;
+        const minW = track.clientWidth / track.scrollWidth * 100;
+        fill.style.width = (minW + p * (100 - minW)) + '%';
+      }
+      track.addEventListener('scroll', function () { requestAnimationFrame(paint); }, { passive: true });
+      paint();
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCarouselProgress);
+  } else { initCarouselProgress(); }
+})();
