@@ -31,6 +31,12 @@
     initExitPopup() {
       // Don't show if already subscribed or dismissed this session
       if (localStorage.getItem('ap_subscriber') || sessionStorage.getItem('exit_popup_shown')) return;
+      // Один відвідувач — один код: тримачам будь-якого кода знижку не пропонуємо
+      try {
+        if (sessionStorage.getItem('bo_promo') || sessionStorage.getItem('active_promo')) return;
+        const lp = JSON.parse(localStorage.getItem('breakout_promo') || 'null');
+        if (lp && lp.code && (!lp.exp || Date.now() < lp.exp)) return;
+      } catch (err) {}
 
       // Create popup HTML
       const overlay = document.createElement('div');
@@ -108,8 +114,12 @@
           // (no automation ever sent it). It also self-applies at checkout.
           try {
             sessionStorage.setItem('active_promo', 'WELCOME10');
+            sessionStorage.setItem('bo_promo', 'WELCOME10');
             localStorage.setItem('breakout_promo', JSON.stringify({ code: 'WELCOME10' }));
+            sessionStorage.setItem('promo_closed', '1');
           } catch (err) {}
+          const pb = document.getElementById('promoBar');
+          if (pb) pb.classList.add('hidden');
           e.target.innerHTML = '<div class="email-popup-success">You\'re in! Your 10% code:</div>' +
             '<div class="email-popup-code"><strong>WELCOME10</strong>' +
             '<button type="button" class="email-popup-copy" onclick="navigator.clipboard.writeText(\'WELCOME10\'); this.textContent=\'Copied!\';">Copy</button></div>' +

@@ -141,9 +141,11 @@ const Cart = {
   _showUpsellPopup(itemName) {
     if (sessionStorage.getItem('upsell_dismissed')) return;
 
-    // Don't spam visitors who already hold a promo code (e.g. the email
-    // campaign's BREAKOUT25 gift) — only one code applies per order anyway
+    // Один відвідувач — один код (правило Яни 11.09): якщо людина вже
+    // «тримає» будь-який код (скопіювала FIRST15, підписалась на WELCOME10,
+    // прийшла з подарунком) — другу пропозицію не показуємо.
     try {
+      if (sessionStorage.getItem('bo_promo')) return;
       if (sessionStorage.getItem('active_promo')) return;
       const lp = JSON.parse(localStorage.getItem('breakout_promo') || 'null');
       if (lp && lp.code && (!lp.exp || Date.now() < lp.exp)) return;

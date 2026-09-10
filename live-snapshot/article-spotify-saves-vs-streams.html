@@ -145,11 +145,11 @@
   <div class="promo-bar" id="promoBar">
     <div class="promo-bar-inner">
       <span class="promo-bar-text"><strong>15% OFF</strong> your first order — use code <span class="promo-bar-code">FIRST15</span></span>
-      <button class="promo-bar-copy" onclick="navigator.clipboard.writeText('FIRST15'); this.textContent='Copied!';">Copy Code</button>
+      <button class="promo-bar-copy" onclick="navigator.clipboard.writeText('FIRST15'); try{sessionStorage.setItem('bo_promo','FIRST15');}catch(_){}; this.textContent='Copied!';">Copy Code</button>
       <button class="promo-bar-close" onclick="document.getElementById('promoBar').classList.add('hidden'); sessionStorage.setItem('promo_closed','1');" aria-label="Close">&times;</button>
     </div>
   </div>
-  <script>if(sessionStorage.getItem('promo_closed')) document.getElementById('promoBar').classList.add('hidden');</script>
+  <script>(function(){var e=null;try{e=sessionStorage.getItem('bo_promo')||sessionStorage.getItem('active_promo');if(!e){var lp=JSON.parse(localStorage.getItem('breakout_promo')||'null');if(lp&&lp.code&&(!lp.exp||Date.now()<lp.exp))e=lp.code;}}catch(_){}var pb=document.getElementById('promoBar');if(pb&&(sessionStorage.getItem('promo_closed')||(e&&e!=='FIRST15')))pb.classList.add('hidden');})();</script>
 
   <!-- ════════ NAVBAR ════════ -->
   <nav class="navbar">
@@ -473,11 +473,11 @@
     </div>
   </footer>
 
-  <script src="cart.js?v=6"></script>
+  <script src="cart.js?v=7"></script>
   <script src="auth.js"></script>
   <script src="script.js?v=20260910b"></script>
   <script src="email-tracking.js"></script>
-  <script src="email-capture.js?v=20260911"></script>
+  <script src="email-capture.js?v=20260911b"></script>
   <script src="search.js?v=20260910"></script>
       <script src="cookie-consent.js?v=6"></script>
 <script src="recommendations.js"></script>

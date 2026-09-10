@@ -13,8 +13,12 @@
 
   try{
     sessionStorage.setItem('active_promo',PROMO_CODE);
+    sessionStorage.setItem('bo_promo',PROMO_CODE);
     localStorage.setItem('breakout_promo',JSON.stringify({code:PROMO_CODE,exp:PROMO_EXPIRES}));
+    sessionStorage.setItem('promo_closed','1');
   }catch(e){}
+  var _pb=document.getElementById('promoBar');
+  if(_pb)_pb.classList.add('hidden');
   if(typeof gtag==='function'){gtag('event','gift_box_open',{promo_code:PROMO_CODE})}
 
   var css=''+
