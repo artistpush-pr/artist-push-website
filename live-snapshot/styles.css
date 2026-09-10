@@ -4807,3 +4807,8 @@ select:focus-visible,
 .mobile-nav-cart { display: flex; align-items: center; gap: 10px; border: 1px solid #2a2a2a; border-radius: 12px; padding: 0 18px; min-height: 52px; font-size: 1rem !important; }
 .mobile-nav-cart .cart-badge { position: static; min-width: 20px; height: 20px; border-radius: 10px; background: var(--green); color: #000; font-size: 0.75rem; font-weight: 800; align-items: center; justify-content: center; padding: 0 6px; }
 .mobile-nav-cta { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 52px; font-size: 1rem !important; color: #000 !important; }
+
+/* ---------- M4 (аудит): хрестик шухляди — вниз, у зону великого пальця ---------- */
+@media (max-width: 768px) {
+  .mobile-nav-close { top: auto; right: auto; bottom: calc(96px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); width: 52px; height: 52px; }
+}

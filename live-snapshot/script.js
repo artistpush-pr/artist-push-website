@@ -74,11 +74,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileNav = document.querySelector('.mobile-nav');
   const mobileNavClose = document.querySelector('.mobile-nav-close');
 
+  // M4 (audit): the drawer locks page scroll while open and closes on ESC
+  // or a tap on its empty area, not just via the X button.
+  const openMobileNav = () => { mobileNav.classList.add('active'); document.body.style.overflow = 'hidden'; };
+  const closeMobileNav = () => { mobileNav.classList.remove('active'); document.body.style.overflow = ''; };
   if (mobileToggle && mobileNav) {
-    mobileToggle.addEventListener('click', () => mobileNav.classList.add('active'));
-    if (mobileNavClose) mobileNavClose.addEventListener('click', () => mobileNav.classList.remove('active'));
+    mobileToggle.addEventListener('click', openMobileNav);
+    if (mobileNavClose) mobileNavClose.addEventListener('click', closeMobileNav);
+    mobileNav.addEventListener('click', (e) => { if (e.target === mobileNav) closeMobileNav(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileNav.classList.contains('active')) closeMobileNav();
+    });
     mobileNav.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => mobileNav.classList.remove('active'));
+      a.addEventListener('click', closeMobileNav);
     });
   }
 
