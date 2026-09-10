@@ -4825,3 +4825,24 @@ select:focus-visible,
   .package-dots i { width: 7px; height: 7px; border-radius: 50%; background: #2f3237; transition: all .25s; }
   .package-dots i.active { background: var(--green); transform: scale(1.25); }
 }
+
+/* ---------- M8 (аудит): мінімальні розміри тексту на мобайлі ---------- */
+@media (max-width: 768px) {
+  /* 16px для всіх полів вводу — інакше iOS Safari зумить сторінку при фокусі */
+  input[type="text"], input[type="email"], input[type="number"], input[type="url"], input[type="search"],
+  select, textarea,
+  .custom-select, .qty-input, .promo-input, .search-input, .newsletter-input,
+  .footer-newsletter-input, .email-popup-input { font-size: 16px; }
+
+  /* 14px для функціонального тексту: лейбли, тапабельні елементи, кнопки */
+  label, .select-group label { font-size: 14px; }
+  .qty-pill { font-size: 14px; }
+  .btn-sm, .footer-newsletter-btn, .email-popup-submit, .promo-bar-copy { font-size: 14px; }
+  .playlist-card h4, .package-card h4 { font-size: 14px; }
+  .trust-badge { font-size: 13px; }
+  .promo-bar-text { font-size: 13px; }
+  .footer-legal .fl-col h5 { font-size: 13px; }
+  .footer-copy, .fl-muted { font-size: 13px; }
+  .email-popup-note { font-size: 12.5px; }
+  /* платіжні вордмарки VISA/MC/PayPal у футері лишаються як є — це декор, не текст для читання */
+}
