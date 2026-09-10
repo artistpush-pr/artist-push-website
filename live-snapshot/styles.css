@@ -4801,3 +4801,9 @@ select:focus-visible,
   .mobile-nav a { display: flex; align-items: center; min-height: 48px; padding-top: 6px; padding-bottom: 6px; }
   .mobile-nav-close { min-width: 44px; min-height: 44px; }
 }
+
+/* ---------- M5 (аудит): CTA і кошик з лічильником унизу мобільної шухляди ---------- */
+.mobile-nav-footer { position: absolute; left: 20px; right: 20px; bottom: calc(24px + env(safe-area-inset-bottom)); display: flex; gap: 12px; }
+.mobile-nav-cart { display: flex; align-items: center; gap: 10px; border: 1px solid #2a2a2a; border-radius: 12px; padding: 0 18px; min-height: 52px; font-size: 1rem !important; }
+.mobile-nav-cart .cart-badge { position: static; min-width: 20px; height: 20px; border-radius: 10px; background: var(--green); color: #000; font-size: 0.75rem; font-weight: 800; align-items: center; justify-content: center; padding: 0 6px; }
+.mobile-nav-cta { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 52px; font-size: 1rem !important; color: #000 !important; }
