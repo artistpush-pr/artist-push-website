@@ -4793,3 +4793,11 @@ select:focus-visible,
   .anchor-nav,
   .promo-bar:not(.hidden) ~ .anchor-nav { top: 72px; }
 }
+
+/* ---------- M3 (аудит): тач-таргети мобільної шапки і меню ---------- */
+@media (max-width: 768px) {
+  .mobile-toggle { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; padding: 6px 10px; }
+  .navbar-icons > a, .navbar-icons > button { width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+  .mobile-nav a { display: flex; align-items: center; min-height: 48px; padding-top: 6px; padding-bottom: 6px; }
+  .mobile-nav-close { min-width: 44px; min-height: 44px; }
+}
