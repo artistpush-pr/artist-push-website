@@ -25,10 +25,10 @@
 
     // ——— SOUNDCLOUD PACKAGES ———
     { title: 'SC Basic', desc: '1K Plays + 25 Likes + 100 Followers — great launchpad for new tracks.', price: '$8', platform: 'soundcloud', type: 'package', url: '/soundcloud#packages', tags: 'bundle starter beginner plays likes followers' },
-    { title: 'SC Artist', desc: '10K Plays + 50 Likes + 150 Followers — grow your SoundCloud presence.', price: '$12', platform: 'soundcloud', type: 'package', url: '/soundcloud#packages', tags: 'bundle artist plays likes followers' },
-    { title: 'SC Pro', desc: '50K Plays + 100 Likes + 500 Followers — for the serious SoundCloud artist.', price: '$38', platform: 'soundcloud', type: 'package', url: '/soundcloud#packages', tags: 'bundle pro plays likes followers' },
-    { title: 'SC Digger', desc: '100K Plays + 500 Likes + 1K Followers — major boost.', price: '$70', platform: 'soundcloud', type: 'package', url: '/soundcloud#packages', tags: 'bundle digger plays likes followers' },
-    { title: 'SC Star', desc: '1M Plays + 5K Likes + 5K Followers — ultimate SoundCloud campaign.', price: '$650', platform: 'soundcloud', type: 'package', url: '/soundcloud#packages', tags: 'bundle star plays likes followers million' },
+    { title: 'SC Artist', desc: '10K Plays + 50 Likes + 150 Followers — grow your SoundCloud presence.', price: '$20', platform: 'soundcloud', type: 'package', url: '/soundcloud#packages', tags: 'bundle artist plays likes followers' },
+    { title: 'SC Pro', desc: '50K Plays + 100 Likes + 500 Followers — for the serious SoundCloud artist.', price: '$89', platform: 'soundcloud', type: 'package', url: '/soundcloud#packages', tags: 'bundle pro plays likes followers' },
+    { title: 'SC Digger', desc: '100K Plays + 500 Likes + 1K Followers — major boost.', price: '$165', platform: 'soundcloud', type: 'package', url: '/soundcloud#packages', tags: 'bundle digger plays likes followers' },
+    { title: 'SC Star', desc: '1M Plays + 5K Likes + 5K Followers — ultimate SoundCloud campaign.', price: '$1,199', platform: 'soundcloud', type: 'package', url: '/soundcloud#packages', tags: 'bundle star plays likes followers million' },
 
     // ——— SOUNDCLOUD INDIVIDUAL SERVICES ———
     { title: 'SoundCloud Plays', desc: 'Worldwide and USA plays for your SoundCloud tracks, delivered organically.', price: 'from $5', platform: 'soundcloud', type: 'service', url: '/soundcloud#plays', tags: 'plays streams worldwide usa targeted organic' },

@@ -115,7 +115,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20260911b">
+  <link rel="stylesheet" href="styles.css?v=20260911c">
   <!-- Ahrefs Web Analytics -->
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="eM59SREhxAVIVesHN8xp2Q" async></script>
   <!-- Google tag (gtag.js) + Consent Mode v2 -->
@@ -255,7 +255,8 @@
           <div class="package-name">Basic</div>
           <div class="price-display" style="justify-content: center;">
             <span class="price-current">$12</span>
-            <span class="price-old">$24</span>
+            <span class="price-old">$15</span>
+            <span class="save-badge">Save 20%</span>
           </div>
           <div class="package-features">
             <div class="package-feature"><span class="check">&#10003;</span> 3K Plays</div>
@@ -269,7 +270,8 @@
           <div class="package-name">Standard</div>
           <div class="price-display" style="justify-content: center;">
             <span class="price-current">$90</span>
-            <span class="price-old">$145</span>
+            <span class="price-old">$129</span>
+            <span class="save-badge">Save 30%</span>
           </div>
           <div class="package-features">
             <div class="package-feature"><span class="check">&#10003;</span> 30K Plays</div>
@@ -283,7 +285,8 @@
           <div class="package-name">Mainstage</div>
           <div class="price-display" style="justify-content: center;">
             <span class="price-current">$150</span>
-            <span class="price-old">$195</span>
+            <span class="price-old">$250</span>
+            <span class="save-badge">Save 40%</span>
           </div>
           <div class="package-features">
             <div class="package-feature"><span class="check">&#10003;</span> 50K Plays</div>
@@ -297,7 +300,8 @@
           <div class="package-name">Headliner</div>
           <div class="price-display" style="justify-content: center;">
             <span class="price-current">$299</span>
-            <span class="price-old">$345</span>
+            <span class="price-old">$599</span>
+            <span class="save-badge">Save 50%</span>
           </div>
           <div class="package-features">
             <div class="package-feature"><span class="check">&#10003;</span> 100K Plays</div>
@@ -881,7 +885,8 @@
         </div>
         <div class="price-display">
           <span class="price-current">$12</span>
-          <span class="price-old">$24</span>
+          <span class="price-old">$15</span>
+          <span class="save-badge">Save 20%</span>
           <span class="price-badge">SALE</span>
         </div>
         <button class="btn btn-primary" style="width: 100%; padding: 16px;">ADD TO CART</button>
@@ -913,7 +918,8 @@
         </div>
         <div class="price-display">
           <span class="price-current">$90</span>
-          <span class="price-old">$145</span>
+          <span class="price-old">$129</span>
+          <span class="save-badge">Save 30%</span>
           <span class="price-badge">POPULAR</span>
         </div>
         <button class="btn btn-primary" style="width: 100%; padding: 16px;">ADD TO CART</button>
@@ -945,7 +951,8 @@
         </div>
         <div class="price-display">
           <span class="price-current">$150</span>
-          <span class="price-old">$195</span>
+          <span class="price-old">$250</span>
+          <span class="save-badge">Save 40%</span>
         </div>
         <button class="btn btn-primary" style="width: 100%; padding: 16px;">ADD TO CART</button>
         <div class="trust-badges">
@@ -976,7 +983,8 @@
         </div>
         <div class="price-display">
           <span class="price-current">$299</span>
-          <span class="price-old">$345</span>
+          <span class="price-old">$599</span>
+          <span class="save-badge">Save 50%</span>
         </div>
         <button class="btn btn-primary" style="width: 100%; padding: 16px;">ADD TO CART</button>
         <div class="trust-badges">
@@ -1115,7 +1123,7 @@
           const serviceType = select ? select.options[select.selectedIndex].text : '';
           const qtyLabel = activeQty ? activeQty.textContent : '';
           const quantity = qtyInput ? parseInt(qtyInput.value) || 1 : 1;
-          const priceText = priceEl ? priceEl.textContent.replace('$', '') : '0';
+          const priceText = priceEl ? priceEl.textContent.replace(/[^0-9.]/g, '') : '0';
           const price = parseFloat(priceText) || 0;
 
           Cart.addItem({
@@ -1195,7 +1203,7 @@
 
   <script src="email-tracking.js"></script>
   <script src="email-capture.js?v=20260911b"></script>
-  <script src="search.js?v=20260910"></script>
+  <script src="search.js?v=20260911"></script>
   <script src="anchor-nav.js"></script>
       <script src="cookie-consent.js?v=6"></script>
 <script src="recommendations.js"></script>

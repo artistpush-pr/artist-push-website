@@ -4863,3 +4863,17 @@ select:focus-visible,
   .carousel-progress { display: block; height: 3px; max-width: 200px; margin: 18px auto 0; background: #1f2125; border-radius: 2px; overflow: hidden; }
   .carousel-progress i { display: block; height: 100%; width: 10%; background: var(--green); border-radius: 2px; transition: width .15s ease; }
 }
+
+/* ── Save % badge (pricing audit 6.2: discount grows with tier) ── */
+.save-badge {
+  display: inline-block;
+  background: rgba(0, 255, 133, 0.12);
+  color: #00FF85;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+  align-self: center;
+}

@@ -112,7 +112,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20260911b">
+  <link rel="stylesheet" href="styles.css?v=20260911c">
   <!-- Ahrefs Web Analytics -->
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="eM59SREhxAVIVesHN8xp2Q" async></script>
   <!-- Google tag (gtag.js) + Consent Mode v2 -->
@@ -364,7 +364,7 @@
               <h3>SoundCloud Pro Pack</h3>
               <p>50K Plays + 100 Likes + 500 Followers — for the serious SoundCloud artist.</p>
               <div class="service-card-footer">
-                <div class="service-card-price">$38.00 <span>from</span></div>
+                <div class="service-card-price">$89.00 <span>from</span></div>
                 <a href="/soundcloud" class="btn btn-primary btn-sm">View Details</a>
               </div>
             </div>
@@ -659,7 +659,8 @@
         </div>
         <div class="price-display">
           <span class="price-current">$12.00</span>
-          <span class="price-old">$24.00</span>
+          <span class="price-old">$15.00</span>
+          <span class="save-badge">Save 20%</span>
           <span class="price-badge">SALE</span>
         </div>
         <button class="btn btn-primary" style="width: 100%; font-size: 1rem; padding: 16px;">ADD TO CART</button>
@@ -788,7 +789,8 @@
         </div>
         <div class="price-display">
           <span class="price-current">$90.00</span>
-          <span class="price-old">$145.00</span>
+          <span class="price-old">$129.00</span>
+          <span class="save-badge">Save 30%</span>
           <span class="price-badge">SALE</span>
         </div>
         <button class="btn btn-primary" style="width: 100%; font-size: 1rem; padding: 16px;">ADD TO CART</button>
@@ -889,7 +891,7 @@
           const serviceType = select ? select.options[select.selectedIndex].text : '';
           const qtyLabel = activeQty ? activeQty.textContent : '';
           const quantity = qtyInput ? parseInt(qtyInput.value) || 1 : 1;
-          const priceText = priceEl ? priceEl.textContent.replace('$', '') : '0';
+          const priceText = priceEl ? priceEl.textContent.replace(/[^0-9.]/g, '') : '0';
           const price = parseFloat(priceText) || 0;
 
           Cart.addItem({
@@ -907,7 +909,7 @@
   </script>
   <script src="email-tracking.js"></script>
   <script src="email-capture.js?v=20260911b"></script>
-  <script src="search.js?v=20260910"></script>
+  <script src="search.js?v=20260911"></script>
       <script src="cookie-consent.js?v=6"></script>
 <script src="recommendations.js"></script>
 <script src="box-widget.js?v=3" defer></script>
