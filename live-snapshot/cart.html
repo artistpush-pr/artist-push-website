@@ -47,7 +47,7 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="styles.css?v=20260911c">
+  <link rel="stylesheet" href="styles.css?v=20260911d">
   <!-- Ahrefs Web Analytics -->
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="eM59SREhxAVIVesHN8xp2Q" async></script>
   <!-- Google tag (gtag.js) + Consent Mode v2 -->
@@ -315,7 +315,7 @@
     </div>
   </footer>
 
-  <script src="cart.js?v=7"></script>
+  <script src="cart.js?v=8"></script>
   <script src="auth.js"></script>
   <script src="script.js?v=20260910c"></script>
   <script>
@@ -328,7 +328,7 @@
       fetch(PROMO_API + '/api/promo/validate?code=' + encodeURIComponent(code) + '&items=' + Cart.getCount())
         .then(function(r){ return r.json(); })
         .then(function(d){ cb(d && d.valid ? { code: d.code, percent: d.discountPercent, minItems: d.minItems || 1, label: d.discountPercent + '% off' } : null); })
-        .catch(function(){ cb(null); });
+        .catch(function(){ cb(null, 'network'); });
     }
 
     // Restore promo saved by the checkout or the gift widget
@@ -361,11 +361,12 @@
 
       msg.textContent = 'Checking...';
       msg.className = 'promo-message';
-      validatePromoCode(code, function(promo) {
+      validatePromoCode(code, function(promo, err) {
         if (!promo) {
-          msg.textContent = 'Invalid promo code. Please try again.';
+          msg.textContent = err === 'network'
+            ? 'Could not verify the code. Please check your connection and try again.'
+            : 'Invalid promo code. Please try again.';
           msg.className = 'promo-message error';
-          input.value = '';
           return;
         }
         if (Cart.getCount() < promo.minItems) {

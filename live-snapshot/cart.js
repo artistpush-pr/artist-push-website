@@ -73,7 +73,7 @@ const Cart = {
   updateQuantity(index, quantity) {
     const items = this.getItems();
     if (items[index]) {
-      items[index].quantity = Math.max(1, quantity);
+      items[index].quantity = Math.min(100, Math.max(1, quantity));
       this._save(items);
     }
     return items;

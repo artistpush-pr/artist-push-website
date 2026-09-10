@@ -4877,3 +4877,12 @@ select:focus-visible,
   white-space: nowrap;
   align-self: center;
 }
+
+/* ── Package card trust line (audit 6.3 #5) ── */
+.package-trust {
+  font-size: 0.75rem;
+  color: #888;
+  text-align: center;
+  margin: -8px 0 14px;
+  white-space: nowrap;
+}
