@@ -220,6 +220,32 @@
       document.body.style.overflow = '';
       input.value = '';
     }
+
+    // Клік по результату. Для переходу на ІНШУ сторінку достатньо дефолтної
+    // навігації, але оверлей треба закрити (інакше при поверненні назад через
+    // bfcache він висить відкритим). Для якоря НА ЦІЙ ЖЕ сторінці браузер
+    // сторінку не перезавантажує — без цього хендлера оверлей лишався
+    // відкритим і клік виглядав "мертвим" (баг з мобільного пошуку).
+    results.addEventListener('click', function (e) {
+      var a = e.target.closest('.search-result-item');
+      if (!a) return;
+      var href = a.getAttribute('href') || '';
+      var url = new URL(href, window.location.origin);
+      closeSearch();
+      if (url.pathname === window.location.pathname && url.hash) {
+        e.preventDefault();
+        var t = document.querySelector(url.hash);
+        if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        try { history.replaceState(null, '', url.hash); } catch (err) {}
+      }
+    });
+
+    // Повернення через bfcache (свайп «назад» на iOS): якщо оверлей або
+    // скрол-лок лишилися активними — знімаємо.
+    window.addEventListener('pageshow', function () {
+      if (overlay.classList.contains('active')) closeSearch();
+      else document.body.style.overflow = '';
+    });
   }
 
   if (document.readyState === 'loading') {
