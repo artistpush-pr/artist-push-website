@@ -4812,3 +4812,16 @@ select:focus-visible,
 @media (max-width: 768px) {
   .mobile-nav-close { top: auto; right: auto; bottom: calc(96px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); width: 52px; height: 52px; }
 }
+
+/* ---------- M6 (аудит): пакети на мобайлі — карусель зі scroll-snap ---------- */
+@media (max-width: 768px) {
+  .package-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 16px; padding: 8px 24px 8px; margin: 0 -24px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .package-grid::-webkit-scrollbar { display: none; }
+  .package-grid > .package-card { flex: 0 0 80%; max-width: 320px; scroll-snap-align: center; }
+}
+.package-dots { display: none; }
+@media (max-width: 768px) {
+  .package-dots { display: flex; justify-content: center; gap: 8px; margin: 14px 0 4px; }
+  .package-dots i { width: 7px; height: 7px; border-radius: 50%; background: #2f3237; transition: all .25s; }
+  .package-dots i.active { background: var(--green); transform: scale(1.25); }
+}

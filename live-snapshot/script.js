@@ -418,3 +418,47 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+
+
+// ─── M6 (audit): mobile package carousels — center the featured tier,
+// scroll-snap does the paging, dots show where you are ───
+(function () {
+  function initPackageCarousels() {
+    if (window.innerWidth > 768) return;
+    document.querySelectorAll('.package-grid').forEach(function (grid) {
+      const cards = grid.querySelectorAll('.package-card');
+      if (cards.length < 2) return;
+
+      // dots
+      const dots = document.createElement('div');
+      dots.className = 'package-dots';
+      cards.forEach(function () { dots.appendChild(document.createElement('i')); });
+      grid.insertAdjacentElement('afterend', dots);
+      const dotEls = dots.children;
+
+      function activeIndex() {
+        const mid = grid.scrollLeft + grid.clientWidth / 2;
+        let best = 0, bestD = Infinity;
+        cards.forEach(function (c, i) {
+          const center = c.offsetLeft + c.clientWidth / 2;
+          const d = Math.abs(center - mid);
+          if (d < bestD) { bestD = d; best = i; }
+        });
+        return best;
+      }
+      function paint() {
+        const a = activeIndex();
+        for (let i = 0; i < dotEls.length; i++) dotEls[i].classList.toggle('active', i === a);
+      }
+      grid.addEventListener('scroll', function () { requestAnimationFrame(paint); }, { passive: true });
+
+      // старт: рекомендований (featured) тариф по центру
+      const f = grid.querySelector('.package-card.featured') || cards[0];
+      grid.scrollLeft = f.offsetLeft - (grid.clientWidth - f.clientWidth) / 2;
+      paint();
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPackageCarousels);
+  } else { initPackageCarousels(); }
+})();
