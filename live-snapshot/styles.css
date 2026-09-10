@@ -4768,3 +4768,28 @@ select:focus-visible,
   .cart-sticky-btn { display: block; width: 100%; text-align: center; }
   #cart-content { padding-bottom: 130px; }
 }
+
+/* ---------- M2 (аудит): мобільні панелі з'їдали 196px екрана ---------- */
+/* До 768px промо-смуга живе в потоці і їде зі скролом (= «ховається після
+   першого скролу»), навбар стає sticky одразу під нею, якірна навігація —
+   рівно під навбаром. Зникають накладки 38/98px від десктопних зсувів,
+   що не враховували вищу (51px) мобільну промо-смугу. */
+@media (max-width: 768px) {
+  .promo-bar { position: static; }
+  .promo-bar.hidden { display: none; transform: none; }
+  .navbar,
+  .promo-bar:not(.hidden) ~ .navbar { position: sticky; top: 0; }
+  .mobile-nav,
+  .promo-bar:not(.hidden) ~ .mobile-nav { top: 0; }
+  /* контенту більше не треба компенсувати фіксований хедер */
+  .hero,
+  .promo-bar:not(.hidden) ~ .hero { padding-top: 48px; }
+  .page-hero,
+  .promo-bar:not(.hidden) ~ .page-hero { padding-top: 40px; }
+  .breadcrumb,
+  .promo-bar:not(.hidden) ~ .breadcrumb { padding-top: 16px; }
+  .breadcrumb + .page-hero,
+  .promo-bar:not(.hidden) ~ .breadcrumb + .page-hero { padding-top: 24px; }
+  .anchor-nav,
+  .promo-bar:not(.hidden) ~ .anchor-nav { top: 72px; }
+}
