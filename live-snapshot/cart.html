@@ -281,7 +281,7 @@
   </div>
 
   <!-- ════════ FOOTER ════════ -->
-  <script src="recommendations.js?v=2"></script>
+  <script src="recommendations.js?v=3"></script>
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
@@ -400,7 +400,7 @@
       sc_plays:     { id:'soundcloud-plays',    name:'SoundCloud Plays',    qtyLabel:'1K',  price:6,  platform:'SoundCloud' },
       sc_likes:     { id:'soundcloud-likes',    name:'SoundCloud Likes',    qtyLabel:'50',  price:3,  platform:'SoundCloud' },
       sc_reposts:   { id:'soundcloud-reposts',  name:'SoundCloud Reposts',  qtyLabel:'50',  price:3,  platform:'SoundCloud' },
-      sc_followers: { id:'soundcloud-followers',name:'SoundCloud Followers',qtyLabel:'100', price:4,  platform:'SoundCloud' },
+      sc_followers: { id:'soundcloud-followers',name:'SoundCloud Followers',qtyLabel:'100', price:5,  platform:'SoundCloud' },
     };
 
     // Chains per Yana's rules (followers->plays, plays->listeners, organic->followers);
@@ -409,7 +409,10 @@
       const n = (item.name || '').toLowerCase();
       const sc = ((item.platform || '').toLowerCase().indexOf('sound') > -1) || n.indexOf('soundcloud') > -1 || n.indexOf('sc ') === 0;
       if (sc) {
-        if (n === 'sc basic' || n === 'sc artist') return ['sc_reposts', 'sc_likes']; // package holds plays+likes+followers
+        // Package contents mirror Artist Push (15.09): Basic/Artist lack reposts;
+        // Pro/Digger/Star contain every SC single we sell, so recommend nothing.
+        if (n === 'sc basic' || n === 'sc artist') return ['sc_reposts'];
+        if (n === 'sc pro' || n === 'sc digger' || n === 'sc star') return [];
         if (n.indexOf('organic') > -1)  return ['sc_followers', 'sc_reposts'];
         if (n.indexOf('repost') > -1)   return ['sc_followers', 'sc_plays', 'sc_likes'];
         if (n.indexOf('like') > -1)     return ['sc_reposts', 'sc_followers', 'sc_plays'];
@@ -654,7 +657,7 @@
   </script>
   <script src="email-tracking.js"></script>
   <script src="email-capture.js?v=20260911b"></script>
-  <script src="search.js?v=20260911"></script>
+  <script src="search.js?v=20260915"></script>
       <script src="cookie-consent.js?v=6"></script>
 </body>
 </html>

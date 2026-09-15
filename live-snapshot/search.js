@@ -9,10 +9,10 @@
   /* ---------- Search Data Index ---------- */
   var searchData = [
     // ——— SPOTIFY PACKAGES ———
-    { title: 'Basic', desc: '3K Plays + 100 Saves + 300 Followers — perfect kickstart for new releases.', price: '$12', platform: 'spotify', type: 'package', url: '/spotify#packages', tags: 'bundle starter beginner plays saves followers' },
-    { title: 'Standard', desc: '30K Plays + 1K Saves + 1K Followers — accelerate your growth.', price: '$90', platform: 'spotify', type: 'package', url: '/spotify#packages', tags: 'bundle pro plays saves followers' },
-    { title: 'Mainstage', desc: '50K Plays + 3K Saves + 3K Followers — serious promotion power.', price: '$150', platform: 'spotify', type: 'package', url: '/spotify#packages', tags: 'bundle digger plays saves followers' },
-    { title: 'Headliner', desc: '100K Plays + 5K Saves + 5K Followers — full-scale campaign.', price: '$299', platform: 'spotify', type: 'package', url: '/spotify#packages', tags: 'bundle star plays saves followers' },
+    { title: 'Basic', desc: '5K Plays + 250 Saves + 500 Followers — perfect kickstart for new releases.', price: '$12', platform: 'spotify', type: 'package', url: '/spotify#packages', tags: 'bundle starter beginner plays saves followers' },
+    { title: 'Standard', desc: '15K Plays + 1K Saves + 1K Followers — accelerate your growth.', price: '$90', platform: 'spotify', type: 'package', url: '/spotify#packages', tags: 'bundle pro plays saves followers' },
+    { title: 'Mainstage', desc: '40K Plays + 3K Saves + 3K Followers — serious promotion power.', price: '$150', platform: 'spotify', type: 'package', url: '/spotify#packages', tags: 'bundle digger plays saves followers' },
+    { title: 'Headliner', desc: '100K Plays + 5K Saves + 10K Followers — full-scale campaign.', price: '$299', platform: 'spotify', type: 'package', url: '/spotify#packages', tags: 'bundle star plays saves followers' },
 
     // ——— SPOTIFY INDIVIDUAL SERVICES ———
     { title: 'Spotify Plays', desc: 'Worldwide, targeted, premium royalty, algorithmic, editorial & podcast plays.', price: 'from $6', platform: 'spotify', type: 'service', url: '/spotify#plays', tags: 'streams plays worldwide targeted premium royalty ranking playlist album algorithmic radio editorial podcast' },
@@ -25,17 +25,17 @@
 
     // ——— SOUNDCLOUD PACKAGES ———
     { title: 'SC Basic', desc: '1K Plays + 25 Likes + 100 Followers — great launchpad for new tracks.', price: '$8', platform: 'soundcloud', type: 'package', url: '/soundcloud#packages', tags: 'bundle starter beginner plays likes followers' },
-    { title: 'SC Artist', desc: '10K Plays + 50 Likes + 150 Followers — grow your SoundCloud presence.', price: '$20', platform: 'soundcloud', type: 'package', url: '/soundcloud#packages', tags: 'bundle artist plays likes followers' },
-    { title: 'SC Pro', desc: '50K Plays + 100 Likes + 500 Followers — for the serious SoundCloud artist.', price: '$89', platform: 'soundcloud', type: 'package', url: '/soundcloud#packages', tags: 'bundle pro plays likes followers' },
-    { title: 'SC Digger', desc: '100K Plays + 500 Likes + 1K Followers — major boost.', price: '$165', platform: 'soundcloud', type: 'package', url: '/soundcloud#packages', tags: 'bundle digger plays likes followers' },
-    { title: 'SC Star', desc: '1M Plays + 5K Likes + 5K Followers — ultimate SoundCloud campaign.', price: '$1,199', platform: 'soundcloud', type: 'package', url: '/soundcloud#packages', tags: 'bundle star plays likes followers million' },
+    { title: 'SC Artist', desc: '10K Plays + 100 Likes + 250 Followers + 50 Comments — grow your SoundCloud presence.', price: '$20', platform: 'soundcloud', type: 'package', url: '/soundcloud#packages', tags: 'bundle artist plays likes followers' },
+    { title: 'SC Pro', desc: '25K Plays + 250 Likes + 500 Followers + 250 Comments + 250 Reposts — for the serious SoundCloud artist.', price: '$89', platform: 'soundcloud', type: 'package', url: '/soundcloud#packages', tags: 'bundle pro plays likes followers' },
+    { title: 'SC Digger', desc: '50K Plays + 500 Likes + 1K Followers + 1K Comments + 500 Reposts — major boost.', price: '$165', platform: 'soundcloud', type: 'package', url: '/soundcloud#packages', tags: 'bundle digger plays likes followers' },
+    { title: 'SC Star', desc: '150K Plays + 2K Likes + 2K Followers + 2K Comments + 1K Reposts — ultimate SoundCloud campaign.', price: '$1,199', platform: 'soundcloud', type: 'package', url: '/soundcloud#packages', tags: 'bundle star plays likes followers million' },
 
     // ——— SOUNDCLOUD INDIVIDUAL SERVICES ———
-    { title: 'SoundCloud Plays', desc: 'Worldwide and USA plays for your SoundCloud tracks, delivered organically.', price: 'from $5', platform: 'soundcloud', type: 'service', url: '/soundcloud#plays', tags: 'plays streams worldwide usa targeted organic' },
-    { title: 'SoundCloud Followers', desc: 'Build your audience with worldwide or real followers.', price: 'from $3', platform: 'soundcloud', type: 'service', url: '/soundcloud#followers', tags: 'followers fans audience real worldwide' },
+    { title: 'SoundCloud Plays', desc: 'Worldwide and USA plays for your SoundCloud tracks, delivered organically.', price: 'from $6', platform: 'soundcloud', type: 'service', url: '/soundcloud#plays', tags: 'plays streams worldwide usa targeted organic' },
+    { title: 'SoundCloud Followers', desc: 'Build your audience with worldwide or real followers.', price: 'from $5', platform: 'soundcloud', type: 'service', url: '/soundcloud#followers', tags: 'followers fans audience real worldwide' },
     { title: 'SoundCloud Likes', desc: 'Increase social proof and visibility with real likes.', price: 'from $3', platform: 'soundcloud', type: 'service', url: '/soundcloud#likes', tags: 'likes hearts social proof engagement' },
     { title: 'SoundCloud Reposts', desc: 'Spread your tracks to new audiences through repost networks.', price: 'from $3', platform: 'soundcloud', type: 'service', url: '/soundcloud#reposts', tags: 'reposts shares spread virality network' },
-    { title: 'SoundCloud Comments', desc: 'Get genuine, music-relevant comments on your tracks.', price: 'from $2', platform: 'soundcloud', type: 'service', url: '/soundcloud#comments', tags: 'comments feedback engagement social proof' },
+    { title: 'SoundCloud Comments', desc: 'Get genuine, music-relevant comments on your tracks.', price: 'from $8', platform: 'soundcloud', type: 'service', url: '/soundcloud#comments', tags: 'comments feedback engagement social proof' },
     { title: 'SoundCloud Organic Push', desc: 'Sustained, community-driven promotion for natural long-term growth.', price: 'from $25', platform: 'soundcloud', type: 'service', url: '/soundcloud#organic', tags: 'organic push promotion natural community sustained growth' },
 
     // ——— BLOG ARTICLES ———
