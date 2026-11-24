@@ -624,6 +624,35 @@ var HIPAY_STATES = {
   DECLINED: "declined",
   ERROR: "error"
 };
+var HIPAY_DECLINE_STATUSES = {
+  "109": "3-D Secure authentication failed",
+  "110": "Blocked by fraud screening",
+  "111": "Denied",
+  "113": "Refused by the bank",
+  "114": "Expired, customer did not finish",
+  "115": "Cancelled",
+  "178": "Soft decline, bank requires 3-D Secure"
+};
+function hipayDeclineText(status, reason) {
+  const s = status == null ? "" : String(status);
+  let text = "HiPay: " + (HIPAY_DECLINE_STATUSES[s] || "Declined") + (s ? ` (${s})` : "");
+  if (reason && (reason.message || reason.code)) {
+    text += " | " + [reason.message, reason.code].filter(Boolean).join(" ");
+  }
+  return text.slice(0, 300);
+}
+__name(hipayDeclineText, "hipayDeclineText");
+async function recordPaymentError(env, orderId, text) {
+  try {
+    await env.DB.prepare(
+      `UPDATE orders SET payment_error = ?, payment_error_at = datetime('now')
+        WHERE id = ? AND payment_status != 'paid'`
+    ).bind(text, orderId).run();
+  } catch (e) {
+    console.error("RECORD_PAYMENT_ERROR_FAILED", orderId, e.message);
+  }
+}
+__name(recordPaymentError, "recordPaymentError");
 
 // src/vat.js
 var EU_VAT_RATES = {
@@ -1315,8 +1344,9 @@ var index_default = {
             console.log("HIPAY_WEBHOOK_REFUND_APPLIED", orderId);
             return new Response("ok", { status: 200 });
           }
-          if (state === HIPAY_STATES.DECLINED || state === HIPAY_STATES.ERROR) {
+          if (state === HIPAY_STATES.DECLINED || state === HIPAY_STATES.ERROR || HIPAY_DECLINE_STATUSES[String(status)]) {
             console.log("HIPAY_WEBHOOK_DECLINED", orderId, payload.reason?.message || status);
+            await recordPaymentError(env, orderId, hipayDeclineText(status, payload.reason));
             return new Response("ok", { status: 200 });
           }
           return new Response("ok", { status: 200 });
@@ -1437,6 +1467,15 @@ var index_default = {
         }
         console.log("CARDINITY_CALLBACK", cbFields.status, cbOrderNumber, cbFields.id);
         if (cbFields.status !== "approved") {
+          try {
+            const declined = await env.DB.prepare("SELECT id FROM orders WHERE order_number = ?").bind(cbOrderNumber).first();
+            if (declined) {
+              const why = "Cardinity: " + (cbFields.status || "declined") + (cbFields.error ? " | " + cbFields.error : "");
+              await recordPaymentError(env, declined.id, why.slice(0, 300));
+            }
+          } catch (e) {
+            console.error("CARDINITY_DECLINE_RECORD_ERROR", e.message);
+          }
           return redirect(`${siteOrigin}/checkout?cardinity_status=declined&order=${encodeURIComponent(cbOrderNumber)}`);
         }
         try {
@@ -1687,6 +1726,7 @@ var index_default = {
               streetAddress: body.streetAddress || null,
               city: body.city || null,
               zipcode: body.zipcode || null,
+              state: String(billingCountry || "").toUpperCase() === "US" && body.state ? String(body.state).slice(0, 2).toUpperCase() : null,
               ipAddress,
               userAgent,
               acceptHeader: request.headers.get("Accept") || "text/html",
@@ -1715,17 +1755,28 @@ var index_default = {
                   WHERE id = ?`
               ).bind(orderId).run();
             }
+            // A decline that comes back synchronously has no forwardUrl, and the
+            // checkout would otherwise send the buyer to /success. Route them to
+            // the decline landing instead, where the cart is restored.
+            let hipayForward = hipayResult.forwardUrl || null;
+            if (hipayResult.state === HIPAY_STATES.DECLINED || hipayResult.state === HIPAY_STATES.ERROR) {
+              await recordPaymentError(env, orderId, hipayDeclineText(hipayResult.status, hipayResult.reason));
+              if (!hipayForward) {
+                hipayForward = `${siteOrigin}/checkout?order=${encodeURIComponent(orderNumber)}&hipay_status=declined`;
+              }
+            }
             return json2({
               success: true,
               order: { id: orderId, orderNumber, totalAmount, currency: body.currency || "USD" },
               hipay: {
                 state: hipayResult.state,
                 transactionReference: hipayResult.transactionReference,
-                forwardUrl: hipayResult.forwardUrl || null
+                forwardUrl: hipayForward
               }
             }, 201, cors);
           } catch (err) {
             console.error("HIPAY_ORDER_FAILED", err.message);
+            await recordPaymentError(env, orderId, ("HiPay error: " + err.message).slice(0, 300));
             return json2({
               success: false,
               order: { id: orderId, orderNumber, totalAmount, currency: body.currency || "USD" },
