@@ -421,6 +421,30 @@
     // to /cart, so restore it from the order snapshot before checkout-api.js runs.
     (function () {
       var p = new URLSearchParams(location.search);
+
+      // Personal "finish your order" link sent by support: ?restore=<base64url JSON>
+      // {i:[[id,name,serviceType,qtyLabel,quantity,price,platform],...], p:"PROMO"}.
+      // Only services, never personal data, go into the link.
+      var rs = p.get('restore');
+      if (rs) {
+        try {
+          var raw = atob(rs.replace(/-/g, '+').replace(/_/g, '/'));
+          var data = JSON.parse(decodeURIComponent(escape(raw)));
+          var str = function (v, n) { return String(v == null ? '' : v).slice(0, n); };
+          var items = (data.i || []).map(function (a) {
+            return { id: str(a[0], 80), name: str(a[1], 80), serviceType: str(a[2], 80), qtyLabel: str(a[3], 20),
+                     quantity: Math.min(100, Math.max(1, parseInt(a[4], 10) || 1)), price: Number(a[5]), platform: str(a[6], 20) };
+          }).filter(function (it) { return it.id && it.name && it.price > 0 && it.price < 10000; });
+          if (items.length) localStorage.setItem(Cart.STORAGE_KEY, JSON.stringify(items));
+          if (data.p && /^[A-Za-z0-9]{3,20}$/.test(data.p)) {
+            sessionStorage.setItem('active_promo', data.p);
+            sessionStorage.setItem('bo_promo', data.p);
+          }
+        } catch (e) {}
+        history.replaceState(null, '', location.pathname);
+        return;
+      }
+
       var st = p.get('hipay_status') || p.get('cardinity_status');
       if (!st) return;
       try {
